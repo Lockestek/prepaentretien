@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KYC, AML, risques et conformité — Cours interactif entretien</title>
+<meta name="description" content="Cours interactif approfondi sur le KYC, la LCB-FT, les PPE, les bénéficiaires effectifs, la surveillance des opérations et la déclaration de soupçon.">
+<style>
+:root{
+  --bg:#f4f7fb;
+  --surface:#ffffff;
+  --surface-2:#eef3f9;
+  --text:#172235;
+  --muted:#5f6f84;
+  --line:#d8e1ec;
+  --primary:#164f86;
+  --primary-2:#0f6e73;
+  --accent:#d97706;
+  --success:#14804a;
+  --warning:#a15c00;
+  --danger:#b42318;
+  --shadow:0 12px 34px rgba(26,47,76,.09);
+  --radius:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:linear-gradient(180deg,#edf4fb 0,#f7f9fc 30%,#f4f7fb 100%);
+  color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.58;
+}
+a{color:var(--primary)}
+button,select,input,textarea{font:inherit}
+button{cursor:pointer}
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,255,255,.93);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{
+  max-width:1420px;margin:auto;padding:10px 22px;
+  display:flex;align-items:center;gap:18px;
+}
+.brand{font-weight:800;white-space:nowrap}
+.progress-wrap{flex:1;height:10px;background:#e3eaf2;border-radius:999px;overflow:hidden}
+.progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--primary-2));transition:.25s}
+.progress-label{font-size:.84rem;color:var(--muted);min-width:105px;text-align:right}
+.hero{
+  max-width:1420px;margin:0 auto;padding:56px 24px 34px;
+  display:grid;grid-template-columns:minmax(0,1.4fr) minmax(320px,.6fr);gap:28px;
+}
+.hero-card{
+  background:linear-gradient(135deg,#113d67,#0d6570);
+  color:white;border-radius:28px;padding:42px;box-shadow:var(--shadow);
+}
+.kicker{font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;font-weight:800;opacity:.82}
+h1{font-size:clamp(2.2rem,5vw,4.4rem);line-height:1.02;margin:.35rem 0 1rem;letter-spacing:-.045em}
+.hero p{font-size:1.08rem;max-width:820px;color:rgba(255,255,255,.9)}
+.badges{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+.badge{border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.1);padding:7px 11px;border-radius:999px;font-size:.87rem}
+.hero-side{display:grid;gap:16px}
+.metric{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px;box-shadow:var(--shadow)
+}
+.metric strong{display:block;font-size:1.45rem;color:var(--primary)}
+.metric span{color:var(--muted)}
+.layout{
+  max-width:1420px;margin:0 auto;padding:0 24px 70px;
+  display:grid;grid-template-columns:265px minmax(0,1fr);gap:28px;
+}
+.sidebar{
+  position:sticky;top:66px;align-self:start;max-height:calc(100vh - 84px);overflow:auto;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:16px;box-shadow:var(--shadow)
+}
+.sidebar h3{margin:4px 10px 10px;font-size:.83rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.navlink{
+  display:block;text-decoration:none;color:var(--text);padding:9px 10px;border-radius:10px;font-size:.93rem;
+}
+.navlink:hover,.navlink.active{background:#e8f1f8;color:var(--primary);font-weight:700}
+main{min-width:0}
+section{
+  scroll-margin-top:80px;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px;margin-bottom:24px;box-shadow:var(--shadow)
+}
+.section-num{
+  display:inline-grid;place-items:center;width:34px;height:34px;border-radius:10px;
+  background:#e7f0f8;color:var(--primary);font-weight:900;margin-right:8px
+}
+h2{font-size:1.75rem;margin:0 0 16px;letter-spacing:-.025em}
+h3{margin-top:26px;margin-bottom:8px}
+h4{margin:12px 0 6px}
+p{margin:.55rem 0}
+.lead{font-size:1.08rem;color:#3d4b5e}
+.note,.warning,.success,.danger{
+  border-left:5px solid;padding:14px 16px;border-radius:10px;margin:16px 0
+}
+.note{background:#edf5fc;border-color:var(--primary)}
+.warning{background:#fff7e8;border-color:var(--warning)}
+.success{background:#eaf8f0;border-color:var(--success)}
+.danger{background:#fff0ef;border-color:var(--danger)}
+.grid-2,.grid-3,.grid-4{display:grid;gap:16px}
+.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{
+  border:1px solid var(--line);border-radius:14px;padding:18px;background:#fbfcfe
+}
+.card h3,.card h4{margin-top:0}
+.card strong.key{color:var(--primary);font-size:1.08rem}
+.pill{
+  display:inline-block;padding:3px 8px;border-radius:999px;font-size:.78rem;font-weight:800;
+  background:#e7f0f8;color:var(--primary);margin:2px
+}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.94rem}
+th,td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+th{background:#edf3f8;color:#34445a;position:sticky;top:55px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:13px}
+.flow{display:flex;gap:10px;align-items:stretch;overflow:auto;padding:8px 0}
+.flow-step{
+  min-width:150px;flex:1;border:1px solid var(--line);border-radius:13px;padding:14px;background:#f9fbfd;position:relative
+}
+.flow-step:not(:last-child)::after{
+  content:"→";position:absolute;right:-10px;top:50%;transform:translateY(-50%);
+  z-index:2;color:var(--primary);font-weight:900;background:white;border-radius:50%
+}
+.flow-step b{display:block;color:var(--primary)}
+details{border:1px solid var(--line);border-radius:12px;padding:0 15px;background:#fbfcfe;margin:10px 0}
+summary{padding:13px 0;font-weight:800;cursor:pointer}
+details > div{padding:0 0 15px}
+.controls{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;
+  background:var(--surface-2);padding:18px;border-radius:14px
+}
+label{font-weight:700;font-size:.91rem}
+select,textarea,input[type="text"]{
+  width:100%;border:1px solid #bcc9d8;border-radius:9px;padding:10px;background:white;color:var(--text)
+}
+textarea{min-height:95px;resize:vertical}
+.btn{
+  border:0;background:var(--primary);color:white;border-radius:10px;padding:10px 15px;font-weight:800
+}
+.btn.secondary{background:#e4edf5;color:var(--primary)}
+.btn.ghost{background:white;color:var(--primary);border:1px solid var(--line)}
+.btn.success{background:var(--success)}
+.btn.danger{background:var(--danger)}
+.result{
+  margin-top:16px;border:1px dashed #a9b9cb;border-radius:13px;padding:16px;background:#fbfcfe;min-height:60px
+}
+.case-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.case-tab{border:1px solid var(--line);background:white;padding:9px 12px;border-radius:999px;font-weight:800}
+.case-tab.active{background:var(--primary);color:white;border-color:var(--primary)}
+.case-panel{display:none}
+.case-panel.active{display:block}
+.check-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
+.check{
+  display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line);padding:10px;border-radius:10px;background:#fff
+}
+.quiz-question{border:1px solid var(--line);border-radius:13px;padding:16px;margin:12px 0}
+.quiz-question p{font-weight:800}
+.option{display:block;border:1px solid var(--line);padding:9px 11px;border-radius:9px;margin:7px 0;background:#fff}
+.option:hover{background:#f1f6fb}
+.feedback{margin-top:9px;font-size:.92rem;font-weight:700}
+.flashcard{
+  min-height:230px;display:grid;place-items:center;text-align:center;border:2px solid #c9d8e7;
+  border-radius:18px;padding:28px;background:linear-gradient(145deg,#fff,#edf4fa);
+  cursor:pointer;user-select:none
+}
+.flashcard .answer{display:none}
+.flashcard.flipped .question{display:none}
+.flashcard.flipped .answer{display:block}
+.flash-nav{display:flex;justify-content:center;gap:10px;margin-top:14px}
+.code{
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#122033;color:#eaf2fa;
+  padding:16px;border-radius:12px;overflow:auto;font-size:.9rem;white-space:pre-wrap
+}
+.interview-answer{
+  border-left:4px solid var(--primary-2);padding:12px 14px;background:#edf8f7;border-radius:8px
+}
+.source-list li{margin:9px 0}
+footer{max-width:1420px;margin:0 auto 50px;padding:0 24px;color:var(--muted);font-size:.9rem}
+.mobile-nav{display:none}
+@media(max-width:1050px){
+  .hero{grid-template-columns:1fr}
+  .layout{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .mobile-nav{display:block;position:sticky;top:57px;z-index:40;padding:8px 24px;background:rgba(244,247,251,.94);backdrop-filter:blur(10px)}
+  .mobile-nav select{max-width:100%}
+  .grid-3,.grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:700px){
+  .hero{padding:30px 14px 20px}
+  .hero-card{padding:27px;border-radius:20px}
+  .layout{padding:0 14px 50px}
+  section{padding:21px;border-radius:15px}
+  .grid-2,.grid-3,.grid-4,.controls,.check-grid{grid-template-columns:1fr}
+  .topbar-inner{padding:9px 13px}
+  .brand{display:none}
+  th{position:static}
+}
+@media print{
+  .topbar,.sidebar,.mobile-nav,.btn,.case-tabs,.flash-nav{display:none!important}
+  body{background:white}
+  .hero,.layout{display:block;max-width:none;padding:0}
+  .hero-card{color:black;background:white;box-shadow:none;border:1px solid #bbb}
+  section{box-shadow:none;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">KYC · AML · Conformité</div>
+    <div class="progress-wrap" aria-label="Progression"><div id="progressBar" class="progress-bar"></div></div>
+    <div id="progressLabel" class="progress-label">0 % parcouru</div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-card">
+    <div class="kicker">Préparation approfondie aux entretiens bancaires</div>
+    <h1>KYC, AML, risques & conformité</h1>
+    <p>Comprendre le raisonnement métier, pas seulement les acronymes : identifier, vérifier, évaluer le risque, surveiller, investiguer, décider et tracer.</p>
+    <div class="badges">
+      <span class="badge">Cours autonome</span>
+      <span class="badge">5 cas opérationnels</span>
+      <span class="badge">Simulateur de risque</span>
+      <span class="badge">20 questions de quiz</span>
+      <span class="badge">Flashcards</span>
+      <span class="badge">Réponses d’entretien</span>
+    </div>
+  </div>
+  <div class="hero-side">
+    <div class="metric"><strong>Objectif entretien</strong><span>Expliquer le « pourquoi », le contrôle et la décision humaine.</span></div>
+    <div class="metric"><strong>Durée conseillée</strong><span>3 sessions de 60 à 90 minutes + révision active.</span></div>
+    <div class="metric"><strong>Niveau visé</strong><span>Crédible face à un recruteur métier, conformité ou transformation.</span></div>
+  </div>
+</header>
+
+<div class="mobile-nav">
+  <select id="mobileSelect" aria-label="Aller à une section">
+    <option value="">Aller à une section…</option>
+  </select>
+</div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <h3>Sommaire</h3>
+    <nav id="nav">
+      <a class="navlink" href="#objectifs">1. Carte mentale</a>
+      <a class="navlink" href="#kyc">2. KYC approfondi</a>
+      <a class="navlink" href="#risque">3. Approche par les risques</a>
+      <a class="navlink" href="#ppe">4. PPE et vigilance renforcée</a>
+      <a class="navlink" href="#ubo">5. Bénéficiaire effectif</a>
+      <a class="navlink" href="#monitoring">6. Surveillance et alertes</a>
+      <a class="navlink" href="#investigation">7. Investigation</a>
+      <a class="navlink" href="#declaration">8. Déclaration de soupçon</a>
+      <a class="navlink" href="#organisation">9. Organisation et contrôles</a>
+      <a class="navlink" href="#simulateur">10. Simulateur de risque</a>
+      <a class="navlink" href="#cas">11. Cas pratiques</a>
+      <a class="navlink" href="#quiz">12. Quiz</a>
+      <a class="navlink" href="#flashcards">13. Flashcards</a>
+      <a class="navlink" href="#entretien">14. Entretien</a>
+      <a class="navlink" href="#plan">15. Plan de travail</a>
+      <a class="navlink" href="#sources">16. Sources</a>
+    </nav>
+  </aside>
+
+  <main>
+    <section id="objectifs">
+      <h2><span class="section-num">1</span>Carte mentale : ne pas confondre les dispositifs</h2>
+      <p class="lead">Un bon candidat distingue les finalités, tout en montrant comment les dispositifs coopèrent.</p>
+      <div class="grid-4">
+        <div class="card">
+          <strong class="key">KYC / CDD</strong>
+          <p>Connaître le client, vérifier son identité, comprendre la relation et maintenir les données à jour.</p>
+        </div>
+        <div class="card">
+          <strong class="key">LCB-FT / AML-CFT</strong>
+          <p>Évaluer et réduire le risque de blanchiment et de financement du terrorisme, puis détecter les anomalies.</p>
+        </div>
+        <div class="card">
+          <strong class="key">Sanctions / gel</strong>
+          <p>Vérifier les listes et empêcher la mise à disposition de fonds à des personnes ou entités désignées.</p>
+        </div>
+        <div class="card">
+          <strong class="key">Fraude</strong>
+          <p>Protéger le client et la banque contre un acte trompeur. Une fraude peut aussi devenir un sujet AML.</p>
+        </div>
+      </div>
+      <div class="warning"><b>Piège d’entretien :</b> KYC n’est pas un formulaire rempli une fois. C’est un cycle de vie : entrée en relation, revues périodiques, événements déclencheurs et surveillance continue.</div>
+      <div class="flow">
+        <div class="flow-step"><b>1. Identifier</b>Qui est le client ?</div>
+        <div class="flow-step"><b>2. Vérifier</b>Les preuves sont-elles fiables ?</div>
+        <div class="flow-step"><b>3. Comprendre</b>Pourquoi cette relation ?</div>
+        <div class="flow-step"><b>4. Évaluer</b>Quel niveau de risque ?</div>
+        <div class="flow-step"><b>5. Surveiller</b>Les opérations restent-elles cohérentes ?</div>
+        <div class="flow-step"><b>6. Investiguer</b>L’anomalie est-elle explicable ?</div>
+        <div class="flow-step"><b>7. Décider</b>Clôturer, renforcer, refuser ou déclarer ?</div>
+        <div class="flow-step"><b>8. Tracer</b>Peut-on reconstituer le raisonnement ?</div>
+      </div>
+    </section>
+
+    <section id="kyc">
+      <h2><span class="section-num">2</span>KYC approfondi : les six blocs de connaissance client</h2>
+      <p class="lead">Le KYC répond à trois questions : <b>qui</b>, <b>pour quoi</b>, <b>avec quels flux attendus</b>.</p>
+
+      <div class="grid-3">
+        <div class="card"><h3>1. Identification</h3><p>Nom, prénom, naissance, nationalité, adresse, activité, coordonnées. Pour une personne morale : forme juridique, siège, immatriculation, activité, dirigeants.</p></div>
+        <div class="card"><h3>2. Vérification</h3><p>Corroborer avec des documents ou sources fiables et indépendantes. Contrôler validité, authenticité apparente, cohérence et correspondance avec la personne.</p></div>
+        <div class="card"><h3>3. Bénéficiaire effectif</h3><p>Remonter jusqu’aux personnes physiques qui possèdent ou contrôlent réellement la structure. Ne pas s’arrêter à une holding intermédiaire.</p></div>
+        <div class="card"><h3>4. Objet de la relation</h3><p>Compte courant, épargne, crédit, paiement, assurance, encaissement commercial… Comprendre l’usage attendu et la logique économique.</p></div>
+        <div class="card"><h3>5. Profil de risque</h3><p>Combiner facteurs client, pays, produit, canal et transactions. Le score outille la décision ; il ne remplace pas le jugement.</p></div>
+        <div class="card"><h3>6. Actualisation</h3><p>Revue périodique selon le risque et revue événementielle : document expiré, changement de dirigeant, activité nouvelle, comportement inhabituel.</p></div>
+      </div>
+
+      <h3>Personne physique : données typiques</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Donnée</th><th>Pourquoi</th><th>Exemple de preuve</th><th>Point de contrôle</th></tr></thead>
+          <tbody>
+            <tr><td>Identité</td><td>Établir qui contracte</td><td>Pièce d’identité recevable</td><td>Validité, photo, données, altération</td></tr>
+            <tr><td>Domicile / résidence fiscale</td><td>Risque géographique et obligations fiscales</td><td>Justificatif, auto-certification</td><td>Cohérence avec IP, téléphone, flux</td></tr>
+            <tr><td>Profession / revenus</td><td>Comprendre la capacité financière</td><td>Bulletin, avis fiscal, contrat</td><td>Cohérence avec opérations attendues</td></tr>
+            <tr><td>Objet et nature</td><td>Définir le comportement attendu</td><td>Questionnaire, échange documenté</td><td>Produits et volumes adaptés</td></tr>
+            <tr><td>Origine des fonds</td><td>Expliquer une somme précise</td><td>Acte de vente, relevé, succession</td><td>Traçabilité du flux</td></tr>
+            <tr><td>Origine du patrimoine</td><td>Expliquer l’accumulation globale</td><td>Carrière, entreprise, héritage</td><td>Plausibilité économique dans le temps</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note"><b>Différence utile :</b> la <b>source des fonds</b> explique l’argent utilisé dans une opération déterminée ; la <b>source du patrimoine</b> explique comment le client a constitué sa richesse au fil du temps.</div>
+
+      <h3>Personne morale : documents et questions</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h4>Données juridiques</h4>
+          <p>Existence légale, statuts, immatriculation, siège, représentants habilités, pouvoirs, activité déclarée, licences éventuelles.</p>
+        </div>
+        <div class="card">
+          <h4>Données économiques</h4>
+          <p>Chiffre d’affaires, pays d’activité, clients et fournisseurs majeurs, volumes attendus, motifs des paiements transfrontaliers, source des fonds.</p>
+        </div>
+      </div>
+      <details>
+        <summary>Question d’entretien : « Peut-on ouvrir un compte avec un document expiré ? »</summary>
+        <div>
+          <p><b>Réponse solide :</b> je ne réduirais pas la question à oui/non sans connaître le cadre de l’établissement et les moyens de vérification autorisés. Le point clé est que l’identité doit être vérifiée par des éléments recevables, fiables et à jour. Si la preuve fournie n’est plus acceptable, l’entrée en relation doit être suspendue jusqu’à obtention d’un justificatif valide ou d’une méthode alternative conforme. Un document expiré n’est pas, à lui seul, une preuve de blanchiment.</p>
+        </div>
+      </details>
+    </section>
+
+    <section id="risque">
+      <h2><span class="section-num">3</span>Approche fondée sur les risques</h2>
+      <p class="lead">La conformité n’applique pas la même intensité à tous. Elle adapte les diligences au risque inhérent, aux contrôles et au risque résiduel.</p>
+      <div class="code">Risque inhérent
+− effet des contrôles
+= risque résiduel
+→ décision et niveau de vigilance</div>
+
+      <div class="grid-3">
+        <div class="card"><h3>Facteurs client</h3><p>PPE, activité intensive en espèces, structure opaque, réputation négative, incohérences, non-résidence, intermédiaires.</p></div>
+        <div class="card"><h3>Facteurs géographiques</h3><p>Pays à haut risque, sanctions, corruption élevée, conflit, faible transparence, flux sans logique avec l’activité.</p></div>
+        <div class="card"><h3>Produits et services</h3><p>Transfrontalier, espèces, banque privée, correspondance bancaire, crypto-actifs, produits favorisant vitesse ou complexité.</p></div>
+        <div class="card"><h3>Canal</h3><p>À distance, apporteur, chaîne d’intermédiaires, identité difficile à relier au bénéficiaire réel.</p></div>
+        <div class="card"><h3>Transactions</h3><p>Montants, fréquence, vélocité, contreparties, fractionnement, aller-retour, comptes de passage.</p></div>
+        <div class="card"><h3>Qualité des données</h3><p>Dossier incomplet, données anciennes, doublons, source non fiable, impossibilité de reconstituer la chaîne de contrôle.</p></div>
+      </div>
+
+      <h3>Trois niveaux de vigilance</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Niveau</th><th>Quand</th><th>Mesures</th><th>Erreur à éviter</th></tr></thead>
+          <tbody>
+            <tr><td><span class="pill">Allégée</span></td><td>Risque effectivement faible et conditions remplies</td><td>Intensité réduite, mais identification et surveillance adaptées subsistent</td><td>Confondre allégée et absence de contrôle</td></tr>
+            <tr><td><span class="pill">Standard</span></td><td>Client et usage ordinaires</td><td>Identification, vérification, objet, profil, surveillance</td><td>Traiter le dossier comme figé</td></tr>
+            <tr><td><span class="pill">Renforcée</span></td><td>Risque élevé ou situation imposant des mesures complémentaires</td><td>Informations supplémentaires, validation hiérarchique, origine des fonds/patrimoine, monitoring accru</td><td>Assimiler risque élevé à culpabilité</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="success"><b>Phrase crédible :</b> « Une classification utile doit être documentée, explicable, alimentée par des données de qualité et reliée à des mesures concrètes. Un score sans conséquence opérationnelle n’est qu’un indicateur. »</div>
+    </section>
+
+    <section id="ppe">
+      <h2><span class="section-num">4</span>Personnes politiquement exposées (PPE / PEP)</h2>
+      <p class="lead">Une PPE présente un risque accru d’exposition à la corruption, pas une présomption de criminalité.</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Ce que l’on cherche</h3>
+          <p>Fonction publique importante, période d’exercice, pays, proches et personnes étroitement associées selon le cadre applicable, réputation et liens économiques.</p>
+        </div>
+        <div class="card">
+          <h3>Mesures renforcées typiques</h3>
+          <p>Validation à un niveau approprié, compréhension de la source du patrimoine et des fonds, surveillance renforcée, revue plus fréquente.</p>
+        </div>
+      </div>
+      <div class="danger"><b>À ne pas dire :</b> « Une PPE doit être refusée. » La bonne réponse est : la relation exige une évaluation renforcée et une décision maîtrisée selon l’appétit au risque et les règles de l’établissement.</div>
+      <details>
+        <summary>Mini-cas : un ancien ministre veut ouvrir un compte patrimonial</summary>
+        <div>
+          <p><b>Raisonnement :</b> confirmer le statut PPE et la période concernée ; comprendre le besoin ; vérifier patrimoine et fonds ; effectuer les filtrages requis ; rechercher d’éventuelles informations défavorables de manière proportionnée ; obtenir l’approbation requise ; définir des scénarios de surveillance ; documenter la décision.</p>
+        </div>
+      </details>
+    </section>
+
+    <section id="ubo">
+      <h2><span class="section-num">5</span>Bénéficiaire effectif : remonter à la personne physique</h2>
+      <p class="lead">Le bénéficiaire effectif n’est pas forcément le dirigeant officiel ni l’actionnaire direct.</p>
+      <div class="flow">
+        <div class="flow-step"><b>Client</b>Société opérationnelle</div>
+        <div class="flow-step"><b>Actionnaire 1</b>Holding A</div>
+        <div class="flow-step"><b>Actionnaire 2</b>Trust / société étrangère</div>
+        <div class="flow-step"><b>Finalité</b>Personne(s) physique(s) possédant ou contrôlant</div>
+      </div>
+      <p>En France, pour une société, le Code monétaire et financier vise notamment la personne physique qui détient directement ou indirectement <b>plus de 25 %</b> du capital ou des droits de vote, ou exerce un contrôle par un autre moyen. Le mécanisme de repli vers le représentant légal ne dispense pas de documenter les recherches et n’est pas approprié lorsqu’un soupçon existe.</p>
+      <div class="grid-3">
+        <div class="card"><h3>1. Cartographier</h3><p>Construire l’organigramme capitalistique avec pourcentages, droits de vote et juridictions.</p></div>
+        <div class="card"><h3>2. Calculer</h3><p>Multiplier les détentions indirectes et examiner les pactes ou droits de contrôle.</p></div>
+        <div class="card"><h3>3. Corroborer</h3><p>Comparer déclarations, registres, statuts, documents de groupe et sources indépendantes.</p></div>
+      </div>
+      <div class="warning"><b>Signal de risque :</b> une structure complexe n’est pas nécessairement illicite. Le risque augmente lorsqu’elle est sans justification économique, incohérente, située dans des juridictions opaques ou impossible à documenter.</div>
+    </section>
+
+    <section id="monitoring">
+      <h2><span class="section-num">6</span>Surveillance des opérations : comparer le réel à l’attendu</h2>
+      <p class="lead">Le monitoring transactionnel recherche des écarts significatifs, pas seulement des montants élevés.</p>
+      <div class="grid-3">
+        <div class="card"><h3>Règles</h3><p>Seuils, fréquence, pays, contreparties, structuration, espèces, activité soudaine.</p></div>
+        <div class="card"><h3>Scénarios comportementaux</h3><p>Comparer au profil historique du client et à des groupes comparables.</p></div>
+        <div class="card"><h3>Modèles</h3><p>Détection d’anomalies ou priorisation, avec explicabilité, validation, suivi des dérives et contrôle humain.</p></div>
+      </div>
+      <h3>Exemples de typologies</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Signal</th><th>Pourquoi il interpelle</th><th>Questions d’investigation</th></tr></thead>
+          <tbody>
+            <tr><td>Fractionnement</td><td>Plusieurs opérations sous un seuil ou rapprochées</td><td>Existe-t-il une raison opérationnelle ? Qui initie ? Quelle destination finale ?</td></tr>
+            <tr><td>Compte de passage</td><td>Entrées suivies de sorties rapides, solde faible</td><td>Le compte sert-il l’activité déclarée ? Qui sont les contreparties ?</td></tr>
+            <tr><td>Rupture de profil</td><td>Montants ou pays nouveaux</td><td>Événement de vie, nouveau contrat, vente d’actif ou explication insuffisante ?</td></tr>
+            <tr><td>Aller-retour</td><td>Fonds revenant à l’origine via intermédiaires</td><td>Quelle substance économique ? Les parties sont-elles liées ?</td></tr>
+            <tr><td>Flux tiers</td><td>Paiements provenant de personnes sans lien apparent</td><td>Mandat, relation commerciale, collecte pour compte de tiers ?</td></tr>
+            <tr><td>Espèces inhabituelles</td><td>Difficiles à tracer et incohérentes avec l’activité</td><td>Activité réellement cash-intensive ? Preuves de ventes ? Saisonnalité ?</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note"><b>Important :</b> une alerte n’est pas un soupçon. Elle est un signal à analyser. L’objectif est de distinguer le comportement légitime atypique du comportement non expliqué ou suspect.</div>
+    </section>
+
+    <section id="investigation">
+      <h2><span class="section-num">7</span>Investigation : transformer une alerte en décision argumentée</h2>
+      <div class="flow">
+        <div class="flow-step"><b>Triage</b>Priorité et risque immédiat</div>
+        <div class="flow-step"><b>Contexte</b>KYC, historique, produits</div>
+        <div class="flow-step"><b>Analyse</b>Flux, contreparties, chronologie</div>
+        <div class="flow-step"><b>Information</b>Explication et pièces si approprié</div>
+        <div class="flow-step"><b>Hypothèses</b>Légitimes et suspectes</div>
+        <div class="flow-step"><b>Décision</b>Clôturer, surveiller, escalader</div>
+        <div class="flow-step"><b>Traçabilité</b>Faits, analyse, preuves, approbation</div>
+      </div>
+
+      <h3>Méthode « Faits → Écarts → Explications → Conclusion »</h3>
+      <div class="code">FAITS
+- dates, montants, devises, comptes, contreparties, pays
+- profil KYC et activité attendue
+
+ÉCARTS
+- ce qui diffère du profil ou du comportement historique
+
+EXPLICATIONS
+- explication du client
+- éléments indépendants qui la corroborent ou la contredisent
+
+CONCLUSION
+- alerte justifiée et clôturée
+- vigilance renforcée / mise à jour KYC
+- escalade au responsable LCB-FT
+- soupçon résiduel et déclaration selon le processus habilité</div>
+      <div class="success"><b>Qualité attendue :</b> l’analyste doit éviter deux biais : chercher uniquement à confirmer le soupçon, ou accepter une explication sans preuve suffisante.</div>
+    </section>
+
+    <section id="declaration">
+      <h2><span class="section-num">8</span>Escalade et déclaration de soupçon</h2>
+      <p class="lead">La décision ne repose pas sur une « preuve pénale », mais sur un soupçon étayé par des faits et une analyse.</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Contenu utile</h3>
+          <p>Identification, connaissance du client et bénéficiaire effectif, opérations concernées, chronologie, analyse, raisons du soupçon et pièces pertinentes.</p>
+        </div>
+        <div class="card">
+          <h3>Temporalité</h3>
+          <p>En principe avant l’opération lorsqu’elle n’est pas exécutée, afin de permettre l’exercice éventuel du droit d’opposition ; certains cas permettent une déclaration après exécution, sans délai.</p>
+        </div>
+      </div>
+      <div class="danger"><b>Confidentialité :</b> ne pas informer le client qu’une déclaration a été faite ou qu’une investigation vise une déclaration. C’est le risque de « tipping-off ».</div>
+      <div class="warning"><b>Entretien :</b> ne dites pas qu’un chargé de clientèle envoie directement une déclaration à Tracfin. Dans une banque, l’alerte est escaladée selon une gouvernance habilitée ; les déclarants/correspondants et responsables désignés portent le processus.</div>
+    </section>
+
+    <section id="organisation">
+      <h2><span class="section-num">9</span>Risques, conformité et organisation bancaire</h2>
+      <div class="grid-3">
+        <div class="card"><h3>1re ligne</h3><p><b>Métiers et opérations.</b> Collectent, vérifient, comprennent le client, appliquent les contrôles et remontent les anomalies.</p></div>
+        <div class="card"><h3>2e ligne</h3><p><b>Conformité / risques.</b> Définit le cadre, conseille, contrôle, challenge, pilote les alertes et supervise le risque.</p></div>
+        <div class="card"><h3>3e ligne</h3><p><b>Audit interne.</b> Évalue indépendamment la conception et l’efficacité du dispositif.</p></div>
+      </div>
+
+      <h3>Risques liés à un dispositif déficient</h3>
+      <div class="grid-4">
+        <div class="card"><b>Réglementaire</b><p>Sanctions, injonctions, remédiation.</p></div>
+        <div class="card"><b>Réputation</b><p>Perte de confiance et couverture médiatique.</p></div>
+        <div class="card"><b>Financier</b><p>Amendes, pertes de clients, coûts de correction.</p></div>
+        <div class="card"><b>Opérationnel</b><p>Backlogs, faux positifs, erreurs, délais d’onboarding.</p></div>
+      </div>
+
+      <h3>Indicateurs utiles pour un projet de transformation</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dimension</th><th>KPI</th><th>Pourquoi</th></tr></thead>
+          <tbody>
+            <tr><td>Onboarding</td><td>Taux de dossiers complets au premier passage</td><td>Mesure la clarté du parcours et la qualité de collecte</td></tr>
+            <tr><td>Délai</td><td>Temps médian d’entrée en relation par niveau de risque</td><td>Évite de masquer les cas complexes dans une moyenne globale</td></tr>
+            <tr><td>Qualité</td><td>Taux d’erreur / réouverture / données expirées</td><td>Indique la robustesse des contrôles</td></tr>
+            <tr><td>Monitoring</td><td>Alertes pour 1 000 clients, taux de clôture, âge du backlog</td><td>Mesure volume, efficacité et risque opérationnel</td></tr>
+            <tr><td>Détection</td><td>Part d’alertes menant à escalade, sans viser artificiellement un quota</td><td>Aide à calibrer les scénarios sans transformer le KPI en objectif de soupçon</td></tr>
+            <tr><td>Expérience</td><td>Abandon, demandes répétées, satisfaction</td><td>Réduit la friction sans affaiblir la conformité</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="simulateur">
+      <h2><span class="section-num">10</span>Simulateur pédagogique de risque client</h2>
+      <p>Choisissez les facteurs. Le résultat illustre une logique de classification ; ce n’est ni une méthodologie réglementaire ni un score utilisable en production.</p>
+      <div class="controls">
+        <div><label for="sClient">Client</label><select id="sClient"><option value="1">Particulier salarié, profil simple</option><option value="2">Indépendant / activité à flux variables</option><option value="3">Société à structure complexe</option><option value="4">PPE ou association étroite</option></select></div>
+        <div><label for="sGeo">Géographie</label><select id="sGeo"><option value="1">France / EEE, flux cohérents</option><option value="2">Plusieurs pays à risque ordinaire</option><option value="3">Pays à transparence limitée</option><option value="4">Pays sous sanctions ou haut risque</option></select></div>
+        <div><label for="sProduct">Produit</label><select id="sProduct"><option value="1">Compte courant simple</option><option value="2">Paiements transfrontaliers</option><option value="3">Banque privée / gros volumes</option><option value="4">Produit à forte vélocité ou anonymisation</option></select></div>
+        <div><label for="sChannel">Canal</label><select id="sChannel"><option value="1">Face-à-face / identité fortement vérifiée</option><option value="2">À distance avec contrôles robustes</option><option value="3">Intermédiaire / apporteur</option><option value="4">Chaîne difficile à vérifier</option></select></div>
+        <div><label for="sBehavior">Comportement</label><select id="sBehavior"><option value="1">Conforme au profil</option><option value="2">Écart ponctuel expliqué</option><option value="3">Écarts répétés ou incomplets</option><option value="4">Flux sans justification économique claire</option></select></div>
+        <div><label for="sData">Qualité du dossier</label><select id="sData"><option value="1">Complet et à jour</option><option value="2">Quelques données à actualiser</option><option value="3">Pièces manquantes</option><option value="4">Incohérences non résolues</option></select></div>
+      </div>
+      <p><button class="btn" onclick="calculateRisk()">Calculer le niveau pédagogique</button></p>
+      <div id="riskResult" class="result">Le résultat apparaîtra ici.</div>
+    </section>
+
+    <section id="cas">
+      <h2><span class="section-num">11</span>Laboratoire : cinq cas crédibles d’entrée en relation</h2>
+      <p class="lead">Pour chaque cas, formulez : données, risque, contrôle, décision, intervention humaine et piste d’audit.</p>
+      <div class="case-tabs" id="caseTabs"></div>
+      <div id="caseContainer"></div>
+    </section>
+
+    <section id="quiz">
+      <h2><span class="section-num">12</span>Quiz de validation</h2>
+      <p>Répondez sans regarder le cours. Le score est sauvegardé dans votre navigateur.</p>
+      <div id="quizContainer"></div>
+      <button class="btn success" onclick="gradeQuiz()">Corriger le quiz</button>
+      <button class="btn secondary" onclick="resetQuiz()">Réinitialiser</button>
+      <div id="quizResult" class="result">Votre score apparaîtra ici.</div>
+    </section>
+
+    <section id="flashcards">
+      <h2><span class="section-num">13</span>Flashcards essentielles</h2>
+      <p>Cliquez sur la carte pour afficher la réponse.</p>
+      <div id="flashcard" class="flashcard" onclick="flipCard()">
+        <div class="question"></div><div class="answer"></div>
+      </div>
+      <div class="flash-nav">
+        <button class="btn secondary" onclick="prevCard()">← Précédente</button>
+        <button class="btn ghost" onclick="shuffleCards()">Mélanger</button>
+        <button class="btn secondary" onclick="nextCard()">Suivante →</button>
+      </div>
+      <p id="flashCount" style="text-align:center;color:var(--muted)"></p>
+    </section>
+
+    <section id="entretien">
+      <h2><span class="section-num">14</span>Réussir l’entretien : réponses et questions de recruteur</h2>
+
+      <details open>
+        <summary>« Quelle est la différence entre KYC et AML ? »</summary>
+        <div class="interview-answer">Le KYC est le socle de connaissance du client : identité, bénéficiaire effectif, objet de la relation, profil attendu et actualisation. La LCB-FT utilise cette connaissance dans une approche fondée sur les risques pour adapter la vigilance, surveiller les opérations, investiguer les anomalies et, lorsqu’un soupçon subsiste, escalader et déclarer selon le dispositif habilité.</div>
+      </details>
+
+      <details>
+        <summary>« Que faites-vous face à une transaction incohérente ? »</summary>
+        <div class="interview-answer">Je ne conclus pas immédiatement à un blanchiment. Je sécurise d’abord les faits, je compare l’opération au KYC et à l’historique, j’analyse les contreparties et la logique économique, puis je cherche des éléments corroborants. Si l’explication est documentée et plausible, je clôture avec une piste d’audit. Si des incohérences subsistent, j’escalade au niveau LCB-FT compétent, en respectant la confidentialité et la temporalité de la transaction.</div>
+      </details>
+
+      <details>
+        <summary>« Comment concilier conformité et expérience client ? »</summary>
+        <div class="interview-answer">En appliquant une collecte proportionnée au risque, en réutilisant les données fiables déjà disponibles, en expliquant clairement pourquoi une pièce est demandée, en automatisant les contrôles simples et en réservant l’expertise humaine aux exceptions. Je suivrais simultanément le délai, la complétude, les erreurs, les abandons et les risques résiduels pour éviter qu’un gain de fluidité dégrade le contrôle.</div>
+      </details>
+
+      <details>
+        <summary>« Quel rôle l’IA peut-elle jouer en KYC/AML ? »</summary>
+        <div class="interview-answer">Elle peut extraire des documents, rapprocher des entités, prioriser des alertes, détecter des anomalies et assister la rédaction d’analyses. Mais il faut des données maîtrisées, une validation indépendante, de l’explicabilité, des contrôles d’accès, un monitoring de dérive, une gestion des faux positifs et un human-in-the-loop pour les décisions sensibles. L’IA doit améliorer la qualité et la capacité d’analyse, pas rendre la responsabilité opaque.</div>
+      </details>
+
+      <h3>Structure de réponse en 60 secondes</h3>
+      <div class="code">1. Définition claire
+2. Risque adressé
+3. Processus de bout en bout
+4. Contrôle humain et gouvernance
+5. Exemple concret
+6. Traçabilité / KPI</div>
+
+      <h3>Questions difficiles à préparer</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h4>Métier</h4>
+          <p>Pourquoi une PPE n’est-elle pas automatiquement refusée ?<br>Comment distinguer source des fonds et source du patrimoine ?<br>Quand actualiser un dossier hors revue périodique ?</p>
+        </div>
+        <div class="card">
+          <h4>Transformation</h4>
+          <p>Comment réduire les faux positifs ?<br>Quels KPI sans créer de mauvais comportements ?<br>Que faire si les données KYC sont dispersées dans plusieurs SI ?</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="plan">
+      <h2><span class="section-num">15</span>Plan de maîtrise en sept jours</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Jour</th><th>Travail</th><th>Livrable personnel</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>KYC, CDD, bénéficiaire effectif, objet de la relation</td><td>Schéma d’onboarding d’une page</td></tr>
+            <tr><td>2</td><td>Approche par les risques et vigilance</td><td>Matrice client/pays/produit/canal</td></tr>
+            <tr><td>3</td><td>PPE, sanctions, fraude et différences</td><td>Tableau comparatif</td></tr>
+            <tr><td>4</td><td>Surveillance, typologies et investigation</td><td>Analyse écrite du cas « transaction incohérente »</td></tr>
+            <tr><td>5</td><td>Déclaration, gouvernance, confidentialité</td><td>RACI simplifié front/KYC/AML/conformité</td></tr>
+            <tr><td>6</td><td>Refaire les cinq cas sans correction</td><td>Dossier de décisions et pistes d’audit</td></tr>
+            <tr><td>7</td><td>Quiz, flashcards et simulation orale</td><td>Réponses de 60 secondes enregistrées</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="success"><b>Portfolio crédible :</b> exportez votre processus sous forme de diagramme et ajoutez une matrice de décision, un exemple de journal d’audit, des KPI et une section « limites / contrôle humain ». Cela transforme une connaissance théorique en preuve de compétence.</div>
+    </section>
+
+    <section id="sources">
+      <h2><span class="section-num">16</span>Références officielles et limites</h2>
+      <p>Cette page est pédagogique et ne remplace ni les procédures internes d’un établissement ni un avis juridique. Les règles précises dépendent du secteur, du produit, du client et de la date d’application des textes.</p>
+      <ul class="source-list">
+        <li><a target="_blank" rel="noopener" href="https://acpr.banque-france.fr/fr/reglementation/focus-sur-la-reglementation/reglementation-en-matiere-de-lcb-ft">ACPR — Réglementation en matière de LCB-FT</a></li>
+        <li><a target="_blank" rel="noopener" href="https://acpr.banque-france.fr/fr/publications-et-statistiques/publications/lignes-directrices-relatives-lidentification-la-verification-de-lidentite-et-la-connaissance-de-la">ACPR — Identification, vérification de l’identité et connaissance de la clientèle</a></li>
+        <li><a target="_blank" rel="noopener" href="https://acpr.banque-france.fr/fr/publications-et-statistiques/publications/lignes-directrices-conjointes-de-lacpr-et-de-tracfin-relatives-aux-obligations-de-vigilance-sur-les">ACPR / Tracfin — Vigilance sur les opérations et déclaration</a></li>
+        <li><a target="_blank" rel="noopener" href="https://www.economie.gouv.fr/tracfin/les-obligations-de-vigilance">Tracfin — Obligations de vigilance</a></li>
+        <li><a target="_blank" rel="noopener" href="https://www.economie.gouv.fr/tracfin/vous-etes-professionnel-declarant/quand-et-comment-declarer-un-soupcon">Tracfin — Quand et comment déclarer un soupçon</a></li>
+        <li><a target="_blank" rel="noopener" href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026/LEGISCTA000021019131/">Légifrance — Code monétaire et financier, bénéficiaires effectifs</a></li>
+        <li><a target="_blank" rel="noopener" href="https://www.eba.europa.eu/legacy/regulation-and-policy/regulatory-activities/anti-money-laundering-and-countering-financing-1">EBA — Guidelines on ML/TF risk factors</a></li>
+        <li><a target="_blank" rel="noopener" href="https://eur-lex.europa.eu/eli/reg/2024/1624/oj/eng">EUR-Lex — Règlement (UE) 2024/1624</a></li>
+      </ul>
+      <div class="note">Au 24 juillet 2026, l’ACPR présente le règlement (UE) 2024/1624 comme applicable à compter du <b>10 juillet 2027</b>. Cette page le signale comme évolution à venir et conserve le cadre français actuellement applicable comme base opérationnelle.</div>
+    </section>
+  </main>
+</div>
+
+<footer>
+  Cours interactif de préparation aux entretiens — sauvegarde locale du score et de la progression dans le navigateur.
+</footer>
+
+<script>
+const cases = [
+{
+ title:"Particulier standard",
+ scenario:"Camille, salariée en CDI, résidente française, souhaite un compte courant pour recevoir son salaire. Pièce valide, domicile cohérent, revenus de 3 200 € mensuels, aucun signal défavorable.",
+ options:{
+   data:["Identité et preuve recevable","Adresse et résidence fiscale","Profession et revenus","Objet du compte et flux attendus","Filtrages applicables"],
+   risk:"Faible à standard : profil simple, usage cohérent, données complètes.",
+   controls:"Vérification d’identité, cohérence des données, filtrages, définition du profil transactionnel.",
+   decision:"Entrée en relation avec vigilance standard.",
+   human:"Opérations KYC ; revue humaine seulement en cas d’écart ou de doute.",
+   audit:"Documents, date et méthode de vérification, résultat des contrôles, score, approbation et profil attendu."
+ },
+ expected:"accept"
+},
+{
+ title:"Personne politiquement exposée",
+ scenario:"Un ancien ministre étranger souhaite ouvrir un compte patrimonial et transférer 900 000 €. Il explique que les fonds proviennent de la vente d’un bien immobilier.",
+ options:{
+   data:["Identité, fonction et période PPE","Pays et liens associés","Acte de vente et chaîne bancaire","Source du patrimoine","Objet de la relation","Informations défavorables proportionnées"],
+   risk:"Élevé du fait du statut PPE, du montant et de l’exposition potentielle à la corruption.",
+   controls:"Vigilance renforcée, corroboration de la vente, source des fonds et du patrimoine, validation appropriée, surveillance accrue.",
+   decision:"Ne pas refuser automatiquement. Accepter uniquement si les diligences sont satisfaisantes et le risque résiduel acceptable ; sinon refuser ou différer.",
+   human:"Analyste senior / conformité LCB-FT et approbation au niveau requis.",
+   audit:"Statut PPE, sources consultées, preuves financières, analyse du risque, motifs de décision, approbateurs, fréquence de revue.",
+ },
+ expected:"enhance"
+},
+{
+ title:"Société à UBO complexe",
+ scenario:"Une société française de conseil est détenue par deux holdings étrangères et une fiducie. Le représentant fournit un organigramme incomplet et refuse de détailler les personnes physiques finales.",
+ options:{
+   data:["Statuts et registre","Chaîne complète de détention","Droits de vote et contrôle","Documents des holdings","Informations sur la fiducie","Identité des personnes physiques finales","Justification économique"],
+   risk:"Élevé : opacité, coopération insuffisante, impossibilité d’identifier ou vérifier le bénéficiaire effectif.",
+   controls:"Suspendre l’onboarding, demander preuves indépendantes, calculer les détentions, analyser contrôle et justification, escalader.",
+   decision:"Ne pas entrer en relation tant que l’identification et la vérification ne sont pas satisfaites. Refus possible si l’opacité persiste ou le risque résiduel est inacceptable.",
+   human:"KYC corporate, expert UBO, conformité / juridique selon complexité.",
+   audit:"Organigrammes versionnés, demandes et réponses, calculs, sources, divergences, décision et validation.",
+ },
+ expected:"pause"
+},
+{
+ title:"Justificatif expiré",
+ scenario:"Un client présente un document d’identité expiré lors d’une ouverture de compte. Toutes les autres informations paraissent cohérentes et aucun signal AML n’est observé.",
+ options:{
+   data:["Type et date du document","Autres moyens de vérification autorisés","Identité déclarée","Adresse et objet de la relation","Politique de recevabilité"],
+   risk:"Risque de vérification insuffisante et de donnée non à jour ; pas nécessairement un soupçon de blanchiment.",
+   controls:"Demander un document valide ou utiliser une méthode alternative autorisée et fiable ; contrôler l’authenticité et la cohérence.",
+   decision:"Suspendre la finalisation jusqu’à vérification conforme. Ne pas déclarer uniquement parce que le document est expiré.",
+   human:"Équipe KYC ; conformité en cas de doute documentaire ou d’incohérences.",
+   audit:"Document présenté, motif de non-recevabilité, demande de remplacement, méthode finale de vérification, date et opérateur.",
+ },
+ expected:"pause"
+},
+{
+ title:"Transaction incohérente",
+ scenario:"Un client salarié déclarant 45 000 € de revenus annuels reçoit 180 000 € de trois sociétés étrangères, puis transfère 175 000 € vers une plateforme d’actifs numériques en 48 heures.",
+ options:{
+   data:["KYC et historique","Détail des virements","Liens avec les sociétés","Pays et contreparties","Compte crypto destinataire","Explication et justificatifs","Source et destination des fonds"],
+   risk:"Élevé : rupture de profil, flux tiers, transfrontalier, vélocité et conversion vers crypto-actifs.",
+   controls:"Alerte prioritaire, analyse chronologique, filtrages, demande d’explication si appropriée, corroboration indépendante, escalade.",
+   decision:"Ne pas conclure automatiquement. Si l’explication reste insuffisante et le soupçon subsiste, escalader pour décision de déclaration, idéalement avant exécution lorsque possible.",
+   human:"Analyste AML, responsable habilité à décider / déclarer, éventuellement fraude et sanctions.",
+   audit:"Faits précis, scénarios déclenchés, recherches, explications, pièces, analyse contradictoire, décision et horodatage.",
+ },
+ expected:"investigate"
+}
+];
+
+const decisions = [
+ ["accept","Accepter avec vigilance standard"],
+ ["enhance","Vigilance renforcée / approbation"],
+ ["pause","Suspendre jusqu’à complétude"],
+ ["investigate","Investigation et escalade possible"],
+ ["reject","Refuser immédiatement sans analyse"]
+];
+
+function renderCases(){
+ const tabs=document.getElementById("caseTabs");
+ const container=document.getElementById("caseContainer");
+ tabs.innerHTML=""; container.innerHTML="";
+ cases.forEach((c,i)=>{
+   const b=document.createElement("button");
+   b.className="case-tab"+(i===0?" active":"");
+   b.textContent=(i+1)+". "+c.title;
+   b.onclick=()=>showCase(i);
+   tabs.appendChild(b);
+   const panel=document.createElement("div");
+   panel.className="case-panel"+(i===0?" active":"");
+   panel.id="case-"+i;
+   panel.innerHTML=`
+    <div class="card"><h3>${c.title}</h3><p>${c.scenario}</p></div>
+    <div class="controls" style="margin-top:14px">
+      <div><label>Votre décision</label><select id="decision-${i}">
+        <option value="">Choisir…</option>
+        ${decisions.map(d=>`<option value="${d[0]}">${d[1]}</option>`).join("")}
+      </select></div>
+      <div><label>Votre justification en 3 phrases</label><textarea id="reason-${i}" placeholder="Faits, risque, contrôles et décision…"></textarea></div>
+    </div>
+    <p><button class="btn" onclick="checkCase(${i})">Évaluer ma réponse</button>
+       <button class="btn secondary" onclick="revealCase(${i})">Voir la correction complète</button></p>
+    <div id="case-feedback-${i}" class="result">Rédigez votre analyse avant d’afficher la correction.</div>`;
+   container.appendChild(panel);
+ });
+}
+function showCase(i){
+ document.querySelectorAll(".case-tab").forEach((b,j)=>b.classList.toggle("active",i===j));
+ document.querySelectorAll(".case-panel").forEach((p,j)=>p.classList.toggle("active",i===j));
+}
+function checkCase(i){
+ const c=cases[i];
+ const selected=document.getElementById("decision-"+i).value;
+ const reason=document.getElementById("reason-"+i).value.trim();
+ const box=document.getElementById("case-feedback-"+i);
+ let ok=selected===c.expected;
+ let msg=ok?"✅ Décision principale cohérente.":"⚠️ Revoyez la décision principale.";
+ if(reason.length<80) msg+=" Votre justification est trop courte : mentionnez les faits, le risque, les contrôles, l’humain et la traçabilité.";
+ else msg+=" Votre justification est suffisamment développée pour être comparée à la correction.";
+ box.innerHTML=msg;
+}
+function revealCase(i){
+ const o=cases[i].options;
+ document.getElementById("case-feedback-"+i).innerHTML=`
+  <h3>Correction structurée</h3>
+  <p><b>Données nécessaires :</b> ${o.data.join("; ")}.</p>
+  <p><b>Risque :</b> ${o.risk}</p>
+  <p><b>Contrôles :</b> ${o.controls}</p>
+  <p><b>Décision :</b> ${o.decision}</p>
+  <p><b>Intervenant humain :</b> ${o.human}</p>
+  <p><b>Piste d’audit :</b> ${o.audit}</p>`;
+}
+
+const quiz = [
+ {q:"Le KYC est principalement…", a:["un contrôle effectué uniquement à l’ouverture","un cycle de connaissance et d’actualisation du client","une déclaration automatique à Tracfin"], c:1, e:"Le KYC accompagne toute la relation."},
+ {q:"Une alerte transactionnelle signifie…", a:["qu’un blanchiment est prouvé","qu’une déclaration est obligatoire","qu’un signal doit être analysé"], c:2, e:"L’alerte déclenche une investigation, pas une conclusion."},
+ {q:"Une PPE doit-elle être automatiquement refusée ?", a:["Oui","Non, elle appelle une vigilance renforcée et une décision maîtrisée","Seulement si elle est étrangère"], c:1, e:"Le statut PPE est un facteur de risque, pas une culpabilité."},
+ {q:"La source des fonds explique…", a:["l’accumulation globale du patrimoine","l’origine d’une somme utilisée dans une opération","le pays de résidence"], c:1, e:"La source du patrimoine couvre l’accumulation globale."},
+ {q:"Pour une société française, le seuil de détention cité pour le bénéficiaire effectif est généralement…", a:["plus de 10 %","plus de 25 %","plus de 50 % uniquement"], c:1, e:"Le contrôle par d’autres moyens doit aussi être examiné."},
+ {q:"Un document expiré constitue à lui seul…", a:["une preuve de blanchiment","un problème de vérification/actualisation, pas nécessairement un soupçon","une raison de déclarer automatiquement"], c:1, e:"Il faut corriger la vérification et analyser les autres faits."},
+ {q:"L’approche par les risques sert à…", a:["appliquer le même contrôle à tous","adapter l’intensité des diligences","supprimer le jugement humain"], c:1, e:"La proportionnalité est centrale."},
+ {q:"Le risque résiduel correspond…", a:["au risque avant contrôles","au risque après prise en compte des contrôles","au nombre d’alertes"], c:1, e:"Il guide la décision finale."},
+ {q:"Une structure complexe est-elle toujours suspecte ?", a:["Oui","Non ; il faut comprendre sa justification et sa transparence","Oui si elle est étrangère"], c:1, e:"Complexité et illégalité ne sont pas synonymes."},
+ {q:"Le monitoring compare surtout…", a:["le réel au profil attendu et à l’historique","tous les clients à un seuil unique","le solde au salaire uniquement"], c:0, e:"L’incohérence contextuelle est essentielle."},
+ {q:"Le fractionnement est…", a:["la division d’opérations pouvant contourner une détection","une clôture de compte","une revue KYC"], c:0, e:"Il doit être analysé dans son contexte."},
+ {q:"Une déclaration de soupçon doit contenir…", a:["seulement le montant","des faits et une analyse motivée","uniquement le nom du client"], c:1, e:"La qualité narrative et factuelle est déterminante."},
+ {q:"Le tipping-off consiste à…", a:["informer le client de l’existence d’une déclaration ou investigation sensible","mettre à jour le KYC","demander un justificatif"], c:0, e:"La confidentialité du processus doit être protégée."},
+ {q:"La première ligne de défense est principalement…", a:["l’audit interne","les métiers et opérations","le régulateur"], c:1, e:"Elle exécute les contrôles au quotidien."},
+ {q:"La deuxième ligne comprend typiquement…", a:["conformité et fonction risques","clients et fournisseurs","uniquement l’audit externe"], c:0, e:"Elle définit, conseille, contrôle et challenge."},
+ {q:"L’IA en AML peut…", a:["remplacer toute décision humaine","prioriser des alertes sous gouvernance et contrôle","déclarer librement sans validation"], c:1, e:"L’explicabilité et le human-in-the-loop sont essentiels."},
+ {q:"Un bon KPI d’onboarding est…", a:["le nombre de refus uniquement","le taux de dossiers complets au premier passage","le nombre maximal de documents demandés"], c:1, e:"Il mesure la qualité de collecte et la friction."},
+ {q:"Si l’explication du client est plausible…", a:["on clôture sans preuve","on cherche une corroboration proportionnée","on ignore le KYC"], c:1, e:"Plausibilité et preuve ne sont pas identiques."},
+ {q:"Le règlement UE 2024/1624 est présenté ici comme applicable à partir du…", a:["10 juillet 2027","1er janvier 2025","10 juillet 2030"], c:0, e:"Il s’agit d’une évolution à venir au moment de ce cours."},
+ {q:"La piste d’audit doit permettre…", a:["de reconstituer les faits, contrôles et décisions","de cacher les désaccords","de supprimer les versions précédentes"], c:0, e:"La traçabilité rend le dispositif contrôlable."}
+];
+
+function renderQuiz(){
+ const c=document.getElementById("quizContainer");
+ c.innerHTML=quiz.map((x,i)=>`
+  <div class="quiz-question">
+   <p>${i+1}. ${x.q}</p>
+   ${x.a.map((o,j)=>`<label class="option"><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join("")}
+   <div id="qfb${i}" class="feedback"></div>
+  </div>`).join("");
+}
+function gradeQuiz(){
+ let score=0, answered=0;
+ quiz.forEach((x,i)=>{
+   const r=document.querySelector(`input[name="q${i}"]:checked`);
+   const fb=document.getElementById("qfb"+i);
+   if(r){answered++; const good=Number(r.value)===x.c; if(good)score++; fb.textContent=(good?"✅ ":"❌ ")+x.e; fb.style.color=good?"var(--success)":"var(--danger)";}
+   else{fb.textContent="Non répondu.";fb.style.color="var(--warning)";}
+ });
+ const pct=Math.round(score/quiz.length*100);
+ localStorage.setItem("kycQuizScore",String(pct));
+ document.getElementById("quizResult").innerHTML=`<b>${score}/${quiz.length} — ${pct} %</b><br>${pct>=85?"Très bon niveau. Travaillez maintenant la fluidité orale.":pct>=65?"Base correcte. Reprenez les erreurs et refaites les cas.":"Reprenez le cours bloc par bloc avant un nouvel essai."}`;
+}
+function resetQuiz(){
+ document.querySelectorAll('#quizContainer input').forEach(x=>x.checked=false);
+ document.querySelectorAll('.feedback').forEach(x=>x.textContent="");
+ document.getElementById("quizResult").textContent="Votre score apparaîtra ici.";
+}
+
+const cards = [
+ ["KYC","Processus de connaissance, vérification et actualisation du client pendant toute la relation."],
+ ["CDD","Customer Due Diligence : diligences de connaissance client."],
+ ["EDD","Enhanced Due Diligence : vigilance renforcée adaptée à un risque élevé."],
+ ["PPE / PEP","Personne politiquement exposée ; facteur de risque nécessitant des mesures renforcées."],
+ ["Bénéficiaire effectif","Personne physique qui possède ou contrôle finalement le client ou pour laquelle une opération est réalisée."],
+ ["Source des fonds","Origine d’une somme précise utilisée dans une opération."],
+ ["Source du patrimoine","Manière dont la richesse globale a été constituée."],
+ ["Risque inhérent","Risque présent avant l’effet des contrôles."],
+ ["Risque résiduel","Risque restant après prise en compte des contrôles."],
+ ["Monitoring transactionnel","Surveillance des opérations par rapport au profil, à l’historique et aux typologies."],
+ ["Alerte","Signal généré par une règle, un modèle ou une observation et nécessitant une analyse."],
+ ["Soupçon","Appréciation issue de faits et d’une analyse laissant subsister un doute sérieux."],
+ ["Fractionnement","Découpage d’opérations, parfois destiné à éviter des seuils ou contrôles."],
+ ["Compte de passage","Compte recevant des fonds rapidement transférés, avec peu de solde ou d’usage propre."],
+ ["Tipping-off","Divulgation interdite au client d’informations sensibles sur une déclaration ou investigation."],
+ ["Piste d’audit","Ensemble des éléments permettant de reconstituer données, contrôles, décisions et validations."],
+ ["Revue périodique","Actualisation selon une fréquence liée au niveau de risque."],
+ ["Revue événementielle","Actualisation déclenchée par un changement ou une anomalie significative."],
+ ["Faux positif","Alerte qui paraît suspecte mais s’avère légitime après analyse."],
+ ["Human-in-the-loop","Intervention humaine dans la validation ou la décision, notamment pour les cas sensibles."],
+ ["Sanctions screening","Filtrage par rapport aux listes de sanctions et de gel des avoirs."],
+ ["Adverse media","Informations publiques défavorables évaluées avec prudence, pertinence et corroboration."],
+ ["RACI","Répartition des rôles : responsable, redevable, consulté, informé."],
+ ["ERMES","Plateforme prioritaire de déclaration utilisée par les déclarants auprès de Tracfin."],
+ ["LCB-FT","Lutte contre le blanchiment des capitaux et le financement du terrorisme."]
+];
+let cardIndex=0;
+function renderCard(){
+ const el=document.getElementById("flashcard");
+ el.classList.remove("flipped");
+ el.querySelector(".question").innerHTML=`<div><span class="pill">Question</span><h3>${cards[cardIndex][0]}</h3><p>Donnez une définition en une phrase.</p></div>`;
+ el.querySelector(".answer").innerHTML=`<div><span class="pill">Réponse</span><h3>${cards[cardIndex][0]}</h3><p>${cards[cardIndex][1]}</p></div>`;
+ document.getElementById("flashCount").textContent=`Carte ${cardIndex+1} / ${cards.length}`;
+}
+function flipCard(){document.getElementById("flashcard").classList.toggle("flipped")}
+function nextCard(){cardIndex=(cardIndex+1)%cards.length;renderCard()}
+function prevCard(){cardIndex=(cardIndex-1+cards.length)%cards.length;renderCard()}
+function shuffleCards(){
+ for(let i=cards.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[cards[i],cards[j]]=[cards[j],cards[i]]}
+ cardIndex=0;renderCard();
+}
+
+function calculateRisk(){
+ const ids=["sClient","sGeo","sProduct","sChannel","sBehavior","sData"];
+ const score=ids.reduce((s,id)=>s+Number(document.getElementById(id).value),0);
+ let level, cls, actions;
+ if(score<=8){level="Faible / standard";cls="success";actions="Vigilance standard, revue adaptée, monitoring ordinaire."}
+ else if(score<=14){level="Intermédiaire";cls="warning";actions="Données complémentaires, revue humaine ciblée, surveillance adaptée."}
+ else{level="Élevé";cls="danger";actions="Vigilance renforcée, validation appropriée, origine des fonds/patrimoine selon le cas, monitoring renforcé et décision documentée."}
+ document.getElementById("riskResult").innerHTML=`<div class="${cls}"><b>Score pédagogique : ${score}/24 — ${level}</b><br>${actions}<br><small>Le score ne remplace jamais l’analyse des faits, les règles obligatoires ni l’appétit au risque.</small></div>`;
+}
+
+function updateProgress(){
+ const max=document.documentElement.scrollHeight-window.innerHeight;
+ const pct=max>0?Math.round(window.scrollY/max*100):100;
+ document.getElementById("progressBar").style.width=pct+"%";
+ document.getElementById("progressLabel").textContent=pct+" % parcouru";
+ localStorage.setItem("kycCourseProgress",String(pct));
+ const sections=[...document.querySelectorAll("main section")];
+ let current=sections[0]?.id;
+ sections.forEach(s=>{if(s.getBoundingClientRect().top<140)current=s.id});
+ document.querySelectorAll(".navlink").forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+current));
+}
+window.addEventListener("scroll",updateProgress,{passive:true});
+
+function initMobileNav(){
+ const s=document.getElementById("mobileSelect");
+ document.querySelectorAll(".navlink").forEach(a=>{
+   const o=document.createElement("option");o.value=a.getAttribute("href");o.textContent=a.textContent;s.appendChild(o);
+ });
+ s.onchange=()=>{if(s.value)document.querySelector(s.value).scrollIntoView({behavior:"smooth"})};
+}
+
+renderCases();
+renderQuiz();
+renderCard();
+initMobileNav();
+updateProgress();
+</script>
+</body>
+</html>

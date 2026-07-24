@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Cours interactif complet sur l'assurance digitale, la chaîne de valeur, l'IA appliquée aux sinistres et les KPI de pilotage.">
+<title>Assurance digitale — cours interactif pour entretiens</title>
+<style>
+:root{
+  --bg:#f4f6fb; --panel:#ffffff; --panel-2:#f8faff; --text:#172033; --muted:#647089;
+  --line:#dfe5ef; --accent:#3157d5; --accent-2:#0f8b8d; --accent-soft:#e9eeff;
+  --success:#147d64; --success-soft:#e5f6f1; --warn:#a05a00; --warn-soft:#fff3df;
+  --danger:#b23434; --danger-soft:#fdeaea; --shadow:0 14px 35px rgba(24,39,75,.08);
+  --radius:18px; --radius-sm:12px;
+}
+[data-theme="dark"]{
+  --bg:#0e1422; --panel:#151d2d; --panel-2:#192337; --text:#eef3ff; --muted:#aab5cb;
+  --line:#2a3852; --accent:#89a4ff; --accent-2:#52d0c7; --accent-soft:#243255;
+  --success:#62d3ad; --success-soft:#17372f; --warn:#f0b45c; --warn-soft:#3a2b17;
+  --danger:#ff8f8f; --danger-soft:#412323; --shadow:0 18px 40px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.58}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{color:var(--accent)}
+.topbar{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--panel) 92%,transparent);backdrop-filter:blur(15px);border-bottom:1px solid var(--line)}
+.topbar-inner{max-width:1460px;margin:auto;padding:10px 24px;display:flex;align-items:center;gap:14px}
+.brand{font-weight:850;letter-spacing:-.02em;white-space:nowrap}
+.progress-shell{height:9px;background:var(--line);border-radius:99px;overflow:hidden;flex:1}
+.progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .2s}
+.icon-btn{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:10px;padding:8px 11px}
+.layout{max-width:1460px;margin:auto;display:grid;grid-template-columns:285px minmax(0,1fr);gap:24px;padding:24px}
+.sidebar{position:sticky;top:72px;height:calc(100vh - 96px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.sidebar h2{font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:0 0 10px}
+.nav-link{display:block;text-decoration:none;color:var(--muted);padding:8px 10px;border-radius:9px;font-size:.91rem}
+.nav-link:hover,.nav-link.active{background:var(--accent-soft);color:var(--accent);font-weight:750}
+.sidebar-note{margin-top:16px;padding:12px;border-radius:12px;background:var(--panel-2);font-size:.83rem;color:var(--muted)}
+.main{min-width:0}
+.hero{background:linear-gradient(135deg,var(--panel),var(--accent-soft));border:1px solid var(--line);border-radius:26px;padding:36px;box-shadow:var(--shadow);overflow:hidden;position:relative}
+.hero:after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:color-mix(in srgb,var(--accent-2) 16%,transparent);right:-70px;top:-100px}
+.eyebrow{display:inline-flex;gap:7px;align-items:center;background:var(--accent-soft);color:var(--accent);border-radius:99px;padding:6px 11px;font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em}
+h1{font-size:clamp(2.1rem,4vw,4.4rem);line-height:1.02;letter-spacing:-.055em;margin:18px 0 15px;max-width:930px}
+.hero p{max-width:850px;color:var(--muted);font-size:1.08rem}
+.hero-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px}
+.hero-stat{background:color-mix(in srgb,var(--panel) 75%,transparent);border:1px solid var(--line);border-radius:14px;padding:14px}
+.hero-stat strong{display:block;font-size:1.35rem}
+.hero-stat span{font-size:.82rem;color:var(--muted)}
+.section{scroll-margin-top:85px;margin-top:26px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+.section-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:20px}
+.section h2{font-size:1.75rem;letter-spacing:-.035em;margin:0}
+.section h3{font-size:1.13rem;margin:1.35rem 0 .6rem}
+.section p{margin:.55rem 0}
+.muted{color:var(--muted)}
+.badge{display:inline-flex;align-items:center;padding:4px 9px;border-radius:99px;font-size:.75rem;font-weight:800;background:var(--accent-soft);color:var(--accent)}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.card{background:var(--panel-2);border:1px solid var(--line);border-radius:var(--radius-sm);padding:17px}
+.card h3,.card h4{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.callout{border-left:4px solid var(--accent);padding:15px 17px;background:var(--accent-soft);border-radius:0 12px 12px 0;margin:14px 0}
+.callout.warn{border-color:var(--warn);background:var(--warn-soft)}
+.callout.success{border-color:var(--success);background:var(--success-soft)}
+.callout.danger{border-color:var(--danger);background:var(--danger-soft)}
+.clean-list{padding-left:19px;margin:.6rem 0}
+.clean-list li{margin:.35rem 0}
+details{border:1px solid var(--line);border-radius:12px;background:var(--panel-2);padding:0 14px;margin:9px 0}
+summary{padding:13px 0;font-weight:800;cursor:pointer}
+details>div{padding:0 0 14px}
+.pipeline{display:flex;gap:10px;overflow-x:auto;padding:5px 2px 15px;scroll-snap-type:x mandatory}
+.stage{flex:0 0 210px;scroll-snap-align:start;border:1px solid var(--line);border-radius:14px;background:var(--panel-2);padding:15px;text-align:left;color:var(--text);transition:.18s}
+.stage:hover,.stage.active{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 8px 24px rgba(49,87,213,.13)}
+.stage .num{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:900;margin-bottom:10px}
+.stage strong{display:block}
+.stage small{display:block;color:var(--muted);margin-top:5px}
+.stage-detail{margin-top:8px;min-height:290px}
+.kv{display:grid;grid-template-columns:145px 1fr;gap:8px 15px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.kv:last-child{border-bottom:0}
+.kv b{color:var(--muted)}
+.actor-map{display:grid;grid-template-columns:repeat(4,minmax(145px,1fr));gap:12px}
+.actor{padding:16px;border-radius:15px;border:1px solid var(--line);background:var(--panel-2)}
+.actor strong{display:block;margin-bottom:5px}
+.arch{display:grid;grid-template-columns:1fr 60px 1fr 60px 1fr;gap:8px;align-items:center}
+.arch-box{border:1px solid var(--line);background:var(--panel-2);border-radius:14px;padding:15px;text-align:center;min-height:105px;display:grid;place-items:center}
+.arrow{text-align:center;color:var(--accent);font-size:1.7rem}
+.usecase{position:relative;padding-top:37px}
+.usecase .tag{position:absolute;top:12px;left:12px;font-size:.72rem;font-weight:850;color:var(--accent)}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:13px}
+table{border-collapse:collapse;width:100%;min-width:740px}
+th,td{text-align:left;padding:12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--panel-2);font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+.code{background:#101827;color:#dbe7ff;border-radius:13px;padding:16px;overflow:auto;font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.tab-btn{border:1px solid var(--line);border-radius:99px;background:var(--panel);color:var(--muted);padding:7px 12px;font-weight:750}
+.tab-btn.active{background:var(--accent);color:white;border-color:var(--accent)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+.state-flow{display:flex;gap:8px;align-items:center;overflow:auto;padding:8px 0}
+.state{min-width:130px;background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center;font-weight:800}
+.control-row{display:grid;grid-template-columns:210px 1fr 115px;gap:14px;align-items:center;margin:12px 0}
+input[type=range]{width:100%}
+.metric-value{font-weight:900;text-align:right}
+.kpi-dashboard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
+.metric{background:var(--panel-2);border:1px solid var(--line);border-radius:14px;padding:15px}
+.metric .value{font-size:1.65rem;font-weight:900;letter-spacing:-.04em}
+.metric .label{font-size:.8rem;color:var(--muted)}
+.metric.good{border-color:var(--success)}.metric.watch{border-color:var(--warn)}.metric.bad{border-color:var(--danger)}
+textarea{width:100%;min-height:145px;background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:12px;padding:13px;resize:vertical}
+.check-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.check{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--panel-2)}
+.primary{border:0;border-radius:11px;padding:11px 15px;background:var(--accent);color:#fff;font-weight:850}
+.secondary{border:1px solid var(--line);border-radius:11px;padding:10px 14px;background:var(--panel);color:var(--text);font-weight:750}
+.result{margin-top:14px;border:1px solid var(--line);border-radius:14px;background:var(--panel-2);padding:17px;display:none}
+.result.show{display:block}
+.result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.result-item{border:1px solid var(--line);border-radius:11px;padding:12px;background:var(--panel)}
+.quiz-question{padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--panel-2);margin-bottom:12px}
+.quiz-options{display:grid;gap:8px;margin-top:11px}
+.quiz-option{text-align:left;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:10px;padding:10px}
+.quiz-option.correct{background:var(--success-soft);border-color:var(--success)}
+.quiz-option.wrong{background:var(--danger-soft);border-color:var(--danger)}
+.feedback{font-size:.9rem;margin-top:8px;color:var(--muted)}
+.interview-card{border:1px solid var(--line);border-radius:14px;background:var(--panel-2);padding:16px;margin:10px 0}
+.interview-card .answer{display:none;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+.interview-card.open .answer{display:block}
+.study-day{display:grid;grid-template-columns:42px 1fr auto;gap:12px;align-items:center;padding:12px;border-bottom:1px solid var(--line)}
+.study-day:last-child{border-bottom:0}
+.day-num{width:35px;height:35px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center;color:var(--accent);font-weight:900}
+.flashcard{perspective:1000px;min-height:190px;cursor:pointer}
+.flash-inner{position:relative;width:100%;height:190px;transition:transform .55s;transform-style:preserve-3d}
+.flashcard.flipped .flash-inner{transform:rotateY(180deg)}
+.flash-front,.flash-back{position:absolute;inset:0;backface-visibility:hidden;border:1px solid var(--line);border-radius:16px;padding:20px;background:var(--panel-2);display:flex;flex-direction:column;justify-content:center}
+.flash-back{transform:rotateY(180deg);background:var(--accent-soft)}
+.flash-front small,.flash-back small{color:var(--muted)}
+.glossary{columns:2;column-gap:22px}
+.term{break-inside:avoid;border-bottom:1px dashed var(--line);padding:9px 0}
+.term b{display:block}
+.footer{color:var(--muted);text-align:center;font-size:.82rem;padding:28px 10px 60px}
+.mobile-nav{display:none}
+@media(max-width:1050px){
+  .layout{grid-template-columns:1fr}.sidebar{display:none}.mobile-nav{display:block}
+  .hero-grid,.grid-4,.kpi-dashboard{grid-template-columns:repeat(2,1fr)}
+  .actor-map{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:720px){
+  .layout{padding:12px}.section,.hero{padding:20px}.topbar-inner{padding:9px 12px}
+  .brand{font-size:.85rem}.hero-grid,.grid-2,.grid-3,.grid-4,.kpi-dashboard,.result-grid,.check-grid{grid-template-columns:1fr}
+  .arch{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}
+  .actor-map{grid-template-columns:1fr}.control-row{grid-template-columns:1fr}.metric-value{text-align:left}
+  .glossary{columns:1}.section-head{display:block}
+}
+@media print{
+  .topbar,.sidebar,.mobile-nav,.icon-btn,.primary,.secondary,.tabs{display:none!important}
+  body{background:white}.layout{display:block;max-width:none;padding:0}.section,.hero{box-shadow:none;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Assurance digitale</div>
+    <div class="progress-shell" aria-label="Progression de lecture"><div id="readingProgress" class="progress-bar"></div></div>
+    <button class="icon-btn" id="themeBtn" title="Changer de thème">◐</button>
+    <button class="icon-btn" onclick="window.print()" title="Imprimer ou enregistrer en PDF">⎙</button>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="sidebar">
+  <h2>Parcours du cours</h2>
+  <nav id="sideNav">
+    <a class="nav-link active" href="#objectifs">1. Cadre mental</a>
+    <a class="nav-link" href="#fondamentaux">2. Économie de l’assurance</a>
+    <a class="nav-link" href="#chaine">3. Chaîne de valeur</a>
+    <a class="nav-link" href="#ecosysteme">4. Acteurs & architecture</a>
+    <a class="nav-link" href="#data-ia">5. Donnée & IA</a>
+    <a class="nav-link" href="#portfolio">6. Projet portfolio</a>
+    <a class="nav-link" href="#laboratoire">7. Laboratoire sinistre</a>
+    <a class="nav-link" href="#kpi">8. KPI & pilotage</a>
+    <a class="nav-link" href="#gouvernance">9. Risques & gouvernance</a>
+    <a class="nav-link" href="#entretien">10. Entretien</a>
+    <a class="nav-link" href="#quiz">11. Quiz</a>
+    <a class="nav-link" href="#revision">12. Plan de révision</a>
+    <a class="nav-link" href="#glossaire">13. Glossaire</a>
+  </nav>
+  <div class="sidebar-note">
+    <b>Objectif entretien</b><br>
+    Savoir relier processus métier, données, architecture, risques, expérience client et résultat économique.
+  </div>
+</aside>
+
+<main class="main">
+<section class="hero" id="objectifs">
+  <span class="eyebrow">Cours approfondi · Préparation aux entretiens</span>
+  <h1>Comprendre l’assurance digitale de bout en bout</h1>
+  <p>Une page autonome pour apprendre la chaîne de valeur, raisonner sur les cas d’usage data/IA, concevoir un assistant de pré-triage de sinistres et défendre des KPI réellement utiles.</p>
+  <div class="hero-grid">
+    <div class="hero-stat"><strong>13 étapes</strong><span>de la conception produit à la résiliation</span></div>
+    <div class="hero-stat"><strong>8 KPI</strong><span>calculés dans un simulateur</span></div>
+    <div class="hero-stat"><strong>1 cas pratique</strong><span>sinistre automobile de bout en bout</span></div>
+    <div class="hero-stat"><strong>20 questions</strong><span>pour tester la maîtrise</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div>
+      <span class="badge">Point de départ</span>
+      <h2>Le cadre mental à utiliser en entretien</h2>
+    </div>
+  </div>
+  <div class="grid-3">
+    <div class="card"><h3>1. Valeur client</h3><p>Réduire la friction, donner de la visibilité, accélérer l’indemnisation et conserver un recours humain.</p></div>
+    <div class="card"><h3>2. Valeur opérationnelle</h3><p>Améliorer la qualité des données, automatiser les cas simples et concentrer les gestionnaires sur les exceptions.</p></div>
+    <div class="card"><h3>3. Maîtrise du risque</h3><p>Éviter les décisions injustes, les fuites de données, les fraudes, les erreurs d’indemnisation et la dépendance aux prestataires.</p></div>
+  </div>
+  <div class="callout success"><b>La bonne posture :</b> ne présente jamais la digitalisation comme « remplacer les gestionnaires par l’IA ». Présente-la comme une transformation du flux de travail, où la technologie améliore la vitesse et la cohérence, tandis que l’humain conserve la décision sur les cas sensibles, complexes ou ambigus.</div>
+  <details open>
+    <summary>Réponse de 60 secondes : « Qu’est-ce que l’assurance digitale ? »</summary>
+    <div>L’assurance digitale est la transformation de toute la chaîne de valeur assurantielle par la donnée, les parcours numériques, les API et l’automatisation. Elle ne se limite pas à vendre un contrat en ligne : elle couvre la conception du produit, la tarification, la souscription, la gestion du contrat, le paiement de la prime, la déclaration et l’indemnisation du sinistre. La difficulté consiste à obtenir un parcours fluide sans dégrader la sélection du risque, la conformité, l’équité ni la résilience opérationnelle. Sur un sinistre, par exemple, la donnée et l’IA peuvent extraire les informations, vérifier la complétude, estimer la complexité et orienter le dossier, mais il faut des seuils d’escalade, une traçabilité et une supervision humaine.</div>
+  </details>
+</section>
+
+<section class="section" id="fondamentaux">
+  <div class="section-head"><div><span class="badge">Fondamentaux</span><h2>L’économie de l’assurance</h2><p class="muted">Comprendre le modèle économique évite de parler de digitalisation sans comprendre ce qu’elle optimise.</p></div></div>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Le mécanisme</h3>
+      <ol class="clean-list">
+        <li>Un grand nombre d’assurés transfèrent un risque incertain à l’assureur.</li>
+        <li>L’assureur collecte des primes certaines.</li>
+        <li>Il indemnise une partie des assurés lorsque le risque survient.</li>
+        <li>Il constitue des provisions et place une partie des fonds.</li>
+        <li>Il pilote rentabilité, solvabilité, liquidité et qualité de service.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Équation simplifiée</h3>
+      <div class="code">Résultat technique
+= Primes acquises
+− Coût des sinistres
+− Frais d’acquisition
+− Frais de gestion
+
+Ratio combiné
+= Ratio de sinistralité + Ratio de frais
+
+&lt; 100 % : activité techniquement bénéficiaire
+&gt; 100 % : activité techniquement déficitaire</div>
+    </div>
+  </div>
+  <div class="grid-4" style="margin-top:14px">
+    <div class="card"><h3>Fréquence</h3><p>Probabilité ou nombre de sinistres sur une période.</p></div>
+    <div class="card"><h3>Sévérité</h3><p>Coût moyen d’un sinistre lorsqu’il survient.</p></div>
+    <div class="card"><h3>Provision</h3><p>Estimation comptable des paiements futurs liés aux sinistres.</p></div>
+    <div class="card"><h3>Leakage</h3><p>Surcoût évitable dû aux erreurs, délais, paiements indus ou processus inefficaces.</p></div>
+  </div>
+  <div class="callout warn"><b>Piège d’entretien :</b> un taux d’automatisation élevé n’est pas un objectif isolé. Une automatisation qui augmente les réouvertures, les plaintes ou le leakage détruit de la valeur.</div>
+</section>
+
+<section class="section" id="chaine">
+  <div class="section-head">
+    <div><span class="badge">Cœur métier</span><h2>La chaîne de valeur assurantielle</h2><p class="muted">Clique sur chaque étape. Pour chacune, retiens la finalité, les données, les décisions et les risques.</p></div>
+  </div>
+  <div class="pipeline" id="pipeline"></div>
+  <div class="card stage-detail" id="stageDetail"></div>
+</section>
+
+<section class="section" id="ecosysteme">
+  <div class="section-head"><div><span class="badge">Operating model</span><h2>Acteurs, plateformes et API</h2></div></div>
+  <div class="actor-map">
+    <div class="actor"><strong>Assureur porteur du risque</strong><span class="muted">Conçoit, tarifie, porte le risque, provisionne et indemnise.</span></div>
+    <div class="actor"><strong>Distributeur / courtier</strong><span class="muted">Accède au client, conseille, compare et commercialise.</span></div>
+    <div class="actor"><strong>Réassureur</strong><span class="muted">Absorbe une partie des risques ou des sinistres extrêmes.</span></div>
+    <div class="actor"><strong>Gestionnaire délégué</strong><span class="muted">Opère tout ou partie des contrats ou sinistres.</span></div>
+    <div class="actor"><strong>Expert</strong><span class="muted">Évalue circonstances, dommages, causalité et coût.</span></div>
+    <div class="actor"><strong>Réseau de réparation</strong><span class="muted">Fournit devis, réparation, facturation et délais.</span></div>
+    <div class="actor"><strong>Prestataire technologique</strong><span class="muted">Cloud, OCR, IA, signature, paiement, cybersécurité.</span></div>
+    <div class="actor"><strong>Régulateur / superviseur</strong><span class="muted">Contrôle solvabilité, conduite, résilience et protection client.</span></div>
+  </div>
+  <h3>Architecture simplifiée d’un parcours digital</h3>
+  <div class="arch">
+    <div class="arch-box"><div><b>Canaux</b><br><span class="muted">Web, mobile, chatbot, centre d’appels, courtier</span></div></div>
+    <div class="arrow">→</div>
+    <div class="arch-box"><div><b>Couche d’orchestration</b><br><span class="muted">API gateway, workflow, règles, événements</span></div></div>
+    <div class="arrow">→</div>
+    <div class="arch-box"><div><b>Core insurance</b><br><span class="muted">Produit, police, facturation, sinistre, documents</span></div></div>
+  </div>
+  <div class="grid-3" style="margin-top:14px">
+    <div class="card"><h3>API synchrone</h3><p>Réponse immédiate : devis, contrôle de couverture, statut de contrat.</p></div>
+    <div class="card"><h3>Événement asynchrone</h3><p>Notification de changement : sinistre créé, pièce reçue, paiement émis.</p></div>
+    <div class="card"><h3>Workflow</h3><p>Coordonne tâches, délais, contrôles, escalades et interventions humaines.</p></div>
+  </div>
+  <div class="callout"><b>Phrase crédible :</b> « Je sépare le parcours client, l’orchestration et les systèmes de référence. L’API expose une capacité métier ; le workflow gère un processus long ; l’événement propage un changement d’état. »</div>
+</section>
+
+<section class="section" id="data-ia">
+  <div class="section-head"><div><span class="badge">Data & IA</span><h2>Où la donnée et l’IA créent de la valeur</h2></div></div>
+  <div class="grid-3">
+    <div class="card usecase"><span class="tag">PRODUIT</span><h3>Segmentation & besoins</h3><p>Analyser comportements, exposition au risque et attentes afin de concevoir garanties et services.</p><p><b>Risque :</b> segmentation discriminatoire ou produit mal ciblé.</p></div>
+    <div class="card usecase"><span class="tag">TARIFICATION</span><h3>Prédiction fréquence / sévérité</h3><p>Estimer le coût attendu et ajuster la prime à l’exposition.</p><p><b>Risque :</b> biais, variables proxy, dérive.</p></div>
+    <div class="card usecase"><span class="tag">SOUSCRIPTION</span><h3>Score et règles de décision</h3><p>Accepter, refuser, demander une information ou transférer à un souscripteur.</p><p><b>Risque :</b> décision opaque ou incohérente.</p></div>
+    <div class="card usecase"><span class="tag">DOCUMENTS</span><h3>OCR, extraction, classification</h3><p>Lire constat, facture, permis, déclaration et photos pour préremplir le dossier.</p><p><b>Risque :</b> erreur d’extraction non détectée.</p></div>
+    <div class="card usecase"><span class="tag">FRAUDE</span><h3>Détection d’anomalies</h3><p>Combiner règles, scores, réseaux de relations et signaux historiques.</p><p><b>Risque :</b> faux positifs et traitement injuste.</p></div>
+    <div class="card usecase"><span class="tag">SINISTRES</span><h3>Triage & aide à la décision</h3><p>Estimer complexité, urgence et orientation ; générer une synthèse pour le gestionnaire.</p><p><b>Risque :</b> automatisation d’un cas sensible.</p></div>
+  </div>
+
+  <h3>Choisir la bonne technologie</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Besoin</th><th>Approche</th><th>Exemple</th><th>Contrôle principal</th></tr></thead>
+      <tbody>
+        <tr><td>Décision parfaitement explicite</td><td>Moteur de règles</td><td>Pièce obligatoire absente</td><td>Versionnement des règles</td></tr>
+        <tr><td>Prédire une classe ou un coût</td><td>Machine learning supervisé</td><td>Complexité faible / moyenne / élevée</td><td>Précision, rappel, dérive, équité</td></tr>
+        <tr><td>Détecter un comportement atypique</td><td>Anomalies / graph analytics</td><td>Réseau de sinistres liés</td><td>Investigation humaine</td></tr>
+        <tr><td>Comprendre ou produire du texte</td><td>IA générative / LLM</td><td>Extraction du récit et synthèse</td><td>Grounding, validation, confidentialité</td></tr>
+        <tr><td>Répondre à partir de procédures</td><td>RAG</td><td>Identifier les pièces requises par garantie</td><td>Sources citées et versionnées</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <details>
+    <summary>Comment articuler règles, ML et IA générative ?</summary>
+    <div>Une architecture robuste les combine. Le LLM transforme un récit non structuré en données proposées ; des validations déterministes contrôlent format et cohérence ; un modèle prédictif peut estimer la complexité ; un moteur de règles applique les contraintes contractuelles ; le workflow décide ensuite du routage. L’IA ne doit pas être la seule source de vérité pour une décision financière sensible.</div>
+  </details>
+</section>
+
+<section class="section" id="portfolio">
+  <div class="section-head"><div><span class="badge">Portfolio</span><h2>Assistant de pré-triage d’un sinistre automobile</h2><p class="muted">Un projet assez concret pour démontrer métier, produit, data, architecture et gouvernance.</p></div></div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="vision">Vision produit</button>
+    <button class="tab-btn" data-tab="workflow">Workflow</button>
+    <button class="tab-btn" data-tab="data">Données & API</button>
+    <button class="tab-btn" data-tab="architecture">Architecture</button>
+    <button class="tab-btn" data-tab="roadmap">Roadmap</button>
+  </div>
+
+  <div class="tab-panel active" id="tab-vision">
+    <div class="grid-2">
+      <div class="card"><h3>Problème</h3><p>Les déclarations arrivent sous des formes hétérogènes, avec des informations manquantes. Le gestionnaire consomme du temps à lire, requalifier et réclamer des pièces.</p></div>
+      <div class="card"><h3>Promesse</h3><p>Transformer une déclaration en dossier structuré, contrôlé et orienté, sans automatiser les décisions complexes ou contestables.</p></div>
+      <div class="card"><h3>Utilisateurs</h3><p>Assuré, conseiller, gestionnaire sinistre, équipe fraude, expert, responsable opérationnel.</p></div>
+      <div class="card"><h3>Résultat attendu</h3><p>Plus de dossiers complets dès le premier envoi, délai réduit, meilleure traçabilité et charge cognitive moindre.</p></div>
+    </div>
+    <div class="callout success"><b>North Star raisonnable :</b> part des dossiers simples correctement orientés et complets, sans augmentation du taux de réouverture ni des réclamations.</div>
+  </div>
+
+  <div class="tab-panel" id="tab-workflow">
+    <div class="state-flow">
+      <div class="state">Déclaré</div><div class="arrow">→</div>
+      <div class="state">À compléter</div><div class="arrow">→</div>
+      <div class="state">Qualifié</div><div class="arrow">→</div>
+      <div class="state">Orienté</div><div class="arrow">→</div>
+      <div class="state">Instruit</div><div class="arrow">→</div>
+      <div class="state">Indemnisé</div><div class="arrow">→</div>
+      <div class="state">Clos</div>
+    </div>
+    <h3>Règles d’escalade humaine</h3>
+    <ul class="clean-list">
+      <li>Blessé, décès ou dommage corporel.</li>
+      <li>Doute sur la couverture, responsabilité contestée ou litige.</li>
+      <li>Montant élevé, véhicule non roulant ou urgence particulière.</li>
+      <li>Suspicion de fraude : le système signale, il ne déclare pas le client fraudeur.</li>
+      <li>Confiance d’extraction faible ou incohérence non résolue.</li>
+    </ul>
+  </div>
+
+  <div class="tab-panel" id="tab-data">
+    <div class="grid-2">
+      <div>
+        <h3>Objet métier minimal</h3>
+        <div class="code">{
+  "claim_id": "CLM-2026-00421",
+  "policy_id": "POL-88214",
+  "loss_date": "2026-07-18",
+  "loss_type": "collision",
+  "location": "Paris",
+  "injury_reported": false,
+  "vehicle_drivable": true,
+  "third_party_involved": true,
+  "documents": ["constat", "photos"],
+  "extraction_confidence": 0.93,
+  "complexity": "medium",
+  "fraud_flags": [],
+  "recommended_route": "handler_review"
+}</div>
+      </div>
+      <div>
+        <h3>Endpoints possibles</h3>
+        <div class="code">POST /claims/intake
+POST /claims/{id}/documents
+POST /claims/{id}/pre-triage
+GET  /claims/{id}/status
+POST /claims/{id}/human-review
+POST /claims/{id}/decision
+
+Événements :
+claim.created
+document.received
+triage.completed
+human_review.requested
+payment.issued</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-architecture">
+    <div class="arch">
+      <div class="arch-box"><div><b>Portail assuré</b><br><span class="muted">Récit, formulaire, pièces, consentement</span></div></div>
+      <div class="arrow">→</div>
+      <div class="arch-box"><div><b>Service de pré-triage</b><br><span class="muted">Extraction, règles, score, synthèse</span></div></div>
+      <div class="arrow">→</div>
+      <div class="arch-box"><div><b>Système sinistre</b><br><span class="muted">Dossier officiel, tâches, réserves, paiement</span></div></div>
+    </div>
+    <div class="grid-3" style="margin-top:14px">
+      <div class="card"><h3>Observabilité</h3><p>Logs corrélés, identifiant de dossier, version des modèles, latence et taux d’erreur.</p></div>
+      <div class="card"><h3>Sécurité</h3><p>Chiffrement, moindre privilège, cloisonnement, secrets, journal d’accès.</p></div>
+      <div class="card"><h3>Résilience</h3><p>Timeout, retry contrôlé, idempotence, file d’attente, mode dégradé manuel.</p></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-roadmap">
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Phase</th><th>Livrable</th><th>Mesure</th><th>Garde-fou</th></tr></thead>
+        <tbody>
+          <tr><td>0 — Discovery</td><td>Cartographie du flux et taxonomie des cas</td><td>Temps par activité, motifs de retour</td><td>Validation métier</td></tr>
+          <tr><td>1 — Shadow mode</td><td>Extraction et recommandation invisibles au client</td><td>Exactitude champ par champ</td><td>Aucune décision automatique</td></tr>
+          <tr><td>2 — Copilote</td><td>Synthèse et pièces manquantes pour le gestionnaire</td><td>Temps gagné, taux d’acceptation</td><td>Validation obligatoire</td></tr>
+          <tr><td>3 — Routage limité</td><td>Orientation automatique des cas simples</td><td>Réouverture, erreur de routage</td><td>Seuils et échantillonnage</td></tr>
+          <tr><td>4 — Industrialisation</td><td>Monitoring, audit, gestion des versions</td><td>Drift, coûts, SLA, incidents</td><td>Comité de modèle</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="laboratoire">
+  <div class="section-head"><div><span class="badge">Démonstrateur</span><h2>Laboratoire de pré-triage</h2><p class="muted">Ce module utilise des règles JavaScript explicites pour simuler le comportement fonctionnel d’un assistant. Il ne s’agit pas d’un modèle IA réel.</p></div></div>
+  <label for="claimText"><b>Récit du sinistre</b></label>
+  <textarea id="claimText">Hier vers 18h30, je circulais boulevard Voltaire à Paris. En changeant de file à faible vitesse, j’ai touché l’aile arrière d’une Peugeot. Personne n’est blessé. Ma voiture roule encore. Nous avons rempli un constat et j’ai pris plusieurs photos. Je ne sais pas encore combien coûteront les réparations.</textarea>
+  <h3>Pièces jointes</h3>
+  <div class="check-grid">
+    <label class="check"><input type="checkbox" name="doc" value="constat" checked> Constat amiable</label>
+    <label class="check"><input type="checkbox" name="doc" value="photos" checked> Photos des dommages</label>
+    <label class="check"><input type="checkbox" name="doc" value="permis"> Permis de conduire</label>
+    <label class="check"><input type="checkbox" name="doc" value="carte_grise"> Carte grise</label>
+    <label class="check"><input type="checkbox" name="doc" value="devis"> Devis de réparation</label>
+    <label class="check"><input type="checkbox" name="doc" value="plainte"> Dépôt de plainte</label>
+  </div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:15px">
+    <button class="primary" id="analyzeClaim">Analyser le dossier</button>
+    <button class="secondary" id="loadComplex">Charger un cas complexe</button>
+    <button class="secondary" id="loadSimple">Charger un cas simple</button>
+  </div>
+  <div class="result" id="claimResult"></div>
+</section>
+
+<section class="section" id="kpi">
+  <div class="section-head"><div><span class="badge">Pilotage</span><h2>Simulateur de KPI sinistres</h2><p class="muted">Fais varier les hypothèses. Les formules sont volontairement simples pour apprendre à raisonner.</p></div></div>
+  <div id="controls">
+    <div class="control-row"><label>Dossiers mensuels</label><input type="range" id="claims" min="1000" max="30000" step="500" value="10000"><span class="metric-value" id="claimsV"></span></div>
+    <div class="control-row"><label>Déclarations digitales</label><input type="range" id="digital" min="10" max="100" value="72"><span class="metric-value" id="digitalV"></span></div>
+    <div class="control-row"><label>Complétude au 1er envoi</label><input type="range" id="complete" min="20" max="100" value="68"><span class="metric-value" id="completeV"></span></div>
+    <div class="control-row"><label>Traitement sans intervention</label><input type="range" id="straight" min="0" max="80" value="28"><span class="metric-value" id="straightV"></span></div>
+    <div class="control-row"><label>Temps humain moyen</label><input type="range" id="minutes" min="5" max="120" value="42"><span class="metric-value" id="minutesV"></span></div>
+    <div class="control-row"><label>Coût horaire chargé</label><input type="range" id="hourly" min="25" max="100" value="52"><span class="metric-value" id="hourlyV"></span></div>
+    <div class="control-row"><label>Réouverture</label><input type="range" id="reopen" min="0" max="25" value="7"><span class="metric-value" id="reopenV"></span></div>
+    <div class="control-row"><label>Leakage estimé</label><input type="range" id="leakage" min="0" max="10" step=".1" value="2.4"><span class="metric-value" id="leakageV"></span></div>
+  </div>
+  <div class="kpi-dashboard" id="kpiDashboard"></div>
+  <details>
+    <summary>Comment lire les KPI ensemble ?</summary>
+    <div>
+      <ul class="clean-list">
+        <li><b>Digital + complétude :</b> mesure la qualité réelle du parcours d’entrée, pas seulement son adoption.</li>
+        <li><b>STP + réouverture :</b> vérifie que l’automatisation ne produit pas de faux gains.</li>
+        <li><b>Délai + satisfaction :</b> le délai seul ne suffit pas ; le client veut aussi comprendre l’étape suivante.</li>
+        <li><b>Coût + leakage :</b> réduire le coût administratif ne doit pas augmenter les paiements incorrects.</li>
+        <li><b>Suspicion fraude :</b> un taux plus élevé n’est pas forcément meilleur ; il faut mesurer précision et valeur des alertes.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section class="section" id="gouvernance">
+  <div class="section-head"><div><span class="badge">Confiance</span><h2>Risques, conformité et gouvernance</h2></div></div>
+  <div class="grid-3">
+    <div class="card"><h3>Données</h3><p>Qualité, représentativité, licéité, minimisation, durée de conservation, lignage et droits d’accès.</p></div>
+    <div class="card"><h3>Modèle</h3><p>Performance, robustesse, dérive, biais, explicabilité, versionnement et limites d’usage.</p></div>
+    <div class="card"><h3>Processus</h3><p>Responsabilités, contrôle humain, recours, journalisation, gestion des incidents et continuité.</p></div>
+    <div class="card"><h3>Prestataires</h3><p>Dépendance, sous-traitance en chaîne, localisation, réversibilité, SLA, auditabilité et concentration.</p></div>
+    <div class="card"><h3>Cybersécurité</h3><p>Exfiltration, injection de prompt, documents malveillants, usurpation et altération des résultats.</p></div>
+    <div class="card"><h3>Protection client</h3><p>Équité, clarté, non-discrimination, information, possibilité de correction et traitement des réclamations.</p></div>
+  </div>
+
+  <h3>Le dossier de preuve d’un système IA</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Élément</th><th>Question à laquelle il répond</th></tr></thead>
+      <tbody>
+        <tr><td>Fiche du cas d’usage</td><td>Pourquoi le système existe-t-il et dans quel périmètre peut-il être utilisé ?</td></tr>
+        <tr><td>Cartographie des données</td><td>D’où viennent les données, qui en est responsable et quelles transformations subissent-elles ?</td></tr>
+        <tr><td>Jeu de tests</td><td>Le système fonctionne-t-il sur les cas normaux, limites et populations différentes ?</td></tr>
+        <tr><td>Seuils et escalades</td><td>Quand le système doit-il s’abstenir ou transmettre à un humain ?</td></tr>
+        <tr><td>Journal de décision</td><td>Peut-on reconstituer entrée, version, résultat et validation humaine ?</td></tr>
+        <tr><td>Monitoring</td><td>Détecte-t-on baisse de performance, dérive, biais, coûts et incidents ?</td></tr>
+        <tr><td>Plan de repli</td><td>Comment opérer si le système est indisponible ou suspendu ?</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout warn"><b>Nuance réglementaire utile :</b> dans l’assurance, l’AI Act classe comme à haut risque les systèmes utilisés pour l’évaluation du risque et la tarification en assurance-vie et santé. Un assistant de triage auto n’entre pas automatiquement dans cette catégorie, mais reste soumis aux exigences sectorielles, de protection des données, de gouvernance, de sécurité et de protection de la clientèle.</div>
+</section>
+
+<section class="section" id="entretien">
+  <div class="section-head"><div><span class="badge">Préparation orale</span><h2>Questions d’entretien et réponses structurées</h2><p class="muted">Ouvre les cartes après avoir formulé ta réponse à voix haute.</p></div></div>
+  <div id="interviewCards"></div>
+
+  <h3>Structure universelle d’une réponse projet</h3>
+  <div class="grid-4">
+    <div class="card"><h3>Contexte</h3><p>Processus, utilisateurs, volumes, irritants, risques.</p></div>
+    <div class="card"><h3>Choix</h3><p>Priorisation, architecture, règle vs ML, périmètre MVP.</p></div>
+    <div class="card"><h3>Contrôles</h3><p>Qualité, seuils, humain, sécurité, monitoring.</p></div>
+    <div class="card"><h3>Résultats</h3><p>KPI d’adoption, qualité, délai, coût et risque.</p></div>
+  </div>
+
+  <details open>
+    <summary>Pitch portfolio de 90 secondes</summary>
+    <div>J’ai conçu le cadrage d’un assistant de pré-triage pour les sinistres automobiles. Le problème initial est que les déclarations sont non structurées et souvent incomplètes, ce qui crée des allers-retours et consomme du temps gestionnaire. La solution extrait les faits du récit, identifie le type de sinistre, vérifie les pièces, estime la complexité, signale les incohérences et recommande un routage. J’ai séparé les composants : le LLM propose une structuration, les règles contrôlent la complétude et les contraintes, le workflow gère les états et les escalades, et le système sinistre reste la source de vérité. Je commencerais en shadow mode, puis en copilote, avant d’automatiser uniquement les cas simples et à forte confiance. Je mesurerais la complétude au premier envoi, le délai, le STP, le coût par dossier, les réouvertures et le leakage. Les garde-fous incluent la supervision humaine, la traçabilité des versions, l’échantillonnage des décisions et un mode dégradé manuel.</div>
+  </details>
+</section>
+
+<section class="section" id="quiz">
+  <div class="section-head"><div><span class="badge">Auto-évaluation</span><h2>Quiz de validation</h2><p class="muted">Une seule réponse par question. Le score est calculé instantanément.</p></div><div><b id="quizScore">0 / 20</b></div></div>
+  <div id="quizContainer"></div>
+  <button class="secondary" id="resetQuiz">Réinitialiser le quiz</button>
+</section>
+
+<section class="section" id="revision">
+  <div class="section-head"><div><span class="badge">10 jours</span><h2>Plan de révision</h2><p class="muted">Les cases sont mémorisées dans ton navigateur.</p></div></div>
+  <div class="card" id="studyPlan"></div>
+  <h3>Cartes mémoire</h3>
+  <div class="grid-3" id="flashcards"></div>
+</section>
+
+<section class="section" id="glossaire">
+  <div class="section-head"><div><span class="badge">Vocabulaire</span><h2>Glossaire essentiel</h2></div></div>
+  <div class="glossary" id="glossary"></div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div><span class="badge">Sources</span><h2>Références officielles pour approfondir</h2></div></div>
+  <ul class="clean-list">
+    <li><a href="https://www.eiopa.europa.eu/publications/eiopas-report-digitalisation-european-insurance-sector_en" target="_blank" rel="noopener">EIOPA — Report on the digitalisation of the European insurance sector</a></li>
+    <li><a href="https://www.eiopa.europa.eu/publications/traditional-ai-generative-ai-implications-insurance-sector_en" target="_blank" rel="noopener">EIOPA — From Traditional AI to Generative AI</a></li>
+    <li><a href="https://www.eiopa.europa.eu/publications/opinion-artificial-intelligence-governance-and-risk-management_en" target="_blank" rel="noopener">EIOPA — Opinion on AI governance and risk management</a></li>
+    <li><a href="https://acpr.banque-france.fr/fr/publications-et-statistiques/publications/ndeg-132-la-transformation-numerique-dans-le-secteur-francais-de-lassurance" target="_blank" rel="noopener">ACPR — Transformation numérique dans le secteur français de l’assurance</a></li>
+    <li><a href="https://acpr.banque-france.fr/fr/actualites/le-reglement-europeen-sur-lintelligence-artificielle-ai-act" target="_blank" rel="noopener">ACPR — Le règlement européen sur l’intelligence artificielle</a></li>
+    <li><a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener">Commission européenne — AI Act</a></li>
+  </ul>
+</section>
+
+<div class="footer">Support pédagogique autonome — les exemples et calculs sont simplifiés et ne constituent ni un avis actuariel, ni juridique, ni réglementaire.</div>
+</main>
+</div>
+
+<script>
+const stages = [
+ {name:"Définition du produit",short:"Garanties, exclusions, cible",purpose:"Transformer un besoin client et une exposition au risque en une proposition assurable.",inputs:"Études clients, sinistralité, concurrence, contraintes juridiques, capacité de réassurance.",decision:"Quelles garanties, limites, franchises, exclusions, options et services ?",systems:"Catalogue produit, moteur de règles, référentiel documentaire.",risks:"Produit trop complexe, mauvaise cible, garanties peu utiles, exclusions mal comprises.",kpis:"Adoption, mix de garanties, réclamations, rentabilité par segment.",phrase:"Le produit d’assurance est un contrat de transfert de risque, pas seulement une interface digitale."},
+ {name:"Tarification",short:"Prime adaptée au risque",purpose:"Estimer le coût attendu du risque et fixer une prime compatible avec marché, frais et rentabilité.",inputs:"Exposition, fréquence, sévérité, historique, variables tarifaires, frais, marge.",decision:"Quel tarif, quelle franchise et quelles limites pour ce profil ?",systems:"Moteur tarifaire, modèles actuariels, référentiel de coefficients.",risks:"Sous-tarification, anti-sélection, biais, dérive, volatilité des coûts.",kpis:"Prime moyenne, taux de conversion, loss ratio, élasticité prix.",phrase:"Une meilleure prédiction n’est utile que si elle reste équitable, stable et commercialement exploitable."},
+ {name:"Distribution",short:"Mettre le produit sur le marché",purpose:"Présenter et vendre le produit par un canal direct, un agent, un courtier, une banque ou un partenaire.",inputs:"Catalogue, règles d’éligibilité, contenu commercial, données client.",decision:"Quel produit proposer, par quel canal, avec quel niveau de conseil ?",systems:"CRM, portail partenaire, comparateur, API produit.",risks:"Mauvais conseil, conflit d’intérêts, rupture omnicanale, dépendance au distributeur.",kpis:"Trafic, conversion, coût d’acquisition, taux d’abandon, mix canal.",phrase:"Le digital réduit la friction, mais ne supprime pas le devoir de conseil et la clarté de l’information."},
+ {name:"Devis",short:"Simuler prix et couverture",purpose:"Produire une proposition chiffrée à partir des informations disponibles.",inputs:"Profil, objet assuré, garanties choisies, règles tarifaires.",decision:"Le risque est-il tarifable immédiatement ou faut-il demander plus d’informations ?",systems:"Front de devis, moteur tarifaire, API externes.",risks:"Questions trop nombreuses, données erronées, incohérence entre canaux.",kpis:"Temps de devis, abandon, taux devis→souscription, erreurs.",phrase:"Un bon devis cherche le minimum de données nécessaire sans sacrifier la qualité de sélection."},
+ {name:"Souscription",short:"Formaliser la demande",purpose:"Collecter consentements, déclarations, justificatifs et choix nécessaires à la conclusion du contrat.",inputs:"Devis, questionnaire, identité, pièces, mandat de paiement.",decision:"Le dossier est-il complet et juridiquement valide ?",systems:"Parcours de souscription, signature électronique, GED, KYC.",risks:"Fausse déclaration, consentement invalide, document manquant, fraude d’identité.",kpis:"Taux de complétude, temps de souscription, abandon, reprises manuelles.",phrase:"Souscription désigne le parcours contractuel ; underwriting désigne l’évaluation du risque."},
+ {name:"Underwriting",short:"Sélectionner le risque",purpose:"Décider si l’assureur accepte le risque, à quelles conditions et à quel niveau d’autorité.",inputs:"Données déclaratives, preuves, scores, règles d’appétit au risque.",decision:"Accepter, accepter avec conditions, référer ou refuser.",systems:"Workbench souscripteur, règles, modèles, données externes.",risks:"Anti-sélection, décision incohérente, discrimination, absence d’explication.",kpis:"Taux d’acceptation, taux de referral, temps de décision, performance du portefeuille.",phrase:"L’underwriting combine appétit au risque, règles, expertise et données ; ce n’est pas seulement un score."},
+ {name:"Émission & gestion",short:"Créer et maintenir le contrat",purpose:"Émettre la police et gérer avenants, bénéficiaires, garanties et documents pendant la vie du contrat.",inputs:"Décision de souscription, conditions, données client, date d’effet.",decision:"Quelle version contractuelle est applicable à chaque date ?",systems:"Policy Administration System, GED, référentiel client.",risks:"Erreur de version, doublon, mauvaise date d’effet, rupture de traçabilité.",kpis:"Délai d’émission, taux d’erreur, délai d’avenant, self-service.",phrase:"Le système de police doit conserver l’historique contractuel, car la couverture se juge à la date du sinistre."},
+ {name:"Encaissement",short:"Collecter la prime",purpose:"Facturer, encaisser, rapprocher et traiter les impayés ou remboursements.",inputs:"Échéancier, moyen de paiement, mandat, statut du contrat.",decision:"Le contrat est-il en règle, en impayé, suspendu ou résiliable ?",systems:"Billing, paiement, prélèvement, comptabilité, réconciliation.",risks:"Impayé, double débit, rupture de couverture, mauvaise réconciliation.",kpis:"Taux d’impayé, recouvrement, échec de prélèvement, coût de paiement.",phrase:"Paiement et couverture sont liés par des règles métier temporelles qu’il faut modéliser explicitement."},
+ {name:"Déclaration du sinistre",short:"First Notice of Loss",purpose:"Enregistrer l’événement, rassurer le client et collecter les premières informations.",inputs:"Récit, date, lieu, personnes, dommages, photos, documents.",decision:"Y a-t-il urgence, dommage corporel, assistance ou mesure conservatoire ?",systems:"Portail FNOL, mobile, centre d’appels, chatbot.",risks:"Dossier incomplet, mauvaise qualification, détresse client, données contradictoires.",kpis:"Taux digital, complétude premier envoi, abandon, délai de création.",phrase:"Le premier contact doit simultanément collecter les faits, guider le client et détecter les urgences."},
+ {name:"Instruction",short:"Vérifier couverture et responsabilité",purpose:"Établir les faits, vérifier les garanties, évaluer la responsabilité et chiffrer le dommage.",inputs:"Contrat applicable, déclaration, preuves, expertise, devis, historique.",decision:"Le sinistre est-il couvert, pour quel montant et sous quelles réserves ?",systems:"Claims Management System, expertise, règles, GED.",risks:"Mauvaise interprétation, délai, provision inexacte, contestation.",kpis:"Cycle time, pendency, précision des provisions, taux de litige.",phrase:"L’instruction transforme un événement déclaré en décision de couverture documentée."},
+ {name:"Détection de fraude",short:"Repérer les anomalies",purpose:"Identifier des signaux justifiant une vérification renforcée sans confondre suspicion et preuve.",inputs:"Historique, incohérences, relations, documents, chronologie, comportement.",decision:"Classer sans alerte, demander une vérification ou transférer à une équipe spécialisée.",systems:"Règles, score ML, graph analytics, case management fraude.",risks:"Faux positifs, discrimination, fuite d’information, accusation injustifiée.",kpis:"Précision des alertes, taux confirmé, montant évité, délai d’investigation.",phrase:"Le modèle priorise les investigations ; la preuve et la décision restent du ressort de l’assureur."},
+ {name:"Indemnisation",short:"Payer ou fournir le service",purpose:"Exécuter la décision : paiement, réparation, remplacement, assistance ou prestation.",inputs:"Décision, bénéficiaire, franchise, coordonnées de paiement, validations.",decision:"Quel montant, à qui, quand et avec quel motif ?",systems:"Paiement, réseau prestataire, comptabilité, notifications.",risks:"Paiement indu, mauvaise destination, fraude, délai, mauvaise information client.",kpis:"Délai de paiement, coût moyen, satisfaction, erreurs, leakage.",phrase:"L’indemnisation est le moment de vérité : vitesse, exactitude et explication déterminent la confiance."},
+ {name:"Renouvellement / résiliation",short:"Poursuivre ou terminer la relation",purpose:"Réévaluer le risque, adapter la prime et gérer renouvellement, résiliation ou transfert.",inputs:"Sinistralité, paiement, évolution du risque, réglementation, demande client.",decision:"Renouveler, ajuster, proposer une alternative ou résilier selon les règles applicables.",systems:"Policy admin, CRM, moteur tarifaire, communication.",risks:"Attrition, résiliation incorrecte, hausse incomprise, mauvaise portabilité.",kpis:"Rétention, churn, prime de renouvellement, motif de départ.",phrase:"Le renouvellement boucle la chaîne : l’expérience sinistre influence directement la fidélité et la rentabilité future."}
+];
+
+const pipeline = document.getElementById("pipeline");
+const detail = document.getElementById("stageDetail");
+function renderStage(i){
+  document.querySelectorAll(".stage").forEach((el,idx)=>el.classList.toggle("active",idx===i));
+  const s=stages[i];
+  detail.innerHTML=`<span class="badge">Étape ${i+1} / ${stages.length}</span><h3>${s.name}</h3>
+  <div class="kv"><b>Finalité</b><span>${s.purpose}</span></div>
+  <div class="kv"><b>Entrées</b><span>${s.inputs}</span></div>
+  <div class="kv"><b>Décision métier</b><span>${s.decision}</span></div>
+  <div class="kv"><b>Systèmes</b><span>${s.systems}</span></div>
+  <div class="kv"><b>Risques</b><span>${s.risks}</span></div>
+  <div class="kv"><b>KPI</b><span>${s.kpis}</span></div>
+  <div class="callout"><b>À dire en entretien :</b> ${s.phrase}</div>`;
+}
+stages.forEach((s,i)=>{
+  const b=document.createElement("button"); b.className="stage"; b.innerHTML=`<span class="num">${i+1}</span><strong>${s.name}</strong><small>${s.short}</small>`;
+  b.onclick=()=>renderStage(i); pipeline.appendChild(b);
+});
+renderStage(0);
+
+// Tabs
+document.querySelectorAll(".tab-btn").forEach(btn=>btn.addEventListener("click",()=>{
+  document.querySelectorAll(".tab-btn").forEach(x=>x.classList.remove("active"));
+  document.querySelectorAll(".tab-panel").forEach(x=>x.classList.remove("active"));
+  btn.classList.add("active"); document.getElementById("tab-"+btn.dataset.tab).classList.add("active");
+}));
+
+// Claim lab
+const claimText=document.getElementById("claimText");
+document.getElementById("loadComplex").onclick=()=>{
+ claimText.value="Cette nuit vers 2h, mon véhicule a été retrouvé accidenté dans une rue à Lyon. Je ne me souviens pas précisément des circonstances. Mon passager dit avoir été légèrement blessé et est allé aux urgences. La voiture ne roule plus. Je n’ai pas de constat et les clés ont disparu. Le véhicule avait déjà un choc sur l’avant la semaine dernière.";
+ document.querySelectorAll('input[name="doc"]').forEach(x=>x.checked=false);
+};
+document.getElementById("loadSimple").onclick=()=>{
+ claimText.value="Ce matin sur le parking de mon entreprise, j’ai frotté un poteau en reculant. Il n’y a aucun tiers et personne n’est blessé. Le pare-chocs arrière est rayé, la voiture roule. J’ai pris trois photos.";
+ document.querySelectorAll('input[name="doc"]').forEach(x=>x.checked=x.value==="photos");
+};
+function hasAny(text, words){return words.some(w=>text.includes(w))}
+document.getElementById("analyzeClaim").onclick=()=>{
+ const raw=claimText.value.trim(); const t=raw.toLowerCase();
+ const docs=[...document.querySelectorAll('input[name="doc"]:checked')].map(x=>x.value);
+ const injury=hasAny(t,["bless","urgence","hôpital","hopital","corporel"]);
+ const theft=hasAny(t,["vol","volé","vole","effraction","clés ont disparu","cles ont disparu"]);
+ const glass=hasAny(t,["pare-brise","pare brise","vitre"]);
+ const fire=hasAny(t,["incendie","feu","brûlé","brule"]);
+ const collision=hasAny(t,["touché","touche","collision","accident","heurt","frotté","frotte","choc"]);
+ const third=hasAny(t,["tiers","peugeot","autre véhicule","autre vehicule","passager"]);
+ const notDrivable=hasAny(t,["ne roule plus","non roulant","dépanneuse","depanneuse","immobilisé","immobilise"]);
+ const uncertain=hasAny(t,["ne me souviens","pas précisément","pas precisement","je ne sais pas"]);
+ const prior=hasAny(t,["déjà un choc","deja un choc","semaine dernière","semaine derniere"]);
+ const type=theft?"vol / circonstances atypiques":glass?"bris de glace":fire?"incendie":collision?"collision / dommage matériel":"à qualifier";
+ let complexity="Faible"; let route="Traitement rapide avec contrôle de couverture"; let reasons=[];
+ if(third){complexity="Moyenne";route="Gestionnaire responsabilité";reasons.push("tiers impliqué")}
+ if(notDrivable){complexity="Élevée";route="Assistance + gestionnaire prioritaire";reasons.push("véhicule non roulant")}
+ if(injury){complexity="Élevée";route="Gestionnaire spécialisé dommage corporel";reasons.push("dommage corporel potentiel")}
+ if(theft || uncertain || prior){complexity="Élevée";route="Revue humaine renforcée";reasons.push("circonstances ou historique à clarifier")}
+ const required=["photos"];
+ if(third) required.push("constat");
+ if(theft) required.push("plainte");
+ const missing=required.filter(x=>!docs.includes(x));
+ const inconsist=[];
+ if(t.includes("aucun tiers") && third) inconsist.push("Le récit contient à la fois un indice de tiers et « aucun tiers ».");
+ if(prior) inconsist.push("Dommage antérieur mentionné : distinguer ancien et nouveau dommage.");
+ if(uncertain) inconsist.push("Chronologie ou circonstances insuffisamment certaines.");
+ if(theft && !docs.includes("plainte")) inconsist.push("Vol évoqué sans dépôt de plainte joint.");
+ const confidence=Math.max(58,96-(uncertain?18:0)-(raw.length<80?15:0)-(inconsist.length*5));
+ const result=document.getElementById("claimResult");
+ result.innerHTML=`<h3>Résultat du pré-triage</h3>
+ <div class="result-grid">
+  <div class="result-item"><b>Type estimé</b><br>${type}</div>
+  <div class="result-item"><b>Complexité</b><br>${complexity}</div>
+  <div class="result-item"><b>Orientation</b><br>${route}</div>
+  <div class="result-item"><b>Confiance de structuration</b><br>${confidence}%</div>
+  <div class="result-item"><b>Faits extraits</b><br>${injury?"Blessé potentiel · ":"Aucun blessé identifié · "}${notDrivable?"Non roulant · ":"Roulant · "}${third?"Tiers impliqué":"Pas de tiers identifié"}</div>
+  <div class="result-item"><b>Pièces manquantes</b><br>${missing.length?missing.join(", "):"Aucune pièce critique détectée"}</div>
+ </div>
+ <h3>Incohérences / points de vigilance</h3>
+ <ul class="clean-list">${(inconsist.length?inconsist:["Aucune incohérence évidente détectée par les règles."]).map(x=>`<li>${x}</li>`).join("")}</ul>
+ <div class="callout ${complexity==="Élevée"?"warn":"success"}"><b>Synthèse :</b> ${type}; ${reasons.length?reasons.join(", "):"cas apparemment simple"}. Recommandation : ${route.toLowerCase()}. Toute décision de couverture ou de fraude exige une validation dans le système sinistre.</div>`;
+ result.classList.add("show");
+};
+
+// KPI simulator
+const kpiIds=["claims","digital","complete","straight","minutes","hourly","reopen","leakage"];
+function fmt(n,d=0){return n.toLocaleString("fr-FR",{maximumFractionDigits:d,minimumFractionDigits:d})}
+function updateKpis(){
+ const v={}; kpiIds.forEach(id=>v[id]=parseFloat(document.getElementById(id).value));
+ document.getElementById("claimsV").textContent=fmt(v.claims)+" dossiers";
+ ["digital","complete","straight","reopen"].forEach(id=>document.getElementById(id+"V").textContent=fmt(v[id])+" %");
+ document.getElementById("minutesV").textContent=fmt(v.minutes)+" min";
+ document.getElementById("hourlyV").textContent=fmt(v.hourly)+" € / h";
+ document.getElementById("leakageV").textContent=fmt(v.leakage,1)+" %";
+ const digitalClaims=v.claims*v.digital/100;
+ const completeDigital=digitalClaims*v.complete/100;
+ const auto=v.claims*v.straight/100;
+ const human=v.claims-auto;
+ const baseCost=(v.minutes/60)*v.hourly;
+ const reopenCost=v.reopen/100*baseCost*.65;
+ const costPer=(human/v.claims)*baseCost+reopenCost+3.8;
+ const hoursSaved=auto*v.minutes/60;
+ const reopens=v.claims*v.reopen/100;
+ const leakageIndex=v.leakage*v.claims;
+ const dashboard=[
+  [fmt(digitalClaims),"déclarations digitales",v.digital>=70?"good":"watch"],
+  [fmt(completeDigital),"digitales complètes",v.complete>=75?"good":"watch"],
+  [fmt(auto),"dossiers sans intervention",v.straight>=35?"good":"watch"],
+  [fmt(costPer,2)+" €","coût opérationnel / dossier",costPer<25?"good":costPer<38?"watch":"bad"],
+  [fmt(hoursSaved)+" h","temps humain théorique libéré",v.straight>=30?"good":"watch"],
+  [fmt(reopens),"dossiers réouverts",v.reopen<=5?"good":v.reopen<=10?"watch":"bad"],
+  [fmt(leakageIndex),"indice de leakage-volume",v.leakage<=2?"good":v.leakage<=4?"watch":"bad"],
+  [fmt((v.complete*.35+v.straight*.25+(100-v.reopen)*.25+(100-v.leakage*5)*.15),0)+"/100","score opérationnel composite","watch"]
+ ];
+ document.getElementById("kpiDashboard").innerHTML=dashboard.map(x=>`<div class="metric ${x[2]}"><div class="value">${x[0]}</div><div class="label">${x[1]}</div></div>`).join("");
+}
+kpiIds.forEach(id=>document.getElementById(id).addEventListener("input",updateKpis)); updateKpis();
+
+// Interview cards
+const interviews=[
+ ["Comment digitaliser la déclaration de sinistre ?","Je partirais du parcours et de la taxonomie des cas, pas de la technologie. Je cartographierais les informations minimales par type de sinistre, les urgences, les pièces et les règles d’escalade. Je construirais un parcours progressif, prérempli lorsque possible, avec sauvegarde, contrôle de complétude et visibilité sur la suite. Côté back-office, j’orchestrerais création du dossier, extraction documentaire, contrôle de couverture et routage. Je mesurerais adoption, complétude, abandon, délai et réouverture."],
+ ["Quelle différence entre souscription et underwriting ?","La souscription est le processus contractuel par lequel le client demande puis conclut le contrat : formulaire, déclarations, documents, consentement et signature. L’underwriting est la sélection du risque par l’assureur : accepter, refuser, imposer des conditions, modifier la prime ou transférer à un expert. Dans les parcours simples, les deux semblent fusionnés, mais les responsabilités et règles restent distinctes."],
+ ["Quels cas automatiser en priorité ?","Je privilégierais les cas fréquents, simples, stables, à faible impact et dont la vérité terrain est mesurable. Par exemple la détection de pièces manquantes ou l’orientation d’un bris de glace standard. J’éviterais d’abord les cas corporels, litigieux, à fort montant, avec couverture incertaine ou suspicion de fraude. Je commencerais en shadow mode, puis en copilote, avant un STP limité."],
+ ["Comment mesurer le succès d’un assistant IA ?","Je définirais des métriques par couche : exactitude d’extraction champ par champ, qualité du routage, taux d’abstention, faux positifs fraude, latence et coût technique. Puis des KPI métier : complétude, délai, temps gestionnaire, STP, réouverture, satisfaction et leakage. Enfin des garde-fous : biais par segment, incidents, contestations et proportion d’escalades humaines."],
+ ["Comment éviter qu’un LLM invente des informations ?","Je lui demande de produire un schéma structuré avec la source textuelle de chaque champ, j’interdis l’inférence lorsque l’information manque, j’utilise des validations déterministes et un niveau de confiance. Les procédures sont apportées par RAG avec version et citation. Les champs sensibles sont confirmés par l’utilisateur ou un gestionnaire, et le système s’abstient en dessous d’un seuil."],
+ ["Pourquoi les API sont-elles importantes ?","Elles découplent le canal des capacités métier et permettent d’intégrer distributeurs, experts, réparateurs, paiements et prestataires technologiques. Mais une API ne suffit pas pour un processus long : il faut aussi un workflow, des événements, l’idempotence, la traçabilité et la gestion des erreurs. La gouvernance du contrat d’API est aussi importante que la technologie."],
+ ["Qu’est-ce que le leakage ?","C’est la part du coût de sinistre qui aurait pu être évitée avec une gestion correcte : mauvais montant, franchise oubliée, doublon, délai provoquant un surcoût, recours non exercé, réparation mal négociée ou fraude non détectée. Il faut l’estimer par audit d’échantillons et distinguer leakage évitable, erreur aléatoire et évolution légitime du coût."],
+ ["Que faites-vous en cas de dérive du modèle ?","Je définis avant production des indicateurs, seuils et actions. En cas de dérive, je vérifie d’abord les données et le contexte métier, puis je compare performance récente et baseline par segment. Selon la gravité, on augmente l’échantillonnage humain, relève le seuil d’automatisation, revient à une version antérieure ou suspend le système. Toute action est journalisée et suivie jusqu’à résolution."],
+ ["Comment traiter une suspicion de fraude ?","Le système doit produire un signal explicable et prioriser une investigation, jamais présenter la suspicion comme une preuve. Je limite l’accès, évite d’exposer les règles de détection au client, surveille les faux positifs et mets en place une revue spécialisée. La décision finale doit être documentée, proportionnée et accompagnée des voies de recours prévues."],
+ ["Comment arbitrer vitesse et conformité ?","Je ne les oppose pas. La bonne conception intègre les contrôles dans le flux : données minimales, vérifications automatiques, journalisation, seuils d’autorité et escalades. Les cas simples gagnent en vitesse ; les cas sensibles reçoivent davantage d’attention. L’objectif est une conformité by design plutôt qu’une validation tardive et manuelle de tout le portefeuille."]
+];
+const interviewBox=document.getElementById("interviewCards");
+interviews.forEach((x,i)=>{
+ const c=document.createElement("div"); c.className="interview-card";
+ c.innerHTML=`<b>${i+1}. ${x[0]}</b><div style="margin-top:9px"><button class="secondary">Afficher la réponse</button></div><div class="answer">${x[1]}</div>`;
+ c.querySelector("button").onclick=()=>{c.classList.toggle("open");c.querySelector("button").textContent=c.classList.contains("open")?"Masquer":"Afficher la réponse"};
+ interviewBox.appendChild(c);
+});
+
+// Quiz
+const quiz=[
+ ["Quel est le rôle principal de l’underwriting ?",["Encaisser les primes","Sélectionner et accepter le risque","Payer le sinistre","Créer une campagne marketing"],1,"Il décide si le risque est accepté et à quelles conditions."],
+ ["Quel indicateur mesure les dossiers complets dès l’entrée ?",["STP","Taux de complétude au premier envoi","Churn","Loss ratio"],1,"Il mesure la qualité de la collecte initiale."],
+ ["Le STP désigne…",["Un traitement sans intervention humaine","Une signature électronique","Un type de réassurance","Un protocole de paiement"],0,"Straight-Through Processing : traitement de bout en bout sans intervention."],
+ ["Quel cas doit être escaladé en priorité ?",["Bris de glace simple","Changement d’adresse","Dommage corporel potentiel","Téléchargement d’une attestation"],2,"Les cas corporels sont sensibles, complexes et à fort impact."],
+ ["Une suspicion de fraude est…",["Une preuve définitive","Un motif de non-paiement automatique","Un signal pour investigation","Une exclusion contractuelle"],2,"Le score ou la règle priorise une revue ; il ne prouve pas la fraude."],
+ ["Le leakage correspond surtout…",["Aux clients qui quittent l’assureur","Aux pertes évitables de gestion","Aux primes impayées uniquement","Au coût du cloud"],1,"Il agrège des surcoûts évitables liés aux erreurs et inefficacités."],
+ ["Quel système est la source de vérité du contrat ?",["CRM","Policy Administration System","Chatbot","Data lake"],1,"Le PAS conserve les versions et dates d’effet du contrat."],
+ ["Pourquoi utiliser un workflow ?",["Pour stocker uniquement des PDF","Pour orchestrer tâches, états et escalades","Pour remplacer toutes les API","Pour entraîner un modèle"],1,"Un sinistre est un processus long avec plusieurs états et acteurs."],
+ ["Quel est le meilleur début pour un cas IA ?",["Automatisation intégrale","Shadow mode","Suppression du contrôle humain","Déploiement sur les cas corporels"],1,"Le shadow mode permet de mesurer sans impacter les décisions."],
+ ["Un taux de réouverture élevé peut signaler…",["Une excellente automatisation","Une clôture trop précoce ou incorrecte","Une baisse de volume","Une bonne tarification"],1,"Il révèle souvent un problème de qualité ou de résolution au premier passage."],
+ ["Quelle technologie convient à une pièce obligatoire absente ?",["Moteur de règles","LLM seul","Génération d’image","Clustering"],0,"La règle est explicite, stable et auditable."],
+ ["Le RAG sert principalement à…",["Payer automatiquement","Fonder la réponse sur des sources documentaires","Chiffrer la prime sans données","Créer un identifiant client"],1,"Il récupère des sources pertinentes avant génération."],
+ ["Quel couple doit être lu ensemble ?",["STP et réouverture","Couleur du logo et prime","Nombre d’API et satisfaction","Cloud et franchise"],0,"Le STP sans qualité peut seulement déplacer le travail."],
+ ["L’idempotence évite…",["La dérive des modèles","De traiter deux fois la même requête","La résiliation","Le biais tarifaire"],1,"Une répétition technique ne doit pas créer deux dossiers ou deux paiements."],
+ ["Quelle donnée fixe la couverture applicable ?",["La date d’effet et la version du contrat","La date du dernier login","La couleur du véhicule","Le canal de vente"],0,"La couverture dépend de la version contractuelle en vigueur au moment pertinent."],
+ ["L’AI Act classe à haut risque dans l’assurance…",["Tous les chatbots","Toute détection de fraude","Tarification et évaluation du risque en vie et santé","Tout OCR"],2,"C’est la catégorie assurantielle explicitement visée."],
+ ["Quel contrôle réduit le risque d’hallucination ?",["Température élevée uniquement","Source de chaque champ et abstention","Suppression des logs","Aucun schéma de sortie"],1,"La provenance, le schéma et l’abstention rendent le résultat contrôlable."],
+ ["Quel KPI capte le moment de vérité client ?",["Satisfaction après indemnisation","Nombre de tables SQL","Nombre de modèles","Taux de compression"],0,"L’indemnisation influence fortement confiance et fidélité."],
+ ["Quel est le meilleur North Star pour le pré-triage ?",["Nombre d’appels au LLM","Dossiers simples correctement orientés et complets","Nombre de lignes de code","Taux de suspicion maximal"],1,"Elle relie volume utile, qualité et résultat opérationnel."],
+ ["Une API et un événement sont…",["Toujours identiques","Une requête/réponse et une notification de changement","Deux bases de données","Deux modèles IA"],1,"L’API appelle une capacité ; l’événement annonce qu’un état a changé."]
+];
+let score=0, answered=new Set();
+function renderQuiz(){
+ score=0;answered.clear();document.getElementById("quizScore").textContent=`0 / ${quiz.length}`;
+ const box=document.getElementById("quizContainer");box.innerHTML="";
+ quiz.forEach((q,qi)=>{
+  const d=document.createElement("div");d.className="quiz-question";
+  d.innerHTML=`<b>${qi+1}. ${q[0]}</b><div class="quiz-options"></div><div class="feedback"></div>`;
+  const opts=d.querySelector(".quiz-options");
+  q[1].forEach((o,oi)=>{
+   const b=document.createElement("button");b.className="quiz-option";b.textContent=o;
+   b.onclick=()=>{
+    if(answered.has(qi))return;answered.add(qi);
+    [...opts.children].forEach((x,j)=>{x.disabled=true;if(j===q[2])x.classList.add("correct")});
+    if(oi===q[2])score++;else b.classList.add("wrong");
+    d.querySelector(".feedback").textContent=q[3];
+    document.getElementById("quizScore").textContent=`${score} / ${quiz.length}`;
+   };opts.appendChild(b);
+  });box.appendChild(d);
+ });
+}
+renderQuiz();document.getElementById("resetQuiz").onclick=renderQuiz;
+
+// Study plan
+const plan=[
+ ["Chaîne de valeur","Apprendre les 13 étapes et expliquer les handoffs entre elles."],
+ ["Économie","Maîtriser fréquence, sévérité, loss ratio, ratio combiné, provision et leakage."],
+ ["Parcours digital","Dessiner devis, souscription et déclaration de sinistre omnicanale."],
+ ["Architecture","Expliquer API, événement, workflow, core insurance, idempotence et observabilité."],
+ ["IA","Comparer règles, ML, anomalie, LLM et RAG avec leurs garde-fous."],
+ ["Projet portfolio","Formaliser vision, utilisateurs, workflow, données, API et architecture."],
+ ["KPI","Calculer et interpréter digital, complétude, STP, délai, coût, réouverture et leakage."],
+ ["Gouvernance","Préparer data lineage, équité, explicabilité, supervision humaine et prestataires."],
+ ["Entretien blanc","Répondre à dix questions à voix haute en 60–90 secondes."],
+ ["Restitution","Présenter le cas de pré-triage en 5 minutes sans notes."]
+];
+const planBox=document.getElementById("studyPlan");
+plan.forEach((x,i)=>{
+ const saved=localStorage.getItem("insurance-day-"+i)==="1";
+ const row=document.createElement("label");row.className="study-day";
+ row.innerHTML=`<span class="day-num">${i+1}</span><span><b>${x[0]}</b><br><span class="muted">${x[1]}</span></span><input type="checkbox" ${saved?"checked":""}>`;
+ row.querySelector("input").onchange=e=>localStorage.setItem("insurance-day-"+i,e.target.checked?"1":"0");
+ planBox.appendChild(row);
+});
+
+// Flashcards
+const cards=[
+ ["Souscription vs underwriting","Souscription = formalisation du contrat. Underwriting = évaluation et sélection du risque."],
+ ["API vs événement","API = demande explicite et réponse. Événement = notification qu’un état a changé."],
+ ["STP","Straight-Through Processing : dossier traité sans intervention humaine."],
+ ["Leakage","Coût évitable dû aux erreurs, inefficacités, paiements indus ou recours manqués."],
+ ["Shadow mode","Le système produit une recommandation mesurée, mais sans influencer la décision réelle."],
+ ["Human-in-the-loop","Un humain valide ou reprend les décisions selon seuils, risques et niveau de confiance."],
+ ["FNOL","First Notice of Loss : première déclaration du sinistre."],
+ ["Réouverture","Dossier clos puis rouvert ; signal possible de clôture prématurée ou mauvaise résolution."],
+ ["RAG","Recherche de documents pertinents puis génération fondée sur ces sources."],
+ ["Idempotence","Répéter la même requête ne crée pas d’effet métier supplémentaire."]
+];
+const fbox=document.getElementById("flashcards");
+cards.forEach((x,i)=>{
+ const c=document.createElement("div");c.className="flashcard";c.innerHTML=`<div class="flash-inner"><div class="flash-front"><small>Question ${i+1}</small><h3>${x[0]}</h3><small>Cliquer pour retourner</small></div><div class="flash-back"><small>Réponse</small><p>${x[1]}</p></div></div>`;
+ c.onclick=()=>c.classList.toggle("flipped");fbox.appendChild(c);
+});
+
+// Glossary
+const terms=[
+ ["Acquiring","Activité d’acceptation des paiements pour les commerçants ; terme surtout utilisé en paiement, pas en assurance."],
+ ["Actuaire","Spécialiste de la modélisation des risques, de la tarification et des provisions."],
+ ["Anti-sélection","Situation où les risques élevés souscrivent davantage parce que le tarif distingue mal leur exposition."],
+ ["Avenant","Modification contractuelle en cours de vie du contrat."],
+ ["Combined ratio","Somme du ratio de sinistralité et du ratio de frais."],
+ ["FNOL","First Notice of Loss, première notification d’un sinistre."],
+ ["Franchise","Part du dommage restant à la charge de l’assuré."],
+ ["Fréquence","Nombre ou probabilité de sinistres pour une exposition donnée."],
+ ["GED","Gestion électronique des documents."],
+ ["Indemnisation","Paiement ou prestation exécutant la garantie."],
+ ["Loss ratio","Coût des sinistres rapporté aux primes acquises."],
+ ["Orchestration","Coordination de services, règles, tâches et événements dans un processus."],
+ ["Police","Document matérialisant le contrat et ses conditions."],
+ ["Prime","Prix payé par le souscripteur pour la couverture."],
+ ["Provision","Estimation du coût futur des engagements et sinistres."],
+ ["Réassurance","Transfert d’une partie du risque de l’assureur vers un réassureur."],
+ ["Referral","Dossier envoyé à un niveau d’autorité ou un expert pour décision."],
+ ["Sévérité","Coût moyen d’un sinistre."],
+ ["Sinistre","Événement susceptible de déclencher une garantie."],
+ ["STP","Traitement de bout en bout sans intervention humaine."],
+ ["Triage","Qualification et orientation initiales d’un dossier."],
+ ["Underwriting","Sélection et acceptation du risque selon l’appétit de l’assureur."]
+];
+document.getElementById("glossary").innerHTML=terms.map(x=>`<div class="term"><b>${x[0]}</b><span class="muted">${x[1]}</span></div>`).join("");
+
+// Theme, progress, active nav
+const themeBtn=document.getElementById("themeBtn");
+const storedTheme=localStorage.getItem("insurance-theme");
+if(storedTheme)document.documentElement.dataset.theme=storedTheme;
+themeBtn.onclick=()=>{
+ const next=document.documentElement.dataset.theme==="dark"?"light":"dark";
+ document.documentElement.dataset.theme=next;localStorage.setItem("insurance-theme",next);
+};
+const sections=[...document.querySelectorAll("main [id]")].filter(x=>document.querySelector(`a[href="#${x.id}"]`));
+const navLinks=[...document.querySelectorAll(".nav-link")];
+function onScroll(){
+ const doc=document.documentElement; const progress=(doc.scrollTop/(doc.scrollHeight-doc.clientHeight))*100;
+ document.getElementById("readingProgress").style.width=Math.min(100,progress)+"%";
+ let current="objectifs";sections.forEach(s=>{if(s.getBoundingClientRect().top<150)current=s.id});
+ navLinks.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+current));
+}
+document.addEventListener("scroll",onScroll,{passive:true});onScroll();
+</script>
+</body>
+</html>

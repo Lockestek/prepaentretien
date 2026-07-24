@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Paiements — cours interactif de préparation aux entretiens</title>
+<style>
+:root{
+  --bg:#08111f;--panel:#0f1c30;--panel2:#13233b;--text:#eaf1fb;--muted:#9eb0c8;
+  --accent:#5fe1c2;--accent2:#7ba7ff;--warn:#ffc866;--danger:#ff7d8c;--ok:#70e39a;
+  --line:#263b59;--shadow:0 16px 44px rgba(0,0,0,.28);--radius:18px;
+}
+:root.light{
+  --bg:#eef3f8;--panel:#ffffff;--panel2:#f7f9fc;--text:#17243a;--muted:#5d6b7f;
+  --accent:#087f70;--accent2:#315fce;--warn:#9b6500;--danger:#c7354c;--ok:#13834a;
+  --line:#d7e0eb;--shadow:0 14px 34px rgba(34,56,86,.12);
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 85% -10%,rgba(94,136,255,.17),transparent 30%),radial-gradient(circle at 12% 8%,rgba(95,225,194,.12),transparent 24%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.58}
+a{color:var(--accent2)} button,input,select,textarea{font:inherit}
+button{cursor:pointer}.app{display:grid;grid-template-columns:290px minmax(0,1fr);min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;padding:22px 17px;border-right:1px solid var(--line);background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(16px);overflow:auto;z-index:4}
+.brand{display:flex;gap:12px;align-items:center;margin:2px 5px 20px}.logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#06121f;font-weight:900;box-shadow:var(--shadow)}
+.brand strong{display:block;font-size:15px}.brand span{color:var(--muted);font-size:12px}.progress-box{padding:14px;background:var(--panel);border:1px solid var(--line);border-radius:15px;margin-bottom:16px}.progress-track{height:8px;background:var(--panel2);border-radius:99px;overflow:hidden;margin:10px 0 6px}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:.35s}.small{font-size:12px;color:var(--muted)}
+nav a{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:11px;text-decoration:none;color:var(--muted);font-size:13px;margin:2px 0}nav a:hover,nav a.active{background:var(--panel);color:var(--text)}nav .num{width:23px;height:23px;border:1px solid var(--line);border-radius:8px;display:grid;place-items:center;font-size:11px}
+.side-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}.icon-btn,.btn{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:11px;padding:9px 11px}.icon-btn:hover,.btn:hover{border-color:var(--accent2);transform:translateY(-1px)}
+.main{padding:0 34px 80px;max-width:1420px;width:100%;margin:auto}.hero{padding:62px 0 30px}.eyebrow{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));border-radius:99px;color:var(--accent);font-size:12px;background:color-mix(in srgb,var(--accent) 8%,transparent)}
+h1{font-size:clamp(38px,6vw,75px);line-height:1.02;letter-spacing:-.045em;margin:18px 0 17px;max-width:1050px}.lead{font-size:18px;color:var(--muted);max-width:920px}.hero-grid{display:grid;grid-template-columns:1.5fr .9fr;gap:18px;margin-top:30px}.panel,.module{background:linear-gradient(180deg,color-mix(in srgb,var(--panel) 98%,white 2%),var(--panel));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.panel{padding:20px}.module{padding:28px;margin:24px 0;scroll-margin-top:22px}.module-head{display:flex;gap:15px;align-items:flex-start;margin-bottom:22px}.module-index{min-width:46px;height:46px;border-radius:14px;background:color-mix(in srgb,var(--accent2) 15%,var(--panel2));border:1px solid color-mix(in srgb,var(--accent2) 38%,var(--line));display:grid;place-items:center;color:var(--accent2);font-weight:800}.module h2{margin:0;font-size:28px;letter-spacing:-.025em}.module h3{margin-top:28px}.module-sub{color:var(--muted);margin-top:4px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.grid5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.card{background:var(--panel2);border:1px solid var(--line);border-radius:15px;padding:16px}.card h3,.card h4{margin:0 0 8px}.card p{margin:5px 0;color:var(--muted)}.tag{display:inline-block;padding:3px 8px;border-radius:99px;font-size:11px;border:1px solid var(--line);color:var(--muted);margin:2px}.tag.ok{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 45%,var(--line))}.tag.warn{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 45%,var(--line))}.tag.danger{color:var(--danger);border-color:color-mix(in srgb,var(--danger) 45%,var(--line))}
+.callout{border-left:4px solid var(--accent);padding:14px 16px;background:color-mix(in srgb,var(--accent) 7%,var(--panel2));border-radius:0 13px 13px 0;margin:16px 0}.callout.warn{border-left-color:var(--warn);background:color-mix(in srgb,var(--warn) 7%,var(--panel2))}.callout.danger{border-left-color:var(--danger);background:color-mix(in srgb,var(--danger) 7%,var(--panel2))}.callout strong{display:block;margin-bottom:3px}.definition{display:grid;grid-template-columns:190px 1fr;gap:14px;padding:12px 0;border-bottom:1px dashed var(--line)}.definition:last-child{border-bottom:0}.definition b{color:var(--accent)}
+.checkline{display:flex;align-items:flex-start;gap:10px;margin:9px 0}.checkline input{margin-top:5px;accent-color:var(--accent)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}.tab{border:1px solid var(--line);background:var(--panel2);color:var(--muted);padding:8px 12px;border-radius:10px}.tab.active{background:color-mix(in srgb,var(--accent2) 15%,var(--panel2));border-color:var(--accent2);color:var(--text)}.tab-content{display:none}.tab-content.active{display:block}
+.architecture{display:grid;grid-template-columns:repeat(9,1fr);align-items:center;gap:7px;margin:18px 0;overflow:auto;padding:10px}.actor{min-width:120px;text-align:center;background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:14px 8px}.actor strong{display:block}.arrow{text-align:center;color:var(--accent2);font-size:25px}.actor small{color:var(--muted)}
+.timeline{position:relative;margin:18px 0 4px;padding-left:28px}.timeline:before{content:"";position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:var(--line)}.step{position:relative;padding:0 0 20px 16px}.step:before{content:"";position:absolute;left:-25px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--accent2);box-shadow:0 0 0 5px color-mix(in srgb,var(--accent2) 12%,transparent)}.step strong{display:block}.step span{color:var(--muted)}
+.matrix{width:100%;border-collapse:collapse;font-size:13px}.matrix th,.matrix td{border:1px solid var(--line);padding:10px;vertical-align:top}.matrix th{background:var(--panel2);text-align:left}.matrix td:first-child{font-weight:700;color:var(--accent)}
+.state-machine{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:15px 0}.state{border:1px solid var(--line);background:var(--panel2);border-radius:99px;padding:9px 13px}.state.current{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 12%,transparent)}.state-arrow{color:var(--muted)}
+.sequence-shell{border:1px solid var(--line);border-radius:17px;overflow:hidden;background:var(--panel2)}.sequence-top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}.sequence-lanes{display:grid;grid-template-columns:repeat(5,minmax(130px,1fr));overflow:auto}.lane{min-height:320px;border-right:1px dashed var(--line);padding:12px;position:relative}.lane:last-child{border-right:0}.lane-title{text-align:center;font-size:12px;color:var(--muted);position:sticky;top:0;background:var(--panel2);padding-bottom:9px}.message{display:none;margin-top:var(--top,10px);padding:10px;border-radius:11px;background:var(--panel);border:1px solid var(--line);font-size:12px;animation:pop .25s ease}.message.visible{display:block}.message.ok{border-color:color-mix(in srgb,var(--ok) 45%,var(--line))}.message.fail{border-color:color-mix(in srgb,var(--danger) 50%,var(--line))}.message.warn{border-color:color-mix(in srgb,var(--warn) 50%,var(--line))}@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}.sequence-detail{padding:16px;border-top:1px solid var(--line)}.sequence-controls{display:flex;gap:8px}.step-counter{font-size:12px;color:var(--muted)}
+.kpi{font-size:25px;font-weight:800;color:var(--accent)}.kpi-label{font-size:12px;color:var(--muted)}
+.quiz-q{padding:17px;border:1px solid var(--line);border-radius:15px;margin:12px 0;background:var(--panel2)}.quiz-q h4{margin:0 0 12px}.option{display:block;width:100%;text-align:left;margin:7px 0;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--text)}.option:hover{border-color:var(--accent2)}.option.correct{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 9%,var(--panel))}.option.wrong{border-color:var(--danger);background:color-mix(in srgb,var(--danger) 9%,var(--panel))}.explanation{display:none;color:var(--muted);font-size:13px;margin-top:9px}.explanation.show{display:block}.score-box{text-align:center;padding:22px}.score{font-size:48px;font-weight:900;color:var(--accent)}
+.interview-card{position:relative;min-height:205px;perspective:900px}.flip-inner{position:absolute;inset:0;transition:transform .55s;transform-style:preserve-3d}.interview-card.flipped .flip-inner{transform:rotateY(180deg)}.face{position:absolute;inset:0;backface-visibility:hidden;border:1px solid var(--line);border-radius:15px;padding:20px;background:var(--panel2);display:flex;flex-direction:column;justify-content:center}.back{transform:rotateY(180deg);background:color-mix(in srgb,var(--accent2) 7%,var(--panel2))}.face small{color:var(--muted)}
+.sim-choice{display:grid;gap:8px}.sim-choice button{text-align:left;padding:12px;border:1px solid var(--line);border-radius:11px;background:var(--panel2);color:var(--text)}.sim-choice button:hover{border-color:var(--accent)}.sim-output{min-height:90px;margin-top:13px;padding:14px;border-radius:13px;background:var(--panel2);border:1px dashed var(--line)}
+.code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;background:#050b14;color:#bfe2ff;border-radius:13px;padding:15px;overflow:auto;border:1px solid var(--line)}:root.light .code{background:#edf3fa;color:#14304f}
+.source{padding:12px 0;border-bottom:1px solid var(--line);font-size:13px}.source:last-child{border:0}.source b{display:block}.footer{color:var(--muted);font-size:12px;text-align:center;padding:30px}.mobile-menu{display:none;position:fixed;right:14px;bottom:14px;z-index:9;width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--text);box-shadow:var(--shadow)}
+@media(max-width:1050px){.app{grid-template-columns:1fr}.sidebar{position:fixed;left:-310px;width:290px;transition:.25s;box-shadow:var(--shadow)}.sidebar.open{left:0}.main{padding:0 20px 70px}.mobile-menu{display:block}.hero-grid,.grid3{grid-template-columns:1fr 1fr}.grid5{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:720px){h1{font-size:42px}.hero{padding-top:38px}.hero-grid,.grid2,.grid3,.grid5{grid-template-columns:1fr}.module{padding:20px}.definition{grid-template-columns:1fr;gap:2px}.architecture{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.sequence-lanes{grid-template-columns:repeat(5,165px)}.module h2{font-size:24px}}
+@media print{.sidebar,.mobile-menu,.side-actions,.sequence-controls,.tabs{display:none!important}.app{display:block}.main{max-width:none;padding:0}.module,.panel{box-shadow:none;break-inside:avoid}.tab-content{display:block!important}body{background:white;color:black}.card,.panel,.module,.quiz-q,.face{background:white;color:black}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="logo">€</div><div><strong>Payment Systems Lab</strong><span>Préparation entretien · niveau solide</span></div></div>
+  <div class="progress-box"><b>Progression</b><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><div class="small"><span id="progressText">0</span>% des objectifs cochés</div></div>
+  <nav id="nav">
+    <a href="#fondations"><span class="num">1</span>Fondations</a>
+    <a href="#carte"><span class="num">2</span>Carte bancaire</a>
+    <a href="#cycle"><span class="num">3</span>Cycle d'une carte</a>
+    <a href="#sepa"><span class="num">4</span>SEPA</a>
+    <a href="#iso"><span class="num">5</span>ISO 20022</a>
+    <a href="#reglementation"><span class="num">6</span>DSP2 · DSP3 · PSR</a>
+    <a href="#ingenierie"><span class="num">7</span>Ingénierie critique</a>
+    <a href="#sequences"><span class="num">8</span>3 séquences</a>
+    <a href="#incidents"><span class="num">9</span>Incident & fraude</a>
+    <a href="#entretien"><span class="num">10</span>Entretien</a>
+    <a href="#quiz"><span class="num">11</span>Quiz final</a>
+    <a href="#sources"><span class="num">12</span>Sources</a>
+  </nav>
+  <div class="side-actions"><button class="icon-btn" id="themeBtn">☀︎ Thème</button><button class="icon-btn" onclick="window.print()">⎙ Imprimer</button></div>
+</aside>
+<main class="main">
+<section class="hero">
+  <span class="eyebrow">● Mise à jour réglementaire : 24 juillet 2026</span>
+  <h1>Comprendre les paiements comme un système distribué critique.</h1>
+  <p class="lead">Un parcours conçu pour te permettre d'expliquer les flux, raisonner sur les états, diagnostiquer un incident et relier ton expérience des API et systèmes embarqués aux métiers bancaires.</p>
+  <div class="hero-grid">
+    <div class="panel">
+      <h3 style="margin-top:0">Objectif d'entretien</h3>
+      <p>À la fin, tu dois pouvoir prendre un paiement inconnu et répondre méthodiquement : <b>qui agit, quel message circule, quel contrôle décide, quel état est persisté, qui porte le risque, comment prouver ce qui s'est passé et comment réparer.</b></p>
+      <div class="grid3">
+        <div><div class="kpi">5</div><div class="kpi-label">acteurs carte à situer</div></div>
+        <div><div class="kpi">3</div><div class="kpi-label">rails SEPA à distinguer</div></div>
+        <div><div class="kpi">10 s</div><div class="kpi-label">contrainte du SCT Inst</div></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3 style="margin-top:0">Ton angle de crédibilité</h3>
+      <p class="small">Tu ne prétends pas avoir dix ans de banque. Tu montres que tu sais transférer des compétences de systèmes critiques.</p>
+      <span class="tag ok">API contractuelles</span><span class="tag ok">machines à états</span><span class="tag ok">traçabilité</span><span class="tag ok">validation</span><span class="tag ok">incidents</span><span class="tag ok">coordination multi-acteurs</span>
+    </div>
+  </div>
+</section>
+
+<section class="module" id="fondations">
+ <div class="module-head"><div class="module-index">01</div><div><h2>Le modèle mental fondamental</h2><div class="module-sub">Un paiement n'est pas un simple appel API : c'est un transfert de valeur soumis à des règles, des délais et des preuves.</div></div></div>
+ <div class="grid2">
+  <div class="card"><h3>Les 4 plans</h3>
+   <div class="definition"><b>Expérience client</b><span>Le bouton « payer », l'affichage du statut, les notifications et la gestion des erreurs.</span></div>
+   <div class="definition"><b>Orchestration</b><span>Routage, contrôles, machine à états, retries, timeouts, compensation.</span></div>
+   <div class="definition"><b>Rail de paiement</b><span>Réseau carte, mécanisme de clearing, système de règlement, schéma SEPA.</span></div>
+   <div class="definition"><b>Comptabilité</b><span>Réservation, débit, crédit, frais, comptes d'attente, rapprochement et preuve financière.</span></div>
+  </div>
+  <div class="card"><h3>La question qui évite 80 % des erreurs</h3><p><b>« Est-ce que je parle du transport du message, de la décision métier, de la comptabilisation ou du règlement final ? »</b></p><p>Un message « accepté » peut seulement signifier qu'il est techniquement reçu. Une autorisation carte n'est pas encore le règlement au commerçant. Un virement envoyé n'est pas nécessairement crédité. Une interface peut afficher un statut obsolète alors que le ledger a changé.</p></div>
+ </div>
+ <div class="callout"><strong>Phrase d'entretien</strong>« Je sépare toujours l'état métier de l'état technique. Un HTTP 200 prouve que l'API a répondu, pas que la valeur a été définitivement transférée. »</div>
+ <h3>Les invariants à protéger</h3>
+ <div class="grid3">
+  <div class="card"><h4>Conservation de valeur</h4><p>Pas de création ou disparition d'argent entre les ledgers, comptes de règlement et écritures de frais.</p></div>
+  <div class="card"><h4>Unicité économique</h4><p>Un retry réseau ne doit pas produire deux débits. On vise un effet économique unique, même si plusieurs messages sont reçus.</p></div>
+  <div class="card"><h4>Auditabilité</h4><p>Toute décision doit être reconstruisible : demande, contexte, règle, réponse, acteur, horodatage et version.</p></div>
+ </div>
+ <label class="checkline"><input type="checkbox" class="learn-check" data-id="f1"><span>Je sais expliquer pourquoi « exactement une fois » est un objectif métier, pas une garantie réseau.</span></label>
+ <label class="checkline"><input type="checkbox" class="learn-check" data-id="f2"><span>Je distingue autorisation, mouvement comptable et règlement interbancaire.</span></label>
+</section>
+
+<section class="module" id="carte">
+ <div class="module-head"><div class="module-index">02</div><div><h2>Architecture métier d'un paiement carte</h2><div class="module-sub">Le modèle à cinq acteurs, puis les prestataires techniques qui peuvent s'intercaler.</div></div></div>
+ <div class="architecture">
+  <div class="actor"><strong>Porteur</strong><small>utilise la carte</small></div><div class="arrow">→</div>
+  <div class="actor"><strong>Commerçant</strong><small>accepte le paiement</small></div><div class="arrow">→</div>
+  <div class="actor"><strong>Acquéreur</strong><small>sert le commerçant</small></div><div class="arrow">⇄</div>
+  <div class="actor"><strong>Réseau carte</strong><small>règles & routage</small></div><div class="arrow">⇄</div>
+  <div class="actor"><strong>Émetteur</strong><small>sert le porteur</small></div>
+ </div>
+ <div class="grid5">
+  <div class="card"><h4>Porteur</h4><p>S'authentifie, consent, reçoit l'information et peut contester.</p></div>
+  <div class="card"><h4>Commerçant</h4><p>Déclenche l'acceptation, livre le bien et conserve les preuves.</p></div>
+  <div class="card"><h4>Acquéreur</h4><p>Onboarde le commerçant, collecte les transactions et lui reverse les fonds.</p></div>
+  <div class="card"><h4>Réseau</h4><p>Routage, règles, standards, calcul de positions et mécanismes de litige.</p></div>
+  <div class="card"><h4>Émetteur</h4><p>Émet la carte, authentifie, autorise, débite et gère le risque porteur.</p></div>
+ </div>
+ <div class="callout warn"><strong>Dans la vraie vie</strong>Une passerelle de paiement, un processeur, un orchestrateur, un token service provider ou un prestataire 3-D Secure peut s'intercaler. En entretien, commence par le modèle à cinq acteurs, puis ajoute ces couches uniquement si elles sont utiles.</div>
+ <h3>Issuing vs acquiring</h3>
+ <table class="matrix"><thead><tr><th></th><th>Issuing</th><th>Acquiring</th></tr></thead><tbody>
+  <tr><td>Client principal</td><td>Le porteur de carte</td><td>Le commerçant</td></tr>
+  <tr><td>Responsabilités</td><td>Émission, authentification, autorisation, limite, relevé, contestation</td><td>Acceptation, terminal/API, collecte, paiement du commerçant, risque marchand</td></tr>
+  <tr><td>Risques typiques</td><td>Fraude porteur, crédit, compromission, faux positif</td><td>Fraude marchand, chargebacks, blanchiment, faillite avant livraison</td></tr>
+  <tr><td>KPI</td><td>Taux d'autorisation, fraude, activation, coût de service</td><td>Taux d'acceptation, disponibilité, chargeback ratio, délai de versement</td></tr>
+ </tbody></table>
+ <label class="checkline"><input type="checkbox" class="learn-check" data-id="c1"><span>Je peux dessiner les cinq acteurs sans support.</span></label>
+ <label class="checkline"><input type="checkbox" class="learn-check" data-id="c2"><span>Je peux expliquer qui est le client de l'émetteur et qui est le client de l'acquéreur.</span></label>
+</section>
+
+<section class="module" id="cycle">
+ <div class="module-head"><div class="module-index">03</div><div><h2>Autorisation, clearing, settlement et après-vente</h2><div class="module-sub">Ne jamais confondre la décision temps réel avec le transfert financier final.</div></div></div>
+ <div class="tabs" data-tabs="cycleTabs">
+  <button class="tab active" data-target="auth">Autorisation</button><button class="tab" data-target="clearing">Clearing</button><button class="tab" data-target="settlement">Settlement</button><button class="tab" data-target="chargeback">Chargeback</button><button class="tab" data-target="reco">Réconciliation</button>
+ </div>
+ <div id="auth" class="tab-content active cycleTabs">
+  <div class="grid2"><div class="card"><h3>But</h3><p>Décider en quelques centaines de millisecondes ou secondes si l'opération peut être acceptée. L'émetteur vérifie notamment la validité, les fonds ou la limite, les règles de risque et le besoin d'authentification.</p></div><div class="card"><h3>Résultat</h3><p>Approbation avec code d'autorisation, refus avec code de motif, ou demande d'action supplémentaire. Une réservation peut être créée ; ce n'est pas encore le débit définitif.</p></div></div>
+ </div>
+ <div id="clearing" class="tab-content cycleTabs"><div class="callout"><strong>Clearing</strong>Échange des transactions financières et calcul des obligations entre participants. Le montant final peut différer de l'autorisation : pourboire, carburant, hôtel, conversion ou ajustement.</div><p>Le clearing associe la transaction présentée par le commerçant à l'autorisation et prépare les positions. Les fichiers ou messages contiennent les références nécessaires à la facturation, aux frais et aux litiges.</p></div>
+ <div id="settlement" class="tab-content cycleTabs"><div class="callout"><strong>Settlement</strong>Règlement financier des positions entre institutions, souvent en net, puis versement au commerçant selon son contrat acquéreur.</div><p>La finalité dépend du système de règlement. Les écritures de comptes clients, de comptes internes et de trésorerie doivent être cohérentes avec le règlement.</p></div>
+ <div id="chargeback" class="tab-content cycleTabs"><p>Le chargeback est une rétrofacturation encadrée par les règles du réseau. Le porteur conteste, l'émetteur qualifie le motif, l'acquéreur sollicite le commerçant, puis les parties échangent des preuves. Ce n'est pas un simple « remboursement API ».</p><div class="state-machine"><span class="state">Contestation</span><span class="state-arrow">→</span><span class="state">Qualification</span><span class="state-arrow">→</span><span class="state">Chargeback</span><span class="state-arrow">→</span><span class="state">Représentation</span><span class="state-arrow">→</span><span class="state">Décision</span></div></div>
+ <div id="reco" class="tab-content cycleTabs"><p>La réconciliation rapproche plusieurs vérités : demandes d'autorisation, captures, clearing réseau, règlement, ledger, versements marchands et frais. Les écarts sont placés dans des files d'exception avec propriétaire, ancienneté et règle de résolution.</p><div class="code">clé de rapprochement ≈ réseau + identifiant transaction + date + montant + devise + marchand
+écarts typiques = doublon | capture sans autorisation | montant différent | settlement manquant | frais inattendus</div></div>
+ <h3>La machine à états carte</h3>
+ <div class="state-machine" id="cardStates"><button class="state current">CREATED</button><span class="state-arrow">→</span><button class="state">AUTHORIZED</button><span class="state-arrow">→</span><button class="state">CAPTURED</button><span class="state-arrow">→</span><button class="state">CLEARED</button><span class="state-arrow">→</span><button class="state">SETTLED</button><span class="state-arrow">→</span><button class="state">RECONCILED</button></div>
+ <div class="callout danger"><strong>Cas d'entretien classique : timeout après autorisation</strong>Le commerçant n'a pas reçu la réponse, mais l'émetteur a peut-être approuvé. Il ne faut pas relancer aveuglément avec un nouvel identifiant. On réutilise l'idempotency key, on interroge le statut si possible, on envoie une reversal selon le protocole et on réconcilie l'ambiguïté.</div>
+ <label class="checkline"><input type="checkbox" class="learn-check" data-id="cy1"><span>Je sais expliquer pourquoi une autorisation approuvée n'est pas encore un settlement.</span></label>
+ <label class="checkline"><input type="checkbox" class="learn-check" data-id="cy2"><span>Je sais traiter un timeout au statut ambigu sans créer un double débit.</span></label>
+</section>
+
+<section class="module" id="sepa">
+ <div class="module-head"><div class="module-index">04</div><div><h2>Virements et prélèvements SEPA</h2><div class="module-sub">Trois schémas, des acteurs communs, des temporalités et des droits différents.</div></div></div>
+ <div class="grid3">
+  <div class="card"><span class="tag">SCT</span><h3>SEPA Credit Transfer</h3><p>Virement initié par le débiteur. Traitement non instantané, souvent en cycles ou fenêtres de clearing. Adapté aux paiements ordinaires.</p></div>
+  <div class="card"><span class="tag ok">SCT Inst</span><h3>SEPA Instant</h3><p>Virement en euros 24/7/365 avec disponibilité des fonds en principe sous dix secondes. La décision fraude doit donc être automatisée et prise avant l'envoi.</p></div>
+  <div class="card"><span class="tag warn">SDD</span><h3>SEPA Direct Debit</h3><p>Prélèvement initié par le créancier sur la base d'un mandat. Core vise notamment les consommateurs ; B2B suit des règles distinctes.</p></div>
+ </div>
+ <h3>Acteurs</h3>
+ <div class="architecture" style="grid-template-columns:repeat(7,1fr)">
+  <div class="actor"><strong>Débiteur</strong><small>paye</small></div><div class="arrow">↔</div><div class="actor"><strong>PSP débiteur</strong><small>teneur du compte</small></div><div class="arrow">⇄</div><div class="actor"><strong>CSM</strong><small>clearing / settlement</small></div><div class="arrow">⇄</div><div class="actor"><strong>PSP créancier</strong><small>reçoit</small></div>
+ </div>
+ <div class="callout"><strong>PSP</strong>Payment Service Provider : banque, établissement de paiement ou autre prestataire autorisé qui fournit le service de paiement. Le CSM est le mécanisme de clearing et settlement ; il n'est pas nécessairement une seule plateforme.</div>
+ <h3>Initiation → validation → compensation → règlement</h3>
+ <div class="timeline">
+  <div class="step"><strong>1. Initiation</strong><span>Le client ou le créancier fournit l'ordre et les données : compte, montant, devise, bénéficiaire, référence et date.</span></div>
+  <div class="step"><strong>2. Validation</strong><span>Format, droits, authentification, disponibilité, sanctions, fraude, doublons, limites et cohérence.</span></div>
+  <div class="step"><strong>3. Compensation</strong><span>Échange inter-PSP, validation du schéma et calcul ou préparation des obligations.</span></div>
+  <div class="step"><strong>4. Règlement</strong><span>Transfert final entre participants, puis comptabilisation et information des clients.</span></div>
+  <div class="step"><strong>5. Réconciliation</strong><span>Rapprochement des messages, du ledger, des comptes de règlement et des retours.</span></div>
+ </div>
+ <h3>Rejet, retour, recall, remboursement</h3>
+ <table class="matrix"><thead><tr><th>Terme</th><th>Moment</th><th>Sens</th><th>Idée clé</th></tr></thead><tbody>
+  <tr><td>Rejet</td><td>Avant exécution ou settlement</td><td>Le paiement n'aboutit pas</td><td>Format, compte, fonds, contrôle ou règle du schéma.</td></tr>
+  <tr><td>Retour</td><td>Après une étape d'exécution</td><td>Les fonds repartent vers l'origine</td><td>Par exemple compte clos ou impossibilité de créditer.</td></tr>
+  <tr><td>Recall</td><td>Après envoi d'un virement</td><td>Demande de récupération</td><td>Ce n'est pas une annulation garantie ; le résultat dépend du statut et de la coopération en aval.</td></tr>
+  <tr><td>Remboursement</td><td>Selon droits et schéma</td><td>Restitution au payeur</td><td>En SDD Core, les droits du débiteur sont plus structurants que dans un virement poussé.</td></tr>
+ </tbody></table>
+ <div class="callout warn"><strong>Point important pour le SDD Core</strong>Le débiteur consommateur bénéficie, dans le cadre général européen, d'un droit de remboursement sans justification pendant huit semaines pour un prélèvement autorisé ; les opérations non autorisées suivent un délai plus long, sous conditions. En entretien, distingue ce droit d'un rejet technique.</div>
+ <label class="checkline"><input type="checkbox" class="learn-check" data-id="s1"><span>Je distingue un virement poussé par le débiteur d'un prélèvement tiré par le créancier.</span></label>
+ <label class="checkline"><input type="checkbox" class="learn-check" data-id="s2"><span>Je sais expliquer pourquoi un recall n'est pas une garantie de récupération.</span></label>
+</section>
+
+<section class="module" id="iso">
+ <div class="module-head"><div class="module-index">05</div><div><h2>ISO 20022 au niveau conceptuel</h2><div class="module-sub">Un langage métier commun, pas seulement « du XML ».</div></div></div>
+ <div class="grid2">
+  <div class="card"><h3>Ce que c'est</h3><p>Un standard de modélisation de messages financiers avec un dictionnaire de données, des processus métier et des définitions de messages. La syntaxe XML est fréquente, mais l'essentiel est la sémantique partagée.</p></div>
+  <div class="card"><h3>Pourquoi c'est utile</h3><p>Données plus riches, contrôles plus précis, automatisation du rapprochement, meilleure traçabilité et interopérabilité. Mais chaque schéma définit son profil d'usage et ses contraintes.</p></div>
+ </div>
+ <h3>Familles à reconnaître</h3>
+ <table class="matrix"><thead><tr><th>Préfixe</th><th>Zone</th><th>Exemples conceptuels</th></tr></thead><tbody>
+  <tr><td>pain</td><td>Payment initiation</td><td>Client → banque : ordre de paiement, statut client.</td></tr>
+  <tr><td>pacs</td><td>Payments clearing & settlement</td><td>Banque → banque / infrastructure : transfert et statut interbancaire.</td></tr>
+  <tr><td>camt</td><td>Cash management</td><td>Relevés, notifications, investigation, demandes d'annulation ou réponses.</td></tr>
+ </tbody></table>
+ <div class="code">Exemple de chaîne conceptuelle SCT Inst
+pain.001 : ordre client (selon canal / implémentation)
+VOP API  : vérification nom ↔ IBAN avant confirmation
+pacs.008 : transfert interbancaire
+pacs.002 : statut du transfert
+camt.056 : demande de rappel / annulation après incident
+camt.029 : réponse d'investigation
+
+À retenir : le message exact dépend du schéma, de la version et de l'infrastructure.</div>
+ <div class="callout"><strong>Réponse d'entretien</strong>« ISO 20022 définit un modèle de données et des messages. Le rulebook SEPA précise comment ces messages sont utilisés dans un schéma. L'infrastructure réalise ensuite le transport, le clearing et/ou le settlement. »</div>
+ <label class="checkline"><input type="checkbox" class="learn-check" data-id="i1"><span>Je sais expliquer pourquoi ISO 20022 n'est pas équivalent à SEPA.</span></label>
+</section>
+
+<section class="module" id="reglementation">
+ <div class="module-head"><div class="module-index">06</div><div><h2>DSP2, DSP3, PSR, IPR et DORA</h2><div class="module-sub">Savoir situer les textes sans prétendre qu'une proposition est déjà applicable.</div></div></div>
+ <div class="grid3">
+  <div class="card"><span class="tag ok">Applicable</span><h3>DSP2 / PSD2</h3><p>Socle actuel des services de paiement : droits et obligations, ouverture des comptes aux TPP, authentification forte, sécurité et responsabilité.</p></div>
+  <div class="card"><span class="tag warn">Paquet en finalisation</span><h3>DSP3 / PSD3</h3><p>Future directive centrée notamment sur l'agrément et la supervision des établissements de paiement et de monnaie électronique.</p></div>
+  <div class="card"><span class="tag warn">Paquet en finalisation</span><h3>PSR</h3><p>Futur règlement directement applicable portant davantage les règles de conduite, la lutte contre la fraude, la transparence et l'open banking.</p></div>
+ </div>
+ <div class="callout warn"><strong>État au 24 juillet 2026</strong>Un accord politique Conseil–Parlement a été annoncé le 27 novembre 2025 et des textes de compromis finaux ont été confirmés au Conseil en avril 2026. Tant que les actes finaux ne sont pas formellement publiés avec leurs dates d'application, parle de « futur cadre » et garde la DSP2 comme socle applicable.</div>
+ <div class="grid2">
+  <div class="card"><h3>Instant Payments Regulation</h3><p>Texte distinct, déjà en vigueur. Il impose progressivement l'envoi et la réception de virements instantanés en euros, des frais non supérieurs aux virements ordinaires comparables et une vérification du bénéficiaire. Pour les banques de la zone euro, les principales échéances d'envoi/réception sont passées en 2025.</p></div>
+  <div class="card"><h3>DORA</h3><p>Cadre de résilience opérationnelle numérique applicable depuis janvier 2025 : gouvernance du risque ICT, incidents, tests de résilience, tiers technologiques et partage d'information. Pour un poste paiements, il renforce l'importance des runbooks et des preuves.</p></div>
+ </div>
+ <h3>DSP2 : ce qu'un recruteur attend</h3>
+ <div class="grid3">
+  <div class="card"><h4>SCA</h4><p>Authentification forte reposant sur au moins deux catégories indépendantes : connaissance, possession, inhérence, avec liaison dynamique lorsque requise.</p></div>
+  <div class="card"><h4>Open banking</h4><p>AISP accède à l'information de compte ; PISP initie un paiement avec consentement. L'ASPSP tient le compte et expose une interface sécurisée.</p></div>
+  <div class="card"><h4>Responsabilité</h4><p>La question n'est pas seulement « qui a codé ? » mais « qui avait l'obligation de prévenir, détecter, informer et rembourser ? ».</p></div>
+ </div>
+ <label class="checkline"><input type="checkbox" class="learn-check" data-id="r1"><span>Je présente DSP3/PSR comme un futur cadre, pas comme une réglementation déjà pleinement applicable.</span></label>
+</section>
+
+<section class="module" id="ingenierie">
+ <div class="module-head"><div class="module-index">07</div><div><h2>API, systèmes distribués et processus critiques</h2><div class="module-sub">Les compétences techniques qui te rendent crédible dans un entretien paiements.</div></div></div>
+ <div class="grid2">
+  <div class="card"><h3>Contrat API</h3><p>Versionnement, schéma, validation, authentification, autorisation, idempotency key, correlation ID, codes d'erreur stables, SLA, quotas et politique de retry.</p><div class="code">POST /payments
+Idempotency-Key: 7f52…
+X-Correlation-Id: interview-demo-42
+
+202 Accepted ≠ paiement final
+GET /payments/{id} → état métier</div></div>
+  <div class="card"><h3>Système distribué</h3><p>Messages perdus, dupliqués, retardés ou réordonnés ; horloges différentes ; dépendances indisponibles ; état partiellement propagé. On conçoit pour l'ambiguïté.</p><p><span class="tag">outbox</span><span class="tag">dedup</span><span class="tag">retry borné</span><span class="tag">dead-letter</span><span class="tag">reconciliation</span></p></div>
+  <div class="card"><h3>Cybersécurité</h3><p>Authentification forte, mTLS, signature, chiffrement, tokenisation, HSM, moindre privilège, segmentation, rotation de secrets, anti-rejeu, détection de fraude et protection des données sensibles.</p></div>
+  <div class="card"><h3>Traçabilité</h3><p>Logs techniques + journal métier + ledger. Les logs ne remplacent pas l'écriture comptable. Les données sensibles doivent être masquées, avec intégrité, rétention et accès contrôlé.</p></div>
+ </div>
+ <h3>Machine à états robuste</h3>
+ <div class="code">CREATED → VALIDATING → READY → SENT → ACCEPTED → SETTLED → RECONCILED
+                ↘ REJECTED          ↘ RETURNED
+                ↘ REVIEW_REQUIRED   ↘ RECALL_REQUESTED → RECOVERED | NOT_RECOVERED
+
+Règle : chaque transition a un déclencheur, une garde, un effet, une preuve et un propriétaire.</div>
+ <h3>Ce qu'il faut dire sur l'idempotence</h3>
+ <div class="callout"><strong>Formulation crédible</strong>« Le réseau peut livrer plusieurs fois. L'API accepte donc une clé d'idempotence liée à l'intention économique. Le service persiste le résultat avant de répondre, rejoue la même réponse pour la même clé et déclenche une alerte si la clé est réutilisée avec un payload différent. »</div>
+ <h3>Pont avec ton expérience</h3>
+ <table class="matrix"><thead><tr><th>Ton vécu</th><th>Traduction paiements</th><th>Preuve à raconter</th></tr></thead><tbody>
+  <tr><td>API commune véhicule</td><td>Contrats inter-systèmes, compatibilité, versionnement, erreurs</td><td>Comment tu as aligné producteurs, consommateurs et critères d'acceptation.</td></tr>
+  <tr><td>Architecture distribuée / ECU</td><td>Timeouts, états partiels, ordre des messages, reprise</td><td>Un défaut difficile reproduit grâce aux traces et à une chronologie.</td></tr>
+  <tr><td>Validation pilote</td><td>Tests end-to-end, non-régression, critères de go/no-go</td><td>Comment tu as transformé un risque terrain en scénario de test.</td></tr>
+  <tr><td>Projet critique multi-acteurs</td><td>Incident, escalade, RACI, communication</td><td>Une décision sous contrainte avec responsabilités explicites.</td></tr>
+ </tbody></table>
+ <label class="checkline"><input type="checkbox" class="learn-check" data-id="e1"><span>Je peux donner un exemple personnel d'idempotence, timeout ou reprise.</span></label>
+ <label class="checkline"><input type="checkbox" class="learn-check" data-id="e2"><span>Je peux expliquer la différence entre logs, audit trail et ledger.</span></label>
+</section>
+
+<section class="module" id="sequences">
+ <div class="module-head"><div class="module-index">08</div><div><h2>Trois séquences à maîtriser</h2><div class="module-sub">Avance pas à pas. Pour chaque scénario, verbalise acteurs, message, contrôle, donnée, erreur, incident, KPI et responsabilité.</div></div></div>
+ <div class="tabs" data-tabs="seqTabs"><button class="tab active" data-target="seq-ok">Carte acceptée</button><button class="tab" data-target="seq-ko">Carte refusée</button><button class="tab" data-target="seq-suspect">Instant suspect</button></div>
+
+ <div id="seq-ok" class="tab-content active seqTabs">
+  <div class="sequence-shell" data-sequence="accepted">
+   <div class="sequence-top"><div><b>Paiement carte accepté</b><div class="step-counter">Étape <span class="seq-num">1</span>/6</div></div><div class="sequence-controls"><button class="btn seq-prev">←</button><button class="btn seq-next">Suivant →</button></div></div>
+   <div class="sequence-lanes">
+    <div class="lane"><div class="lane-title">Porteur</div><div class="message ok" data-step="1">Présente carte / confirme 42 €</div><div class="message ok" data-step="6">Reçoit confirmation</div></div>
+    <div class="lane"><div class="lane-title">Commerçant</div><div class="message" data-step="1">Crée intention + identifiant</div><div class="message ok" data-step="5">Affiche « accepté » et livre</div></div>
+    <div class="lane"><div class="lane-title">Acquéreur</div><div class="message" data-step="2">Valide marchand, terminal, format</div><div class="message ok" data-step="5">Transmet réponse</div></div>
+    <div class="lane"><div class="lane-title">Réseau</div><div class="message" data-step="3">Route vers l'émetteur</div><div class="message ok" data-step="5">Route l'approbation</div></div>
+    <div class="lane"><div class="lane-title">Émetteur</div><div class="message" data-step="4">Fonds, carte, risque, SCA/CVM</div><div class="message ok" data-step="4">Réserve 42 € + code autorisation</div></div>
+   </div>
+   <div class="sequence-detail"><b class="seq-title"></b><p class="seq-text"></p></div>
+  </div>
+  <table class="matrix"><tbody><tr><td>Messages</td><td>Demande d'autorisation, réponse avec décision et code ; clearing et settlement suivent plus tard.</td></tr><tr><td>Données</td><td>Montant, devise, token/PAN protégé, marchand, terminal, contexte d'authentification, horodatage, identifiants.</td></tr><tr><td>Contrôles</td><td>Validité carte, solde/limite, vélocité, fraude, statut marchand, authentification, anti-rejeu.</td></tr><tr><td>Erreurs</td><td>Timeout, doublon, réponse tardive, capture différente, indisponibilité réseau.</td></tr><tr><td>KPI</td><td>Taux d'autorisation, p95/p99 latence, disponibilité, taux de timeout, fraude, faux positifs.</td></tr><tr><td>Responsabilité</td><td>Émetteur décide l'autorisation ; acquéreur sert le marchand ; commerçant conserve la preuve de vente.</td></tr></tbody></table>
+ </div>
+
+ <div id="seq-ko" class="tab-content seqTabs">
+  <div class="sequence-shell" data-sequence="declined">
+   <div class="sequence-top"><div><b>Paiement carte refusé</b><div class="step-counter">Étape <span class="seq-num">1</span>/6</div></div><div class="sequence-controls"><button class="btn seq-prev">←</button><button class="btn seq-next">Suivant →</button></div></div>
+   <div class="sequence-lanes">
+    <div class="lane"><div class="lane-title">Porteur</div><div class="message" data-step="1">Tente un paiement de 900 €</div><div class="message fail" data-step="6">Message neutre + option alternative</div></div>
+    <div class="lane"><div class="lane-title">Commerçant</div><div class="message" data-step="1">Envoie l'autorisation</div><div class="message fail" data-step="5">Ne livre pas / ne capture pas</div></div>
+    <div class="lane"><div class="lane-title">Acquéreur</div><div class="message" data-step="2">Contrôles techniques</div><div class="message fail" data-step="5">Transmet le refus</div></div>
+    <div class="lane"><div class="lane-title">Réseau</div><div class="message" data-step="3">Route</div><div class="message fail" data-step="5">Code de réponse normalisé</div></div>
+    <div class="lane"><div class="lane-title">Émetteur</div><div class="message warn" data-step="4">Risque élevé / limite dépassée</div><div class="message fail" data-step="4">Refuse, journalise le motif</div></div>
+   </div>
+   <div class="sequence-detail"><b class="seq-title"></b><p class="seq-text"></p></div>
+  </div>
+  <div class="callout danger"><strong>Ne pas divulguer trop d'information</strong>Le commerçant reçoit un motif exploitable mais pas forcément la règle fraude détaillée. Une réponse trop précise aide l'attaquant à contourner les contrôles.</div>
+  <table class="matrix"><tbody><tr><td>Incident</td><td>Si le taux de refus explose, segmenter par émetteur, BIN, pays, terminal, version, règle fraude et code réseau. Vérifier une régression avant d'assouplir le risque.</td></tr><tr><td>KPI</td><td>Approval rate ajusté au mix, soft vs hard decline, faux positif, conversion après retry légitime, taux de support.</td></tr><tr><td>Responsabilité</td><td>La banque émettrice porte la décision de refus ; le commerçant gère l'expérience et ne doit pas promettre que les fonds sont débités.</td></tr></tbody></table>
+ </div>
+
+ <div id="seq-suspect" class="tab-content seqTabs">
+  <div class="sequence-shell" data-sequence="suspect">
+   <div class="sequence-top"><div><b>Virement instantané suspect</b><div class="step-counter">Étape <span class="seq-num">1</span>/7</div></div><div class="sequence-controls"><button class="btn seq-prev">←</button><button class="btn seq-next">Suivant →</button></div></div>
+   <div class="sequence-lanes">
+    <div class="lane"><div class="lane-title">Client</div><div class="message" data-step="1">Initie 8 500 € vers nouveau bénéficiaire</div><div class="message warn" data-step="5">Step-up ou avertissement fraude</div><div class="message fail" data-step="7">Informé : non exécuté / revue</div></div>
+    <div class="lane"><div class="lane-title">PSP payeur</div><div class="message" data-step="2">Vérifie droits, fonds, limites</div><div class="message warn" data-step="4">Score fraude : device + vélocité + bénéficiaire</div><div class="message fail" data-step="6">Décide avant pacs.008</div></div>
+    <div class="lane"><div class="lane-title">VOP</div><div class="message warn" data-step="3">Nom ↔ IBAN : correspondance partielle</div></div>
+    <div class="lane"><div class="lane-title">CSM / TIPS</div><div class="message" data-step="6">Aucun message envoyé si blocage</div></div>
+    <div class="lane"><div class="lane-title">PSP bénéficiaire</div><div class="message" data-step="6">Aucun crédit tant que non envoyé</div></div>
+   </div>
+   <div class="sequence-detail"><b class="seq-title"></b><p class="seq-text"></p></div>
+  </div>
+  <div class="callout warn"><strong>Contrainte de conception</strong>Une revue manuelle systématique n'est pas compatible avec le délai instantané. La stratégie doit combiner contrôles temps réel, step-up rapide, seuils, refus ciblé et traitement post-incident. Une fois le virement réglé, un recall peut être demandé mais n'assure pas la récupération.</div>
+  <table class="matrix"><tbody><tr><td>Données</td><td>Identité, bénéficiaire, résultat VOP, device, IP, géolocalisation approximative, ancienneté relation, historique, montant, fréquence et signaux de compromission.</td></tr><tr><td>Contrôles</td><td>SCA, VOP, sanctions, AML, fraude comportementale, limites, nouveau bénéficiaire, changement de device, politique de step-up.</td></tr><tr><td>Incident</td><td>Créer un cas fraude, préserver les traces, bloquer si base légale et règle interne, contacter le client, lancer recall si déjà parti, notifier et déclarer selon obligations.</td></tr><tr><td>KPI</td><td>Fraude évitée, faux positifs, abandon, temps de décision, recall recovery rate, pertes nettes, taux de VOP mismatch.</td></tr><tr><td>Responsabilité</td><td>Le PSP du payeur doit exécuter les contrôles prévus et informer correctement ; la cellule fraude décide selon politique ; le bénéficiaire/PSP bénéficiaire intervient dans une récupération éventuelle.</td></tr></tbody></table>
+ </div>
+ <label class="checkline"><input type="checkbox" class="learn-check" data-id="q1"><span>Je peux redessiner les trois séquences et commenter chaque flèche.</span></label>
+</section>
+
+<section class="module" id="incidents">
+ <div class="module-head"><div class="module-index">09</div><div><h2>Gestion d'incident et fraude</h2><div class="module-sub">Un paiement critique exige une réponse structurée, pas seulement un redémarrage.</div></div></div>
+ <div class="grid2">
+  <div class="card"><h3>Runbook en 8 mouvements</h3>
+   <ol><li>Détecter et qualifier l'impact.</li><li>Geler les changements et nommer l'incident commander.</li><li>Contenir sans détruire les preuves.</li><li>Décider du mode dégradé ou de l'arrêt.</li><li>Communiquer aux parties selon cadence.</li><li>Rétablir et surveiller.</li><li>Réconcilier tous les flux ambigus.</li><li>RCA, actions et preuve de clôture.</li></ol>
+  </div>
+  <div class="card"><h3>Les questions de war room</h3><p>Combien de clients et quel montant ? Les opérations sont-elles seulement retardées ou économiquement dupliquées ? Le ledger est-il fiable ? Peut-on arrêter l'entrée sans bloquer la sortie ? Quels identifiants permettent de reconstruire le périmètre ? Qui doit être informé ?</p></div>
+ </div>
+ <h3>Mini-simulateur</h3>
+ <div class="card"><p><b>Situation :</b> depuis 7 minutes, l'acquéreur reçoit des timeouts, tandis que certains émetteurs montrent des autorisations approuvées. Le taux de retry marchand augmente.</p>
+  <div class="sim-choice">
+   <button data-sim="retry">A. Augmenter immédiatement le nombre de retries avec de nouveaux identifiants</button>
+   <button data-sim="stop">B. Couper tout le système sans analyser le ledger</button>
+   <button data-sim="safe">C. Activer le mode ambigu : idempotence, blocage des nouveaux retries non sûrs, statut/reversal, périmètre et réconciliation</button>
+  </div><div class="sim-output" id="simOutput">Choisis une action et explique-la à voix haute avant de cliquer.</div>
+ </div>
+ <h3>KPI et SLI utiles</h3>
+ <div class="grid3"><div class="card"><div class="kpi">p99</div><div class="kpi-label">latence par dépendance et bout-en-bout</div></div><div class="card"><div class="kpi">Δ ledger</div><div class="kpi-label">écart entre ledger et settlement</div></div><div class="card"><div class="kpi">Age</div><div class="kpi-label">ancienneté des exceptions non résolues</div></div></div>
+ <label class="checkline"><input type="checkbox" class="learn-check" data-id="in1"><span>Je sais expliquer comment contenir un incident sans créer davantage de doublons.</span></label>
+</section>
+
+<section class="module" id="entretien">
+ <div class="module-head"><div class="module-index">10</div><div><h2>Transformer les connaissances en réponses d'entretien</h2><div class="module-sub">Clique sur les cartes pour afficher une réponse modèle, puis reformule avec tes propres exemples.</div></div></div>
+ <div class="grid2" id="flashcards">
+  <div class="interview-card"><div class="flip-inner"><div class="face front"><small>Question</small><h3>Quelle différence entre autorisation et settlement ?</h3><p>Clique pour retourner</p></div><div class="face back"><small>Réponse modèle</small><p>L'autorisation est une décision temps réel et peut réserver un montant. Le clearing présente ensuite l'opération et calcule les obligations. Le settlement transfère finalement les fonds entre institutions. Je surveille donc des états distincts et je réconcilie les écarts.</p></div></div></div>
+  <div class="interview-card"><div class="flip-inner"><div class="face front"><small>Question</small><h3>Comment éviter un double paiement lors d'un timeout ?</h3></div><div class="face back"><small>Réponse modèle</small><p>Je conserve l'intention économique via une idempotency key, persiste le résultat, réutilise la même clé au retry et interroge le statut. Si le protocole le prévoit, je déclenche une reversal. Les cas ambigus vont en réconciliation, jamais en retry aveugle.</p></div></div></div>
+  <div class="interview-card"><div class="flip-inner"><div class="face front"><small>Question</small><h3>Que fait ISO 20022 ?</h3></div><div class="face back"><small>Réponse modèle</small><p>Il fournit un modèle sémantique et des définitions de messages financiers. SEPA utilise des profils de ces messages dans ses rulebooks. L'infrastructure de clearing/settlement les transporte et les traite.</p></div></div></div>
+  <div class="interview-card"><div class="flip-inner"><div class="face front"><small>Question</small><h3>Pourquoi le SCT Inst change la fraude ?</h3></div><div class="face back"><small>Réponse modèle</small><p>Le paiement doit être décidé et exécuté en secondes, 24/7. Les contrôles principaux doivent donc être temps réel. Après settlement, la récupération n'est pas garantie ; VOP, scoring, SCA, limites et step-up avant envoi deviennent essentiels.</p></div></div></div>
+ </div>
+ <h3>Pitch de 90 secondes adapté à ton profil</h3>
+ <div class="callout"><strong>Structure, pas texte à réciter</strong>« Mon expérience vient des systèmes automobiles critiques et des projets multi-acteurs. J'y ai travaillé sur des API communes, l'intégration de systèmes distribués, la validation terrain et la traçabilité des anomalies. Je transpose cette discipline aux paiements : contrat d'API, machine à états, idempotence, gestion des timeouts, audit trail et réconciliation. J'ai complété cette base par l'architecture carte, les schémas SCT/SCT Inst/SDD, ISO 20022 et le cadre DSP2–PSR. Je peux donc contribuer rapidement à un programme de transformation paiements tout en approfondissant les règles propres au produit et au réseau. »</div>
+ <h3>Grille pour répondre à un cas</h3>
+ <div class="grid3"><div class="card"><h4>1. Cadrer</h4><p>Canal, instrument, montant, pays, temps réel, acteurs, finalité.</p></div><div class="card"><h4>2. Dérouler</h4><p>Messages, contrôles, états, écritures, erreurs, responsabilité.</p></div><div class="card"><h4>3. Piloter</h4><p>KPI, monitoring, incident, réconciliation, amélioration.</p></div></div>
+ <label class="checkline"><input type="checkbox" class="learn-check" data-id="en1"><span>Je peux faire le pitch sans vocabulaire excessivement technique.</span></label>
+</section>
+
+<section class="module" id="quiz">
+ <div class="module-head"><div class="module-index">11</div><div><h2>Quiz final</h2><div class="module-sub">Une seule réponse par question. Le score et les explications sont conservés localement.</div></div></div>
+ <div id="quizContainer"></div>
+ <div class="score-box"><div class="score" id="score">0/12</div><div class="small" id="scoreMsg">Commence le quiz.</div><button class="btn" id="resetQuiz" style="margin-top:12px">Réinitialiser</button></div>
+ <label class="checkline"><input type="checkbox" class="learn-check" data-id="z1"><span>J'obtiens au moins 10/12 sans consulter le cours.</span></label>
+</section>
+
+<section class="module" id="sources">
+ <div class="module-head"><div class="module-index">12</div><div><h2>Références officielles et plan de révision</h2><div class="module-sub">Les liens sont volontairement limités aux sources structurantes.</div></div></div>
+ <div class="grid2">
+  <div class="card"><h3>Plan en 7 jours</h3>
+   <div class="timeline"><div class="step"><strong>J1 — Carte</strong><span>Acteurs + autorisation/clearing/settlement.</span></div><div class="step"><strong>J2 — SEPA</strong><span>SCT, SCT Inst, SDD et exceptions.</span></div><div class="step"><strong>J3 — ISO 20022</strong><span>pain/pacs/camt et données.</span></div><div class="step"><strong>J4 — Ingénierie</strong><span>Idempotence, états, sécurité, traçabilité.</span></div><div class="step"><strong>J5 — Incidents</strong><span>Deux simulations chronométrées.</span></div><div class="step"><strong>J6 — Réglementation</strong><span>DSP2, IPR, DSP3/PSR, DORA.</span></div><div class="step"><strong>J7 — Oral</strong><span>Trois séquences sur feuille, pitch et quiz.</span></div></div>
+  </div>
+  <div class="card"><h3>Checklist « prêt pour l'entretien »</h3>
+   <label class="checkline"><input type="checkbox" class="learn-check" data-id="p1"><span>Dessiner les cinq acteurs carte en 30 secondes.</span></label>
+   <label class="checkline"><input type="checkbox" class="learn-check" data-id="p2"><span>Expliquer un paiement carte accepté en 2 minutes.</span></label>
+   <label class="checkline"><input type="checkbox" class="learn-check" data-id="p3"><span>Expliquer un timeout ambigu et la solution idempotente.</span></label>
+   <label class="checkline"><input type="checkbox" class="learn-check" data-id="p4"><span>Distinguer reject, return, recall et refund.</span></label>
+   <label class="checkline"><input type="checkbox" class="learn-check" data-id="p5"><span>Dire clairement que DSP3/PSR est un futur cadre en finalisation.</span></label>
+  </div>
+ </div>
+ <h3>Sources</h3>
+ <div class="source"><b>European Payments Council — 2025 SCT Rulebook v1.1</b><a href="https://www.europeanpaymentscouncil.eu/document-library/rulebooks/2025-sepa-credit-transfer-rulebook-version-11" target="_blank" rel="noreferrer">Rulebook SCT, effectif depuis le 5 octobre 2025</a></div>
+ <div class="source"><b>European Payments Council — 2025 SCT Inst Rulebook v1.1</b><a href="https://www.europeanpaymentscouncil.eu/document-library/rulebooks/2025-sepa-instant-credit-transfer-rulebook-version-11" target="_blank" rel="noreferrer">Rulebook SCT Inst, effectif depuis le 5 octobre 2025</a></div>
+ <div class="source"><b>European Payments Council — 2025 SDD Core Rulebook v1.1</b><a href="https://www.europeanpaymentscouncil.eu/document-library/rulebooks/2025-sepa-direct-debit-core-rulebook-version-11" target="_blank" rel="noreferrer">Rulebook SDD Core</a></div>
+ <div class="source"><b>Règlement (UE) 2024/886</b><a href="https://eur-lex.europa.eu/eli/reg/2024/886/oj?locale=fr" target="_blank" rel="noreferrer">Virements instantanés en euros, délais, tarification et vérification</a></div>
+ <div class="source"><b>Conseil de l'Union européenne — accord politique PSD3/PSR</b><a href="https://www.consilium.europa.eu/en/press/press-releases/2025/11/27/payment-services-council-and-parliament-agree-to-step-up-the-fight-against-fraud-and-increase-transparency/" target="_blank" rel="noreferrer">Accord du 27 novembre 2025</a></div>
+ <div class="source"><b>ISO 20022 Registration Authority</b><a href="https://www.iso20022.org/about-iso-20022" target="_blank" rel="noreferrer">Dictionnaire de données, catalogue de processus et messages</a></div>
+ <div class="source"><b>Banque centrale européenne — glossaire paiements</b><a href="https://www.ecb.europa.eu/services/glossary/html/act7c.en.html" target="_blank" rel="noreferrer">Définitions des acteurs et infrastructures</a></div>
+ <div class="source"><b>European Banking Authority — SCA sous DSP2</b><a href="https://www.eba.europa.eu/publications-and-media/press-releases/eba-publishes-opinion-elements-strong-customer-authentication" target="_blank" rel="noreferrer">Connaissance, possession, inhérence et combinaisons</a></div>
+ <div class="source"><b>DORA — Règlement (UE) 2022/2554</b><a href="https://eur-lex.europa.eu/eli/reg/2022/2554/oj" target="_blank" rel="noreferrer">Résilience opérationnelle numérique du secteur financier</a></div>
+ <div class="callout warn"><strong>Limite pédagogique</strong>Cette page prépare à l'entretien et à l'architecture métier. Elle ne remplace pas les spécifications d'implémentation d'un réseau carte, les implementation guidelines EPC, les procédures internes de conformité ni un avis juridique.</div>
+</section>
+<div class="footer">Cours autonome · données de progression stockées uniquement dans le navigateur · aucune connexion requise</div>
+</main>
+</div>
+<button class="mobile-menu" id="mobileMenu">☰</button>
+<script>
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+// Theme
+const root=document.documentElement; const themeBtn=$('#themeBtn');
+if(localStorage.payTheme==='light') root.classList.add('light');
+themeBtn.addEventListener('click',()=>{root.classList.toggle('light');localStorage.payTheme=root.classList.contains('light')?'light':'dark'});
+// Mobile nav
+$('#mobileMenu').onclick=()=>$('#sidebar').classList.toggle('open');
+$$('nav a').forEach(a=>a.onclick=()=>$('#sidebar').classList.remove('open'));
+// Tabs
+$$('[data-tabs]').forEach(group=>{group.addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;const cls=group.dataset.tabs;$$('.tab',group).forEach(x=>x.classList.remove('active'));b.classList.add('active');$$('.'+cls).forEach(x=>x.classList.remove('active'));$('#'+b.dataset.target).classList.add('active')})});
+// Progress
+const checks=$$('.learn-check');
+function updateProgress(){let done=0;checks.forEach(c=>{c.checked=localStorage.getItem('learn_'+c.dataset.id)==='1';if(c.checked)done++});const pct=Math.round(done/checks.length*100);$('#progressFill').style.width=pct+'%';$('#progressText').textContent=pct}
+checks.forEach(c=>c.addEventListener('change',()=>{localStorage.setItem('learn_'+c.dataset.id,c.checked?'1':'0');updateProgress()}));updateProgress();
+// Active nav
+const sections=$$('.module'); const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){$$('#nav a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-15% 0px -70% 0px'});sections.forEach(s=>observer.observe(s));
+// State machine
+$$('#cardStates .state').forEach((s,i,arr)=>s.onclick=()=>arr.forEach((x,j)=>x.classList.toggle('current',j===i)));
+// Flashcards
+$$('.interview-card').forEach(c=>c.onclick=()=>c.classList.toggle('flipped'));
+// Sequence data
+const seqData={
+ accepted:[
+  ['Intention créée','Le commerçant crée une intention de paiement avec un identifiant stable et collecte uniquement les données nécessaires.'],
+  ['Contrôles acquéreur','L’acquéreur valide le format, le marchand, le terminal et applique ses contrôles de risque.'],
+  ['Routage','Le réseau identifie l’émetteur et route la demande avec les identifiants de corrélation.'],
+  ['Décision émetteur','L’émetteur vérifie carte, fonds ou limite, contexte, risque et authentification ; il crée une réservation.'],
+  ['Réponse','L’approbation et le code d’autorisation reviennent au commerçant.'],
+  ['Expérience client','Le client reçoit une confirmation. Le clearing, le settlement et la réconciliation viendront ensuite.']
+ ],
+ declined:[
+  ['Intention','Une demande de 900 € est créée et envoyée sans supposer son acceptation.'],
+  ['Validation technique','L’acquéreur confirme que le message est traitable.'],
+  ['Routage','Le réseau transmet vers l’émetteur ; cette étape ne décide pas l’acceptation économique.'],
+  ['Décision de refus','L’émetteur refuse pour une règle de risque ou de limite et journalise un motif détaillé en interne.'],
+  ['Réponse contrôlée','Le réseau et l’acquéreur retournent un code exploitable mais sans exposer les règles sensibles.'],
+  ['Expérience et suivi','Le commerçant ne livre pas, propose une autre méthode et les équipes surveillent une éventuelle anomalie de refus.']
+ ],
+ suspect:[
+  ['Initiation','Le client initie un montant élevé vers un nouveau bénéficiaire.'],
+  ['Pré-validation','Le PSP vérifie consentement, fonds, limites et cohérence de la demande.'],
+  ['VOP','La vérification nom–IBAN retourne une correspondance partielle : c’est un signal, pas toujours une interdiction automatique.'],
+  ['Scoring temps réel','Le moteur combine device, historique, vélocité, bénéficiaire et signaux de compromission.'],
+  ['Interaction client','Selon le risque : avertissement contextualisé, SCA renforcée ou confirmation explicite.'],
+  ['Décision avant envoi','Si le risque reste trop élevé, le PSP bloque ou place en revue avant d’envoyer le message interbancaire.'],
+  ['Incident et preuve','Le client est informé, le cas est tracé et attribué. Si le paiement était déjà parti, un recall serait tenté sans garantie.']
+ ]
+};
+$$('[data-sequence]').forEach(shell=>{let n=1;const name=shell.dataset.sequence,total=seqData[name].length;const render=()=>{$$('.message',shell).forEach(m=>m.classList.toggle('visible',+m.dataset.step<=n));$('.seq-num',shell).textContent=n;$('.seq-title',shell).textContent=seqData[name][n-1][0];$('.seq-text',shell).textContent=seqData[name][n-1][1]};$('.seq-next',shell).onclick=()=>{n=n===total?1:n+1;render()};$('.seq-prev',shell).onclick=()=>{n=n===1?total:n-1;render()};render()});
+// Incident simulator
+const sim={retry:'Risque majeur : de nouveaux identifiants peuvent créer de nouvelles intentions économiques et donc des doubles débits. Un retry n’est sûr que s’il conserve l’identité de la demande et si le service est idempotent.',stop:'L’arrêt peut être nécessaire, mais il faut d’abord savoir ce que l’on protège. Couper sans connaître l’état du ledger peut empêcher les reversals, les crédits ou la collecte des preuves.',safe:'Bonne approche : réduire l’amplification, préserver l’idempotence, isoler le périmètre, utiliser statut/reversal, puis rapprocher autorisations, ledger et messages réseau avant réouverture.'};
+$$('[data-sim]').forEach(b=>b.onclick=()=>{$('#simOutput').textContent=sim[b.dataset.sim];$('#simOutput').style.borderColor=b.dataset.sim==='safe'?'var(--ok)':'var(--danger)'});
+// Quiz
+const quiz=[
+ {q:'Qui prend normalement la décision finale d’autorisation d’une carte ?',a:['Le commerçant','L’acquéreur','L’émetteur','Le réseau carte'],c:2,e:'L’émetteur connaît le compte, la carte, la limite et le risque porteur. Le réseau route et applique les règles du schéma.'},
+ {q:'Une autorisation approuvée signifie que…',a:['le commerçant a déjà reçu définitivement l’argent','le paiement a été accepté en temps réel, souvent avec réservation','le clearing est terminé','le chargeback est impossible'],c:1,e:'L’autorisation précède le clearing et le settlement.'},
+ {q:'La meilleure défense contre un double débit lors d’un retry est…',a:['un timeout plus long uniquement','une idempotency key liée à l’intention économique','changer l’identifiant à chaque tentative','désactiver les logs'],c:1,e:'La même intention doit produire le même effet et le même résultat observable.'},
+ {q:'Le SCT Inst doit rendre les fonds disponibles…',a:['en fin de journée','sous dix secondes en principe','en deux jours ouvrés','après validation manuelle'],c:1,e:'Le rail est 24/7/365 et conçu pour une exécution en secondes.'},
+ {q:'Dans un SDD, qui initie le prélèvement ?',a:['Le débiteur','Le créancier sur la base d’un mandat','Le CSM','Le réseau carte'],c:1,e:'Le SDD est tiré par le créancier, contrairement au SCT poussé par le débiteur.'},
+ {q:'Un recall de virement instantané est…',a:['une annulation garantie','une demande de récupération au résultat non garanti','un refus avant envoi','un chargeback carte'],c:1,e:'Après règlement, la récupération dépend du statut, du PSP bénéficiaire et parfois du bénéficiaire.'},
+ {q:'ISO 20022 est principalement…',a:['un réseau carte','un modèle et un catalogue de messages financiers','une loi européenne','un système de settlement unique'],c:1,e:'Il normalise la sémantique et les messages ; les schémas et infrastructures définissent leur usage.'},
+ {q:'La famille pacs concerne surtout…',a:['l’initiation client','le clearing et settlement interbancaire','les cartes physiques','la gestion RH'],c:1,e:'pain = initiation, pacs = clearing/settlement, camt = cash management et investigations.'},
+ {q:'Au 24 juillet 2026, DSP3/PSR doit être présenté comme…',a:['pleinement applicable depuis 2024','un futur cadre en finalisation législative','abandonné','un standard ISO'],c:1,e:'Un accord politique existe, mais l’application dépend des actes finaux publiés et des périodes de transition.'},
+ {q:'Quel indicateur révèle le mieux un incident économique ?',a:['Nombre de pages du runbook','Écart ledger–settlement','Taille des logs','Nombre de réunions'],c:1,e:'L’écart financier et l’ancienneté des exceptions mesurent directement le risque économique.'},
+ {q:'Une vérification VOP avec correspondance partielle…',a:['prouve toujours une fraude','est un signal à présenter et intégrer au risque','autorise automatiquement','remplace la SCA'],c:1,e:'Le résultat doit être communiqué et combiné aux autres contrôles selon les règles applicables.'},
+ {q:'Pendant un incident, la réconciliation sert à…',a:['améliorer le design graphique','reconstruire et résoudre les écarts entre les vérités du système','augmenter les retries','supprimer les données'],c:1,e:'Elle rapproche messages, états, ledger et settlement pour résoudre les cas ambigus.'}
+];
+let answers=JSON.parse(localStorage.getItem('payQuiz')||'{}');
+function renderQuiz(){const box=$('#quizContainer');box.innerHTML='';quiz.forEach((item,i)=>{const d=document.createElement('div');d.className='quiz-q';d.innerHTML=`<h4>${i+1}. ${item.q}</h4>${item.a.map((x,j)=>`<button class="option" data-i="${i}" data-j="${j}">${x}</button>`).join('')}<div class="explanation">${item.e}</div>`;box.appendChild(d)});Object.entries(answers).forEach(([i,j])=>paint(+i,+j));updateScore()}
+function paint(i,j){const q=$$('.quiz-q')[i];if(!q)return;$$('.option',q).forEach((b,k)=>{b.disabled=true;b.classList.toggle('correct',k===quiz[i].c);b.classList.toggle('wrong',k===j&&k!==quiz[i].c)});$('.explanation',q).classList.add('show')}
+function updateScore(){const count=Object.keys(answers).filter(i=>+answers[i]===quiz[+i].c).length;$('#score').textContent=count+'/12';$('#scoreMsg').textContent=Object.keys(answers).length<12?'Réponds à toutes les questions.':count>=10?'Solide pour l’entretien. Rejoue les séquences à voix haute.':count>=7?'Base correcte, révise les erreurs et refais le quiz.':'Reprends les modules carte, SEPA et ingénierie critique.'}
+document.addEventListener('click',e=>{const b=e.target.closest('.option');if(!b)return;const i=+b.dataset.i,j=+b.dataset.j;if(answers[i]!==undefined)return;answers[i]=j;localStorage.setItem('payQuiz',JSON.stringify(answers));paint(i,j);updateScore()});
+$('#resetQuiz').onclick=()=>{answers={};localStorage.removeItem('payQuiz');renderQuiz()};renderQuiz();
+</script>
+</body>
+</html>

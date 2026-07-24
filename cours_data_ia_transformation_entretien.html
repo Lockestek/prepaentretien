@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Cours interactif Data, IA et transformation pour préparer des entretiens en banque et services financiers.">
+  <title>Data, IA & Transformation — Préparation aux entretiens</title>
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --panel:#ffffff;
+      --panel-2:#eef3ff;
+      --text:#172033;
+      --muted:#5f6b82;
+      --line:#dbe2ef;
+      --brand:#2457d6;
+      --brand-2:#163b9a;
+      --accent:#0f8b7b;
+      --warn:#a45b00;
+      --danger:#a62a3a;
+      --ok:#147a42;
+      --shadow:0 12px 35px rgba(31,50,86,.10);
+      --radius:18px;
+      --code:#101827;
+      --code-text:#eaf1ff;
+    }
+    [data-theme="dark"]{
+      --bg:#0d1422;
+      --panel:#151f31;
+      --panel-2:#1b2a44;
+      --text:#edf3ff;
+      --muted:#acb8cf;
+      --line:#2d3b55;
+      --brand:#7ea6ff;
+      --brand-2:#b1c7ff;
+      --accent:#63d7c7;
+      --warn:#ffc16b;
+      --danger:#ff8796;
+      --ok:#6ee7a6;
+      --shadow:0 12px 35px rgba(0,0,0,.28);
+      --code:#09101c;
+      --code-text:#eaf1ff;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+    a{color:inherit}
+    button,input,select{font:inherit}
+    button{cursor:pointer}
+    .skip-link{
+      position:absolute;left:-9999px;top:0;background:var(--panel);padding:.7rem 1rem;z-index:1000
+    }
+    .skip-link:focus{left:1rem;top:1rem}
+    .layout{display:grid;grid-template-columns:300px minmax(0,1fr);min-height:100vh}
+    aside{
+      position:sticky;top:0;height:100vh;overflow:auto;
+      background:var(--panel);border-right:1px solid var(--line);padding:1.15rem;
+      z-index:20;
+    }
+    main{min-width:0}
+    .brand{
+      display:flex;align-items:center;gap:.8rem;margin-bottom:1rem
+    }
+    .brand-mark{
+      width:44px;height:44px;border-radius:14px;display:grid;place-items:center;
+      color:white;font-weight:800;background:linear-gradient(135deg,#2457d6,#0f8b7b)
+    }
+    .brand h1{font-size:1rem;line-height:1.25;margin:0}
+    .brand p{font-size:.78rem;color:var(--muted);margin:.15rem 0 0}
+    .top-controls{display:grid;grid-template-columns:1fr auto;gap:.6rem;margin-bottom:.8rem}
+    .search{
+      width:100%;border:1px solid var(--line);border-radius:12px;padding:.65rem .75rem;
+      background:var(--bg);color:var(--text)
+    }
+    .icon-btn{
+      border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--text);
+      padding:.55rem .75rem
+    }
+    .progress-box{
+      padding:.85rem;border:1px solid var(--line);border-radius:14px;background:var(--panel-2);
+      margin-bottom:1rem
+    }
+    .progress-row{display:flex;justify-content:space-between;gap:1rem;font-weight:700;font-size:.9rem}
+    .progress-track{height:9px;background:var(--line);border-radius:999px;overflow:hidden;margin-top:.55rem}
+    .progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--brand),var(--accent));transition:.3s}
+    nav a{
+      display:block;text-decoration:none;padding:.52rem .7rem;border-radius:10px;
+      color:var(--muted);font-size:.91rem;margin:.12rem 0
+    }
+    nav a:hover,nav a.active{background:var(--panel-2);color:var(--text);font-weight:700}
+    .side-note{
+      color:var(--muted);font-size:.78rem;border-top:1px solid var(--line);margin-top:1rem;padding-top:1rem
+    }
+    .hero{
+      padding:3.5rem clamp(1.2rem,4vw,4.5rem) 2.5rem;
+      background:
+        radial-gradient(circle at 85% 15%, rgba(15,139,123,.18), transparent 28%),
+        radial-gradient(circle at 12% 10%, rgba(36,87,214,.18), transparent 30%);
+      border-bottom:1px solid var(--line)
+    }
+    .eyebrow{font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);font-size:.8rem}
+    .hero h2{font-size:clamp(2rem,4vw,4.3rem);line-height:1.05;max-width:980px;margin:.6rem 0 1rem}
+    .hero p{font-size:1.1rem;color:var(--muted);max-width:920px}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.4rem}
+    .btn{
+      border:0;border-radius:12px;padding:.75rem 1rem;font-weight:800;
+      background:var(--brand);color:white;text-decoration:none;display:inline-flex;align-items:center;gap:.45rem
+    }
+    .btn.secondary{background:var(--panel);color:var(--text);border:1px solid var(--line)}
+    .content{padding:2rem clamp(1rem,4vw,4.5rem) 5rem;max-width:1500px;margin:auto}
+    .section{scroll-margin-top:1rem;margin:1rem 0 2rem}
+    .section-head{display:flex;justify-content:space-between;gap:1rem;align-items:flex-end;margin-bottom:1rem}
+    .section-head h2{margin:0;font-size:1.6rem}
+    .section-head p{margin:.15rem 0 0;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:1rem}
+    .card{
+      grid-column:span 12;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+      box-shadow:var(--shadow);overflow:hidden
+    }
+    .card-body{padding:1.2rem}
+    .kpi{grid-column:span 3;padding:1.1rem}
+    .kpi strong{display:block;font-size:1.7rem;color:var(--brand)}
+    .kpi span{color:var(--muted);font-size:.9rem}
+    .module{
+      scroll-margin-top:1rem;
+      grid-column:span 12
+    }
+    .module-header{
+      display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;padding:1.15rem 1.25rem;
+      background:var(--panel);border-bottom:1px solid transparent
+    }
+    .module.open .module-header{border-bottom-color:var(--line)}
+    .module-number{
+      width:42px;height:42px;border-radius:13px;display:grid;place-items:center;
+      font-weight:900;background:var(--panel-2);color:var(--brand)
+    }
+    .module-title h3{margin:0;font-size:1.16rem}
+    .module-title p{margin:.2rem 0 0;color:var(--muted);font-size:.91rem}
+    .module-actions{display:flex;align-items:center;gap:.55rem}
+    .complete-label{
+      display:flex;align-items:center;gap:.35rem;font-size:.82rem;color:var(--muted);white-space:nowrap
+    }
+    .complete-label input{width:18px;height:18px;accent-color:var(--accent)}
+    .toggle-module{
+      border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:10px;padding:.45rem .65rem
+    }
+    .module-content{display:none;padding:1.3rem}
+    .module.open .module-content{display:block}
+    .lesson-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:1rem}
+    h4{margin:1.2rem 0 .5rem;font-size:1rem}
+    .callout{
+      border-left:4px solid var(--brand);background:var(--panel-2);padding:.85rem 1rem;border-radius:0 12px 12px 0;
+      margin:.8rem 0
+    }
+    .callout.warn{border-left-color:var(--warn)}
+    .callout.ok{border-left-color:var(--ok)}
+    .callout.danger{border-left-color:var(--danger)}
+    .tag{
+      display:inline-flex;padding:.23rem .55rem;border-radius:999px;background:var(--panel-2);
+      color:var(--brand-2);font-size:.76rem;font-weight:800;margin:.1rem .2rem .1rem 0
+    }
+    table{border-collapse:collapse;width:100%;font-size:.92rem}
+    th,td{border:1px solid var(--line);padding:.65rem;vertical-align:top;text-align:left}
+    th{background:var(--panel-2)}
+    code,kbd{
+      font-family:"SFMono-Regular",Consolas,monospace;background:var(--panel-2);padding:.12rem .3rem;border-radius:5px
+    }
+    .formula{
+      background:var(--code);color:var(--code-text);padding:.8rem;border-radius:12px;overflow:auto;font-family:Consolas,monospace
+    }
+    .mini-list{margin:.45rem 0;padding-left:1.2rem}
+    .mini-list li{margin:.25rem 0}
+    .interview{
+      border:1px dashed var(--brand);padding:1rem;border-radius:14px;margin-top:1rem
+    }
+    .interview summary{cursor:pointer;font-weight:800;color:var(--brand)}
+    .diagram{
+      display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;align-items:center;margin:1rem 0
+    }
+    .node{padding:.7rem;text-align:center;border:1px solid var(--line);border-radius:12px;background:var(--panel-2);font-size:.85rem;font-weight:700}
+    .arrow{text-align:center;color:var(--muted);font-weight:900}
+    .diagram.rag{grid-template-columns:1fr auto 1fr auto 1fr auto 1fr}
+    .tool-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+    .tool{padding:1.1rem}
+    .field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}
+    label.field{font-size:.82rem;color:var(--muted)}
+    label.field input,label.field select{
+      width:100%;margin-top:.25rem;border:1px solid var(--line);border-radius:10px;padding:.62rem;
+      background:var(--bg);color:var(--text)
+    }
+    .results{
+      margin-top:.8rem;padding:.85rem;border-radius:12px;background:var(--panel-2);
+      display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem
+    }
+    .result-item span{display:block;color:var(--muted);font-size:.76rem}
+    .result-item strong{font-size:1.05rem}
+    .quiz-list{display:grid;gap:1rem}
+    .quiz-q{border:1px solid var(--line);border-radius:14px;padding:1rem;background:var(--panel)}
+    .quiz-q h4{margin:0 0 .65rem}
+    .quiz-q label{display:block;padding:.45rem .6rem;border:1px solid var(--line);border-radius:10px;margin:.35rem 0}
+    .quiz-feedback{margin-top:.6rem;font-weight:700}
+    .flashcards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+    .flashcard{height:190px;perspective:1000px}
+    .flash-inner{position:relative;width:100%;height:100%;transition:transform .55s;transform-style:preserve-3d}
+    .flashcard.flipped .flash-inner{transform:rotateY(180deg)}
+    .flash-front,.flash-back{
+      position:absolute;inset:0;backface-visibility:hidden;border:1px solid var(--line);border-radius:16px;
+      display:grid;place-items:center;text-align:center;padding:1.2rem;background:var(--panel);box-shadow:var(--shadow)
+    }
+    .flash-front{font-weight:900;font-size:1.05rem}
+    .flash-back{transform:rotateY(180deg);background:var(--panel-2);font-size:.9rem}
+    .scenario-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+    .scenario{padding:1rem}
+    .scenario-answer{display:none;border-top:1px solid var(--line);margin-top:.8rem;padding-top:.8rem}
+    .scenario.revealed .scenario-answer{display:block}
+    .checklist{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+    .check-card{padding:1rem}
+    .check-card label{display:flex;align-items:flex-start;gap:.6rem;margin:.5rem 0}
+    .check-card input{margin-top:.3rem;accent-color:var(--accent)}
+    .glossary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}
+    .glossary-item{border:1px solid var(--line);border-radius:12px;padding:.8rem}
+    .glossary-item strong{color:var(--brand)}
+    .hidden{display:none!important}
+    .mobile-top{display:none}
+    .print-only{display:none}
+    footer{padding:2rem;color:var(--muted);text-align:center;border-top:1px solid var(--line)}
+    @media (max-width:1050px){
+      .layout{grid-template-columns:1fr}
+      aside{position:fixed;left:-320px;width:300px;transition:.25s;box-shadow:var(--shadow)}
+      aside.open{left:0}
+      .mobile-top{
+        display:flex;position:sticky;top:0;z-index:15;background:var(--panel);border-bottom:1px solid var(--line);
+        padding:.65rem 1rem;justify-content:space-between;align-items:center
+      }
+      .kpi{grid-column:span 6}
+      .lesson-grid,.tool-grid{grid-template-columns:1fr}
+    }
+    @media (max-width:720px){
+      .hero{padding-top:2rem}
+      .kpi{grid-column:span 12}
+      .module-header{grid-template-columns:auto 1fr}
+      .module-actions{grid-column:1/-1;justify-content:space-between}
+      .field-grid,.results,.flashcards,.scenario-grid,.checklist,.glossary-grid{grid-template-columns:1fr}
+      .diagram,.diagram.rag{grid-template-columns:1fr}
+      .arrow{transform:rotate(90deg)}
+    }
+    @media print{
+      aside,.mobile-top,.hero-actions,.toggle-module,.complete-label,.interactive-only{display:none!important}
+      .layout{display:block}
+      .hero,.content{padding:1rem}
+      .module-content{display:block!important}
+      .card{box-shadow:none;break-inside:avoid}
+      .print-only{display:block}
+      body{background:white;color:black}
+    }
+  </style>
+</head>
+<body>
+<a class="skip-link" href="#contenu">Aller au contenu</a>
+
+<div class="layout">
+  <aside id="sidebar" aria-label="Navigation du cours">
+    <div class="brand">
+      <div class="brand-mark">AI</div>
+      <div>
+        <h1>Data, IA & Transformation</h1>
+        <p>Préparation aux entretiens</p>
+      </div>
+    </div>
+
+    <div class="top-controls">
+      <input id="searchInput" class="search" type="search" placeholder="Rechercher un concept…" aria-label="Rechercher">
+      <button id="themeToggle" class="icon-btn" aria-label="Changer de thème">◐</button>
+    </div>
+
+    <div class="progress-box">
+      <div class="progress-row"><span>Progression</span><span id="progressText">0 / 10</span></div>
+      <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+    </div>
+
+    <nav id="courseNav">
+      <a href="#vue-ensemble">Vue d’ensemble</a>
+      <a href="#module-1">1. Automatisation, ML, GenAI</a>
+      <a href="#module-2">2. Cas d’usage</a>
+      <a href="#module-3">3. Train / validation / test</a>
+      <a href="#module-4">4. Précision, rappel et erreurs</a>
+      <a href="#module-5">5. RAG</a>
+      <a href="#module-6">6. Human-in-the-loop</a>
+      <a href="#module-7">7. Monitoring et dérive</a>
+      <a href="#module-8">8. Confidentialité et accès</a>
+      <a href="#module-9">9. Gouvernance des modèles</a>
+      <a href="#module-10">10. Business case et coûts</a>
+      <a href="#outils">Outils pratiques</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#entretiens">Cas d’entretien</a>
+      <a href="#flashcards">Flashcards</a>
+      <a href="#plan">Plan de crédibilisation</a>
+      <a href="#glossaire">Glossaire</a>
+    </nav>
+    <p class="side-note">
+      Les coches, le thème et les résultats sont enregistrés uniquement dans votre navigateur via <code>localStorage</code>.
+    </p>
+  </aside>
+
+  <main id="contenu">
+    <div class="mobile-top">
+      <button id="menuToggle" class="icon-btn" aria-label="Ouvrir le menu">☰</button>
+      <strong>Data, IA & Transformation</strong>
+      <button id="mobileThemeToggle" class="icon-btn" aria-label="Changer de thème">◐</button>
+    </div>
+
+    <header class="hero">
+      <div class="eyebrow">Parcours d’entretien — banque, finance et transformation</div>
+      <h2>Comprendre l’IA comme un décideur, pas comme un simple utilisateur.</h2>
+      <p>
+        Ce cours relie les concepts techniques aux décisions métier : choix du bon type de solution, qualité des données,
+        mesure de performance, risques, gouvernance, coûts d’exploitation et création de valeur.
+      </p>
+      <div class="hero-actions">
+        <a class="btn" href="#module-1">Commencer le cours</a>
+        <a class="btn secondary" href="#quiz">Tester mes connaissances</a>
+        <button class="btn secondary" onclick="window.print()">Imprimer / PDF</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <section id="vue-ensemble" class="section">
+        <div class="section-head">
+          <div>
+            <h2>Ce que vous devez savoir faire en entretien</h2>
+            <p>Votre crédibilité repose sur la capacité à relier technologie, risque, processus et résultat économique.</p>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="card kpi"><strong>10</strong><span>blocs de connaissances fondamentales</span></div>
+          <div class="card kpi"><strong>3</strong><span>niveaux : concept, cas métier, décision</span></div>
+          <div class="card kpi"><strong>12</strong><span>questions de quiz corrigées</span></div>
+          <div class="card kpi"><strong>6</strong><span>cas d’entretien orientés banque</span></div>
+        </div>
+        <div class="card card-body" style="margin-top:1rem">
+          <h3 style="margin-top:0">La trame de réponse qui fonctionne presque toujours</h3>
+          <div class="diagram">
+            <div class="node">1. Problème métier</div><div class="arrow">→</div>
+            <div class="node">2. Données disponibles</div><div class="arrow">→</div>
+            <div class="node">3. Solution proportionnée</div>
+          </div>
+          <div class="diagram">
+            <div class="node">4. Métrique de succès</div><div class="arrow">→</div>
+            <div class="node">5. Risques et contrôles</div><div class="arrow">→</div>
+            <div class="node">6. Coût et exploitation</div>
+          </div>
+          <div class="callout ok">
+            <strong>Réflexe d’entretien :</strong> ne commencez pas par « on met de l’IA ». Commencez par la décision,
+            la friction ou le coût à améliorer, puis démontrez pourquoi l’IA est — ou n’est pas — l’outil approprié.
+          </div>
+        </div>
+      </section>
+
+      <section class="grid section" id="modules">
+
+        <article id="module-1" class="card module open" data-title="automatisation machine learning ia générative règles workflow">
+          <div class="module-header">
+            <div class="module-number">1</div>
+            <div class="module-title">
+              <h3>Automatisation, machine learning et IA générative</h3>
+              <p>Savoir choisir la bonne famille de solution.</p>
+            </div>
+            <div class="module-actions">
+              <label class="complete-label"><input type="checkbox" class="module-check" data-module="1"> Maîtrisé</label>
+              <button class="toggle-module" aria-expanded="true">Réduire</button>
+            </div>
+          </div>
+          <div class="module-content">
+            <div class="lesson-grid">
+              <div>
+                <h4>Automatisation classique</h4>
+                <p>
+                  Une automatisation applique des règles explicites à un processus connu. Le comportement est déterministe :
+                  à entrée identique, sortie identique. Exemples : rapprocher deux fichiers avec une clé commune, envoyer une
+                  relance lorsque l’échéance est dépassée, exécuter un workflow KYC.
+                </p>
+                <div class="callout"><strong>Bon choix lorsque :</strong> les règles sont stables, explicables et peu ambiguës.</div>
+
+                <h4>Machine learning</h4>
+                <p>
+                  Le modèle apprend une relation statistique à partir d’exemples. On ne code pas toutes les règles :
+                  on optimise des paramètres pour minimiser une erreur. Le résultat est probabiliste.
+                </p>
+                <p>
+                  Exemples bancaires : score de fraude, probabilité de défaut, churn, classification d’une demande,
+                  prévision de volumes d’appels.
+                </p>
+
+                <h4>IA générative</h4>
+                <p>
+                  Un modèle génératif produit un nouveau contenu — texte, code, image, synthèse — à partir d’un contexte.
+                  Un grand modèle de langage prédit des suites de tokens plausibles. Il peut raisonner en apparence, mais
+                  ne garantit ni vérité ni conformité sans contrôles complémentaires.
+                </p>
+              </div>
+              <div>
+                <table>
+                  <thead><tr><th>Approche</th><th>Entrée</th><th>Sortie</th><th>Risque clé</th></tr></thead>
+                  <tbody>
+                    <tr><td>Automatisation</td><td>Règles et données structurées</td><td>Action déterministe</td><td>Règles incomplètes</td></tr>
+                    <tr><td>ML</td><td>Données historiques étiquetées ou non</td><td>Score / classe / prévision</td><td>Biais, dérive</td></tr>
+                    <tr><td>GenAI</td><td>Instruction + contexte</td><td>Contenu généré</td><td>Hallucination, fuite de données</td></tr>
+                  </tbody>
+                </table>
+                <div class="callout warn">
+                  <strong>Erreur fréquente :</strong> appeler « IA » une simple macro ou, inversement, utiliser un LLM pour
+                  un calcul déterministe qu’une règle ou une requête SQL ferait mieux, moins cher et plus sûrement.
+                </div>
+                <details class="interview">
+                  <summary>Réponse d’entretien prête à l’emploi</summary>
+                  <p>
+                    « Je distingue d’abord les processus à règles stables, que j’automatise de manière déterministe, des
+                    décisions nécessitant une estimation statistique, adaptées au machine learning. J’utilise l’IA générative
+                    lorsqu’il faut comprendre ou produire du langage non structuré. Mon critère n’est pas la sophistication,
+                    mais le meilleur compromis entre valeur, fiabilité, explicabilité et coût d’exploitation. »
+                  </p>
+                </details>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article id="module-2" class="card module" data-title="cas usage prédictif classification extraction génération recherche documentaire">
+          <div class="module-header">
+            <div class="module-number">2</div>
+            <div class="module-title">
+              <h3>Cas d’usage : prédire, classer, extraire, générer, rechercher</h3>
+              <p>Reconnaître la nature exacte du problème.</p>
+            </div>
+            <div class="module-actions">
+              <label class="complete-label"><input type="checkbox" class="module-check" data-module="2"> Maîtrisé</label>
+              <button class="toggle-module" aria-expanded="false">Développer</button>
+            </div>
+          </div>
+          <div class="module-content">
+            <table>
+              <thead><tr><th>Type</th><th>Question posée</th><th>Exemple bancaire</th><th>Métrique typique</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Prédiction</strong></td><td>Que va-t-il probablement se passer ?</td><td>Probabilité de défaut à 12 mois</td><td>MAE, RMSE, AUC, calibration</td></tr>
+                <tr><td><strong>Classification</strong></td><td>À quelle catégorie appartient cet élément ?</td><td>Fraude / non-fraude ; motif de contact</td><td>Précision, rappel, F1</td></tr>
+                <tr><td><strong>Extraction</strong></td><td>Quelles informations sont présentes ?</td><td>Nom, montant, date et IBAN dans un justificatif</td><td>Exactitude par champ</td></tr>
+                <tr><td><strong>Génération</strong></td><td>Quel contenu peut être produit ?</td><td>Brouillon de réponse au client</td><td>Qualité, factualité, conformité</td></tr>
+                <tr><td><strong>Recherche documentaire</strong></td><td>Quel passage répond à la question ?</td><td>Retrouver une clause dans une politique interne</td><td>Recall@k, précision des sources</td></tr>
+              </tbody>
+            </table>
+
+            <div class="lesson-grid">
+              <div>
+                <h4>Un même besoin peut combiner plusieurs briques</h4>
+                <p>
+                  Exemple : traitement d’un dossier de crédit. L’OCR numérise, l’extraction récupère les champs, des règles
+                  contrôlent la complétude, un modèle prédit un risque, un moteur documentaire retrouve les procédures,
+                  puis un LLM rédige une synthèse sourcée destinée à l’analyste.
+                </p>
+                <div class="callout ok">
+                  La bonne architecture est souvent hybride : règles + modèles spécialisés + GenAI + validation humaine.
+                </div>
+              </div>
+              <div>
+                <h4>Questions de cadrage</h4>
+                <ul class="mini-list">
+                  <li>Quelle décision doit être prise et par qui ?</li>
+                  <li>Quel est le coût d’une erreur dans chaque direction ?</li>
+                  <li>La donnée est-elle structurée, textuelle, image ou audio ?</li>
+                  <li>Faut-il une réponse en temps réel ?</li>
+                  <li>Le résultat doit-il être explicable ou opposable ?</li>
+                  <li>Existe-t-il une vérité terrain pour mesurer la qualité ?</li>
+                </ul>
+                <details class="interview">
+                  <summary>Piège d’entretien</summary>
+                  <p>
+                    Une « recherche dans les documents » n’exige pas toujours un LLM. Une recherche plein texte ou un moteur
+                    sémantique peut suffire. La génération n’est utile que si l’on veut reformuler ou synthétiser les passages retrouvés.
+                  </p>
+                </details>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article id="module-3" class="card module" data-title="données entraînement validation test fuite data leakage généralisation">
+          <div class="module-header">
+            <div class="module-number">3</div>
+            <div class="module-title">
+              <h3>Données d’entraînement, validation et test</h3>
+              <p>Mesurer la capacité de généralisation sans se tromper soi-même.</p>
+            </div>
+            <div class="module-actions">
+              <label class="complete-label"><input type="checkbox" class="module-check" data-module="3"> Maîtrisé</label>
+              <button class="toggle-module" aria-expanded="false">Développer</button>
+            </div>
+          </div>
+          <div class="module-content">
+            <div class="lesson-grid">
+              <div>
+                <h4>Rôle des trois jeux</h4>
+                <ul class="mini-list">
+                  <li><strong>Train :</strong> ajuster les paramètres du modèle.</li>
+                  <li><strong>Validation :</strong> choisir les hyperparamètres, le seuil, les variables et comparer les versions.</li>
+                  <li><strong>Test :</strong> estimer une seule fois la performance finale sur des données jamais utilisées.</li>
+                </ul>
+                <div class="diagram">
+                  <div class="node">Historique</div><div class="arrow">→</div>
+                  <div class="node">Train 60–80 %</div><div class="arrow">→</div>
+                  <div class="node">Validation 10–20 %</div>
+                </div>
+                <div class="diagram">
+                  <div class="node">Modèle figé</div><div class="arrow">→</div>
+                  <div class="node">Test 10–20 %</div><div class="arrow">→</div>
+                  <div class="node">Estimation finale</div>
+                </div>
+              </div>
+              <div>
+                <h4>Data leakage : le danger majeur</h4>
+                <p>
+                  Une fuite de données survient lorsqu’une information indisponible au moment réel de la décision apparaît
+                  dans l’entraînement. Exemple : utiliser la date de clôture d’un dossier pour prédire s’il sera accepté.
+                </p>
+                <div class="callout danger">
+                  Un modèle peut afficher 98 % de performance en laboratoire et échouer en production si le découpage est incorrect.
+                </div>
+                <h4>Dans le temps</h4>
+                <p>
+                  Pour un cas bancaire, un split chronologique est souvent plus réaliste qu’un split aléatoire : entraîner
+                  sur les mois passés et tester sur une période future. On simule ainsi le déploiement réel et la dérive.
+                </p>
+              </div>
+            </div>
+            <table>
+              <thead><tr><th>Problème</th><th>Symptôme</th><th>Remède</th></tr></thead>
+              <tbody>
+                <tr><td>Surapprentissage</td><td>Excellent sur train, faible sur validation</td><td>Régularisation, simplification, plus de données</td></tr>
+                <tr><td>Échantillon non représentatif</td><td>Performance différente selon agence ou segment</td><td>Stratification, analyse par sous-population</td></tr>
+                <tr><td>Labels faibles</td><td>Les « vraies réponses » sont elles-mêmes contestables</td><td>Guide d’annotation, double revue, arbitrage</td></tr>
+                <tr><td>Classes déséquilibrées</td><td>99,8 % de non-fraudes</td><td>Seuil, pondération, métriques adaptées</td></tr>
+              </tbody>
+            </table>
+            <details class="interview">
+              <summary>Réponse d’entretien prête à l’emploi</summary>
+              <p>
+                « Je sépare strictement l’apprentissage, la sélection du modèle et l’évaluation finale. Pour un phénomène temporel,
+                j’utilise un découpage chronologique afin d’éviter qu’une information future contamine le passé. J’analyse aussi la
+                qualité des labels, la représentativité des segments et les performances par sous-population, pas seulement la moyenne. »
+              </p>
+            </details>
+          </div>
+        </article>
+
+        <article id="module-4" class="card module" data-title="précision rappel faux positifs faux négatifs confusion seuil f1">
+          <div class="module-header">
+            <div class="module-number">4</div>
+            <div class="module-title">
+              <h3>Précision, rappel, faux positifs et faux négatifs</h3>
+              <p>Traduire une performance statistique en coût métier.</p>
+            </div>
+            <div class="module-actions">
+              <label class="complete-label"><input type="checkbox" class="module-check" data-module="4"> Maîtrisé</label>
+              <button class="toggle-module" aria-expanded="false">Développer</button>
+            </div>
+          </div>
+          <div class="module-content">
+            <div class="lesson-grid">
+              <div>
+                <h4>Matrice de confusion</h4>
+                <table>
+                  <thead><tr><th></th><th>Réel positif</th><th>Réel négatif</th></tr></thead>
+                  <tbody>
+                    <tr><th>Prédit positif</th><td>Vrai positif (TP)</td><td>Faux positif (FP)</td></tr>
+                    <tr><th>Prédit négatif</th><td>Faux négatif (FN)</td><td>Vrai négatif (TN)</td></tr>
+                  </tbody>
+                </table>
+                <div class="formula">
+Précision = TP / (TP + FP)
+Rappel    = TP / (TP + FN)
+F1        = 2 × précision × rappel / (précision + rappel)
+                </div>
+              </div>
+              <div>
+                <h4>Interprétation métier</h4>
+                <p><strong>Précision élevée :</strong> quand le modèle alerte, il a souvent raison.</p>
+                <p><strong>Rappel élevé :</strong> le modèle retrouve la majorité des cas réellement positifs.</p>
+                <p>
+                  Pour la fraude, un faux négatif laisse passer une fraude ; un faux positif bloque un client légitime.
+                  Le bon seuil dépend donc du montant, du canal, du segment client et de la capacité des équipes de revue.
+                </p>
+                <div class="callout warn">
+                  Il n’existe pas de « meilleur seuil » universel. Le seuil transforme un score probabiliste en décision et
+                  matérialise un arbitrage économique et opérationnel.
+                </div>
+              </div>
+            </div>
+            <h4>Exemple chiffré</h4>
+            <p>
+              Sur 100 000 paiements, 200 sont frauduleux. Le modèle détecte 160 fraudes et génère 640 alertes injustifiées.
+              Le rappel vaut 160/200 = 80 %. La précision vaut 160/(160+640) = 20 %. La faible précision peut rester acceptable
+              si la revue est peu coûteuse et si le montant des fraudes évitées est élevé.
+            </p>
+            <details class="interview">
+              <summary>Question classique : « précision ou rappel ? »</summary>
+              <p>
+                « Cela dépend du coût relatif des erreurs. Pour un contrôle de fraude à fort enjeu, je chercherais un rappel élevé,
+                tout en limitant les faux positifs pour ne pas dégrader le parcours client et saturer les analystes. Je choisirais le
+                seuil à partir d’une courbe coût-bénéfice et de la capacité opérationnelle, puis je suivrais ces métriques en production. »
+              </p>
+            </details>
+          </div>
+        </article>
+
+        <article id="module-5" class="card module" data-title="rag retrieval augmented generation embeddings vector database chunks sources">
+          <div class="module-header">
+            <div class="module-number">5</div>
+            <div class="module-title">
+              <h3>RAG — Retrieval-Augmented Generation</h3>
+              <p>Faire répondre un LLM à partir d’un corpus maîtrisé.</p>
+            </div>
+            <div class="module-actions">
+              <label class="complete-label"><input type="checkbox" class="module-check" data-module="5"> Maîtrisé</label>
+              <button class="toggle-module" aria-expanded="false">Développer</button>
+            </div>
+          </div>
+          <div class="module-content">
+            <p>
+              Le RAG enrichit la requête adressée au modèle avec des passages retrouvés dans une base documentaire. Il ne
+              réentraîne pas nécessairement le LLM. Il construit un contexte spécifique à la question.
+            </p>
+            <div class="diagram rag">
+              <div class="node">Question utilisateur</div><div class="arrow">→</div>
+              <div class="node">Recherche de passages</div><div class="arrow">→</div>
+              <div class="node">Contexte + instruction</div><div class="arrow">→</div>
+              <div class="node">Réponse sourcée</div>
+            </div>
+            <div class="lesson-grid">
+              <div>
+                <h4>Chaîne d’ingestion</h4>
+                <ol class="mini-list">
+                  <li>Collecte et contrôle des documents.</li>
+                  <li>Découpage en segments ou <em>chunks</em>.</li>
+                  <li>Création d’embeddings ou index lexical.</li>
+                  <li>Stockage avec métadonnées et droits d’accès.</li>
+                  <li>Indexation et mise à jour.</li>
+                </ol>
+                <h4>Chaîne de réponse</h4>
+                <ol class="mini-list">
+                  <li>Comprendre ou reformuler la requête.</li>
+                  <li>Récupérer les passages les plus pertinents.</li>
+                  <li>Éventuellement reranker les résultats.</li>
+                  <li>Générer à partir des sources autorisées.</li>
+                  <li>Afficher citations et niveau de confiance.</li>
+                </ol>
+              </div>
+              <div>
+                <h4>Ce que le RAG ne résout pas automatiquement</h4>
+                <ul class="mini-list">
+                  <li>Document obsolète ou contradictoire.</li>
+                  <li>Mauvais découpage des contenus.</li>
+                  <li>Droits d’accès insuffisamment propagés.</li>
+                  <li>Question nécessitant un calcul ou une base transactionnelle.</li>
+                  <li>Hallucination malgré des sources correctes.</li>
+                </ul>
+                <div class="callout danger">
+                  Le contrôle d’accès doit s’appliquer avant la génération. Un document interdit ne doit jamais être placé
+                  dans le contexte du modèle, même si l’interface masque ensuite la citation.
+                </div>
+              </div>
+            </div>
+            <h4>Mesurer un RAG</h4>
+            <table>
+              <thead><tr><th>Couche</th><th>Question</th><th>Mesure</th></tr></thead>
+              <tbody>
+                <tr><td>Retrieval</td><td>Le bon passage est-il dans les k premiers ?</td><td>Recall@k, MRR, nDCG</td></tr>
+                <tr><td>Génération</td><td>La réponse est-elle fidèle aux passages ?</td><td>Factualité, groundedness</td></tr>
+                <tr><td>Produit</td><td>L’utilisateur résout-il son problème ?</td><td>Taux de succès, temps gagné, escalades</td></tr>
+                <tr><td>Risque</td><td>Les droits et données sensibles sont-ils respectés ?</td><td>Tests d’accès, audits, incidents</td></tr>
+              </tbody>
+            </table>
+            <details class="interview">
+              <summary>Réponse d’entretien prête à l’emploi</summary>
+              <p>
+                « Un RAG sépare la connaissance documentaire du modèle génératif. J’évalue d’abord le retrieval, car un LLM
+                ne peut pas produire une réponse fiable si le bon passage n’est pas remonté. J’impose ensuite des citations,
+                des règles d’abstention et une propagation des habilitations documentaires jusqu’au moteur de recherche. »
+              </p>
+            </details>
+          </div>
+        </article>
+
+        <article id="module-6" class="card module" data-title="human in the loop validation humaine escalade responsabilité automatisation">
+          <div class="module-header">
+            <div class="module-number">6</div>
+            <div class="module-title">
+              <h3>Human-in-the-loop</h3>
+              <p>Conserver une supervision humaine là où elle crée réellement de la sécurité.</p>
+            </div>
+            <div class="module-actions">
+              <label class="complete-label"><input type="checkbox" class="module-check" data-module="6"> Maîtrisé</label>
+              <button class="toggle-module" aria-expanded="false">Développer</button>
+            </div>
+          </div>
+          <div class="module-content">
+            <div class="lesson-grid">
+              <div>
+                <p>
+                  Le human-in-the-loop (HITL) signifie qu’un humain intervient dans la boucle de décision : validation,
+                  correction, arbitrage, annotation ou gestion des cas incertains.
+                </p>
+                <h4>Trois modèles d’exploitation</h4>
+                <ul class="mini-list">
+                  <li><strong>Human in the loop :</strong> chaque décision sensible est validée.</li>
+                  <li><strong>Human on the loop :</strong> l’humain supervise et peut reprendre la main.</li>
+                  <li><strong>Human out of the loop :</strong> traitement entièrement automatisé dans un périmètre maîtrisé.</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Quand imposer une revue ?</h4>
+                <ul class="mini-list">
+                  <li>Faible confiance du modèle.</li>
+                  <li>Montant ou conséquence élevée.</li>
+                  <li>Décision réglementée ou contestable.</li>
+                  <li>Nouveau segment peu représenté.</li>
+                  <li>Conflit entre règle métier et modèle.</li>
+                  <li>Détection d’une anomalie ou d’un drift.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="callout warn">
+              Une validation humaine n’est pas automatiquement efficace. Si l’analyste clique « approuver » par habitude,
+              le dispositif crée une illusion de contrôle. Il faut mesurer le taux de correction, le temps de revue et les désaccords.
+            </div>
+            <h4>Conception pratique</h4>
+            <table>
+              <thead><tr><th>Élément</th><th>Bonne pratique</th></tr></thead>
+              <tbody>
+                <tr><td>Seuil d’escalade</td><td>Fondé sur risque, confiance et capacité opérationnelle</td></tr>
+                <tr><td>Interface</td><td>Présenter sources, facteurs clés et options de correction</td></tr>
+                <tr><td>Traçabilité</td><td>Conserver prédiction, données, version, décision humaine et motif</td></tr>
+                <tr><td>Apprentissage</td><td>Réutiliser les corrections après contrôle qualité, pas automatiquement</td></tr>
+              </tbody>
+            </table>
+            <details class="interview">
+              <summary>Formulation utile en entretien</summary>
+              <p>
+                « Je ne place pas un humain dans la boucle uniquement pour rassurer. Je définis précisément les cas à escalader,
+                les informations fournies au décideur, la responsabilité finale et la manière dont les corrections sont capitalisées.
+                Je vérifie ensuite que la revue humaine modifie réellement les décisions lorsque c’est nécessaire. »
+              </p>
+            </details>
+          </div>
+        </article>
+
+        <article id="module-7" class="card module" data-title="monitoring dérive drift data concept performance qualité latence coût">
+          <div class="module-header">
+            <div class="module-number">7</div>
+            <div class="module-title">
+              <h3>Monitoring et dérive</h3>
+              <p>Un modèle en production est un service vivant, pas un livrable figé.</p>
+            </div>
+            <div class="module-actions">
+              <label class="complete-label"><input type="checkbox" class="module-check" data-module="7"> Maîtrisé</label>
+              <button class="toggle-module" aria-expanded="false">Développer</button>
+            </div>
+          </div>
+          <div class="module-content">
+            <table>
+              <thead><tr><th>Type de dérive</th><th>Définition</th><th>Exemple</th></tr></thead>
+              <tbody>
+                <tr><td>Data drift</td><td>La distribution des entrées change</td><td>Plus de paiements mobiles qu’à l’entraînement</td></tr>
+                <tr><td>Concept drift</td><td>La relation entre entrées et cible change</td><td>Nouveau mode opératoire de fraude</td></tr>
+                <tr><td>Label drift</td><td>La proportion des classes change</td><td>Hausse du taux de défaut</td></tr>
+                <tr><td>Model drift</td><td>La performance observée se dégrade</td><td>Baisse du rappel des fraudes</td></tr>
+              </tbody>
+            </table>
+            <div class="lesson-grid">
+              <div>
+                <h4>Quatre niveaux de monitoring</h4>
+                <ol class="mini-list">
+                  <li><strong>Technique :</strong> disponibilité, erreurs, latence, débit.</li>
+                  <li><strong>Données :</strong> schéma, valeurs manquantes, distributions.</li>
+                  <li><strong>Modèle :</strong> score, calibration, métriques par segment.</li>
+                  <li><strong>Métier :</strong> fraude évitée, temps gagné, satisfaction, coût.</li>
+                </ol>
+              </div>
+              <div>
+                <h4>Pour un LLM / RAG</h4>
+                <ul class="mini-list">
+                  <li>Taux d’abstention et réponses sans source.</li>
+                  <li>Documents les plus utilisés et requêtes sans résultat.</li>
+                  <li>Violations de garde-fous.</li>
+                  <li>Coût et nombre de tokens.</li>
+                  <li>Latence par étape : retrieval, modèle, outils.</li>
+                  <li>Évaluations humaines régulières.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="callout ok">
+              Un bon tableau de bord relie une alerte technique à un impact métier et à une action : observer, investiguer,
+              ajuster le seuil, revenir à la version précédente, réentraîner ou suspendre.
+            </div>
+            <details class="interview">
+              <summary>Question classique : « quand réentraîner ? »</summary>
+              <p>
+                « Je ne réentraîne pas uniquement selon un calendrier. Je définis des déclencheurs : dérive significative,
+                baisse de performance, évolution réglementaire, changement de produit ou accumulation suffisante de nouveaux labels.
+                Le nouveau modèle repasse alors par validation, comparaison avec le champion et procédure de déploiement contrôlé. »
+              </p>
+            </details>
+          </div>
+        </article>
+
+        <article id="module-8" class="card module" data-title="confidentialité contrôle accès données personnelles chiffrement moindre privilège">
+          <div class="module-header">
+            <div class="module-number">8</div>
+            <div class="module-title">
+              <h3>Confidentialité et contrôle d’accès</h3>
+              <p>Protéger la donnée tout au long du cycle de vie.</p>
+            </div>
+            <div class="module-actions">
+              <label class="complete-label"><input type="checkbox" class="module-check" data-module="8"> Maîtrisé</label>
+              <button class="toggle-module" aria-expanded="false">Développer</button>
+            </div>
+          </div>
+          <div class="module-content">
+            <div class="lesson-grid">
+              <div>
+                <h4>Questions de sécurité à poser</h4>
+                <ul class="mini-list">
+                  <li>Quelles données entrent dans le système ?</li>
+                  <li>Où sont-elles stockées et pendant combien de temps ?</li>
+                  <li>Sont-elles utilisées pour entraîner un fournisseur tiers ?</li>
+                  <li>Qui peut voir les prompts, réponses, logs et documents ?</li>
+                  <li>Comment les droits sont-ils révoqués ?</li>
+                  <li>Comment gérer export, suppression et incident ?</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Principes structurants</h4>
+                <span class="tag">Minimisation</span>
+                <span class="tag">Moindre privilège</span>
+                <span class="tag">Need-to-know</span>
+                <span class="tag">Chiffrement</span>
+                <span class="tag">Séparation des environnements</span>
+                <span class="tag">Traçabilité</span>
+                <span class="tag">Pseudonymisation</span>
+                <span class="tag">Rétention limitée</span>
+              </div>
+            </div>
+            <h4>Contrôles par couche</h4>
+            <table>
+              <thead><tr><th>Couche</th><th>Contrôles</th></tr></thead>
+              <tbody>
+                <tr><td>Identité</td><td>SSO, MFA, rôles, groupes, revues d’habilitation</td></tr>
+                <tr><td>Données</td><td>Classification, masquage, chiffrement, DLP</td></tr>
+                <tr><td>Application</td><td>Permissions par fonction, validation d’entrée, rate limit</td></tr>
+                <tr><td>RAG</td><td>Filtrage par ACL au retrieval, métadonnées de sécurité</td></tr>
+                <tr><td>Logs</td><td>Accès restreint, rétention, redaction des secrets</td></tr>
+                <tr><td>Fournisseur</td><td>Contrat, localisation, sous-traitants, isolation, audit</td></tr>
+              </tbody>
+            </table>
+            <div class="callout danger">
+              Ne jamais confondre « modèle privé » et « usage sécurisé ». La sécurité dépend de l’ensemble de la chaîne :
+              identité, données, connecteurs, prompts, logs, stockage, fournisseurs et processus humain.
+            </div>
+            <details class="interview">
+              <summary>Réponse d’entretien prête à l’emploi</summary>
+              <p>
+                « J’applique la minimisation des données et le moindre privilège. Pour un assistant documentaire, je propage
+                les habilitations de la source jusqu’au retrieval, je contrôle la rétention des prompts et des logs, et je vérifie
+                contractuellement que les données ne servent pas à entraîner un service tiers sans autorisation. »
+              </p>
+            </details>
+          </div>
+        </article>
+
+        <article id="module-9" class="card module" data-title="gouvernance modèles model risk management inventaire validation documentation responsabilité">
+          <div class="module-header">
+            <div class="module-number">9</div>
+            <div class="module-title">
+              <h3>Gouvernance des modèles</h3>
+              <p>Organiser la responsabilité, la validation et la traçabilité.</p>
+            </div>
+            <div class="module-actions">
+              <label class="complete-label"><input type="checkbox" class="module-check" data-module="9"> Maîtrisé</label>
+              <button class="toggle-module" aria-expanded="false">Développer</button>
+            </div>
+          </div>
+          <div class="module-content">
+            <p>
+              La gouvernance répond à six questions : quel modèle existe, à quoi sert-il, qui en est responsable, sur quelles
+              données repose-t-il, comment a-t-il été validé et comment est-il surveillé.
+            </p>
+            <div class="lesson-grid">
+              <div>
+                <h4>Cycle de gouvernance</h4>
+                <ol class="mini-list">
+                  <li>Qualification du cas d’usage et niveau de risque.</li>
+                  <li>Enregistrement dans un inventaire.</li>
+                  <li>Documentation des données, hypothèses et limites.</li>
+                  <li>Validation indépendante proportionnée au risque.</li>
+                  <li>Approbation et mise en production contrôlée.</li>
+                  <li>Monitoring, revue périodique et retrait.</li>
+                </ol>
+              </div>
+              <div>
+                <h4>Rôles typiques</h4>
+                <ul class="mini-list">
+                  <li><strong>Business owner :</strong> valeur et usage.</li>
+                  <li><strong>Model owner :</strong> performance et cycle de vie.</li>
+                  <li><strong>Data owner :</strong> qualité et droits.</li>
+                  <li><strong>IT / MLOps :</strong> exploitation et sécurité.</li>
+                  <li><strong>Validation indépendante :</strong> challenge méthodologique.</li>
+                  <li><strong>Risk / Compliance / Legal :</strong> exigences et contrôles.</li>
+                </ul>
+              </div>
+            </div>
+            <h4>Artefacts à connaître</h4>
+            <table>
+              <thead><tr><th>Artefact</th><th>Contenu minimal</th></tr></thead>
+              <tbody>
+                <tr><td>Model card</td><td>Objectif, données, performance, limites, usages interdits</td></tr>
+                <tr><td>Data sheet</td><td>Origine, qualité, représentativité, transformations, rétention</td></tr>
+                <tr><td>Journal de versions</td><td>Code, paramètres, environnement, date, approbation</td></tr>
+                <tr><td>Plan de monitoring</td><td>Métriques, seuils, fréquence, responsabilités, actions</td></tr>
+                <tr><td>Plan de continuité</td><td>Mode dégradé, rollback, arrêt d’urgence, reprise manuelle</td></tr>
+              </tbody>
+            </table>
+            <div class="callout">
+              La gouvernance doit être proportionnée : un générateur de compte rendu interne n’est pas traité comme un
+              modèle affectant une décision de crédit, mais aucun modèle ne doit être totalement hors inventaire.
+            </div>
+            <details class="interview">
+              <summary>Réponse d’entretien prête à l’emploi</summary>
+              <p>
+                « Je mets en place une gouvernance proportionnée au risque avec un owner métier, un owner modèle, un inventaire,
+                une documentation standard, une validation indépendante pour les usages sensibles et des critères explicites
+                de surveillance, de rollback et de retrait. »
+              </p>
+            </details>
+          </div>
+        </article>
+
+        <article id="module-10" class="card module" data-title="business case coût exploitation roi tco tokens infrastructure run change">
+          <div class="module-header">
+            <div class="module-number">10</div>
+            <div class="module-title">
+              <h3>Business case et coût d’exploitation</h3>
+              <p>Passer du démonstrateur séduisant au service économiquement viable.</p>
+            </div>
+            <div class="module-actions">
+              <label class="complete-label"><input type="checkbox" class="module-check" data-module="10"> Maîtrisé</label>
+              <button class="toggle-module" aria-expanded="false">Développer</button>
+            </div>
+          </div>
+          <div class="module-content">
+            <div class="lesson-grid">
+              <div>
+                <h4>Valeur potentielle</h4>
+                <ul class="mini-list">
+                  <li>Temps opérationnel économisé.</li>
+                  <li>Réduction d’erreurs ou de pertes.</li>
+                  <li>Hausse de conversion ou rétention.</li>
+                  <li>Réduction du délai de traitement.</li>
+                  <li>Capacité supplémentaire sans recrutement.</li>
+                  <li>Réduction du risque ou meilleure conformité.</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Coût total de possession</h4>
+                <ul class="mini-list">
+                  <li>Licences, API, tokens, GPU et stockage.</li>
+                  <li>Intégration, sécurité et connecteurs.</li>
+                  <li>Nettoyage et mise à jour des données.</li>
+                  <li>Évaluation, validation et gouvernance.</li>
+                  <li>Monitoring, support, incidents et réentraînement.</li>
+                  <li>Conduite du changement et formation.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="formula">
+Valeur nette annuelle =
+(gain de productivité + pertes évitées + revenus additionnels)
+− (coûts variables + coûts fixes + coût des erreurs résiduelles)
+            </div>
+            <h4>De la preuve de concept à l’échelle</h4>
+            <table>
+              <thead><tr><th>Étape</th><th>Question décisionnelle</th><th>Preuve attendue</th></tr></thead>
+              <tbody>
+                <tr><td>Exploration</td><td>Le problème mérite-t-il d’être résolu ?</td><td>Volume, douleur, sponsor</td></tr>
+                <tr><td>Prototype</td><td>La technologie peut-elle fonctionner ?</td><td>Résultats sur échantillon</td></tr>
+                <tr><td>Pilote</td><td>Le processus complet crée-t-il de la valeur ?</td><td>KPI métier et adoption</td></tr>
+                <tr><td>Industrialisation</td><td>Le service est-il robuste et gouverné ?</td><td>SLA, sécurité, coûts, runbook</td></tr>
+                <tr><td>Scale</td><td>La valeur reste-t-elle positive avec le volume ?</td><td>Économie unitaire et capacité</td></tr>
+              </tbody>
+            </table>
+            <div class="callout warn">
+              Un gain théorique de 10 minutes n’est pas une économie réelle si le temps libéré n’est pas réalloué, si les
+              utilisateurs refont le travail ou si une revue manuelle absorbe le bénéfice.
+            </div>
+            <details class="interview">
+              <summary>Réponse d’entretien prête à l’emploi</summary>
+              <p>
+                « Je chiffre un business case sur le flux réellement automatisable, le taux d’adoption, le temps net gagné,
+                le coût des erreurs et le coût du run. Je distingue les coûts fixes d’intégration des coûts variables par transaction.
+                Je valide la valeur sur un pilote instrumenté avant de généraliser. »
+              </p>
+            </details>
+          </div>
+        </article>
+      </section>
+
+      <section id="outils" class="section">
+        <div class="section-head">
+          <div>
+            <h2>Outils pratiques</h2>
+            <p>Manipulez les métriques et le business case plutôt que de les apprendre passivement.</p>
+          </div>
+        </div>
+
+        <div class="tool-grid">
+          <div class="card tool interactive-only">
+            <h3 style="margin-top:0">Calculateur de matrice de confusion</h3>
+            <div class="field-grid">
+              <label class="field">Vrais positifs (TP)<input id="tp" type="number" min="0" value="160"></label>
+              <label class="field">Faux positifs (FP)<input id="fp" type="number" min="0" value="640"></label>
+              <label class="field">Faux négatifs (FN)<input id="fn" type="number" min="0" value="40"></label>
+              <label class="field">Vrais négatifs (TN)<input id="tn" type="number" min="0" value="99160"></label>
+            </div>
+            <div id="metricResults" class="results"></div>
+          </div>
+
+          <div class="card tool interactive-only">
+            <h3 style="margin-top:0">Calculateur de business case</h3>
+            <div class="field-grid">
+              <label class="field">Dossiers / mois<input id="cases" type="number" min="0" value="15000"></label>
+              <label class="field">Minutes actuelles / dossier<input id="minutes" type="number" min="0" step="0.1" value="8"></label>
+              <label class="field">Coût horaire chargé (€)<input id="hourly" type="number" min="0" step="0.1" value="42"></label>
+              <label class="field">Part réellement gagnée (%)<input id="savedPct" type="number" min="0" max="100" value="55"></label>
+              <label class="field">Coût IA / dossier (€)<input id="aiCost" type="number" min="0" step="0.001" value="0.18"></label>
+              <label class="field">Coût fixe annuel (€)<input id="fixedCost" type="number" min="0" value="180000"></label>
+            </div>
+            <div id="businessResults" class="results"></div>
+          </div>
+        </div>
+
+        <div class="card tool interactive-only" style="margin-top:1rem">
+          <h3 style="margin-top:0">Mini-simulateur RAG</h3>
+          <p class="side-note" style="border:0;margin:0 0 .7rem;padding:0">
+            Cette simulation illustre la chaîne de traitement ; elle n’appelle aucun modèle externe.
+          </p>
+          <div class="field-grid">
+            <label class="field">Question
+              <select id="ragQuestion">
+                <option value="fraude">Quelle procédure suivre pour une alerte fraude carte ?</option>
+                <option value="kyc">Quels justificatifs sont acceptés pour un KYC particulier ?</option>
+                <option value="credit">Qui doit valider une dérogation de crédit ?</option>
+              </select>
+            </label>
+            <label class="field">Nombre de passages récupérés
+              <select id="ragK"><option>2</option><option selected>3</option><option>5</option></select>
+            </label>
+          </div>
+          <button id="runRag" class="btn" style="margin-top:.8rem">Exécuter la simulation</button>
+          <div id="ragOutput" class="callout" style="margin-top:1rem">Choisissez une question puis lancez la simulation.</div>
+        </div>
+      </section>
+
+      <section id="quiz" class="section">
+        <div class="section-head">
+          <div>
+            <h2>Quiz de validation</h2>
+            <p>Objectif recommandé : au moins 10 bonnes réponses sur 12.</p>
+          </div>
+          <button id="resetQuiz" class="btn secondary interactive-only">Réinitialiser</button>
+        </div>
+        <div id="quizList" class="quiz-list interactive-only"></div>
+        <div id="quizScore" class="card card-body interactive-only" style="margin-top:1rem;font-weight:800"></div>
+      </section>
+
+      <section id="entretiens" class="section">
+        <div class="section-head">
+          <div>
+            <h2>Cas d’entretien</h2>
+            <p>Répondez à voix haute en 90 secondes avant d’afficher la correction.</p>
+          </div>
+        </div>
+        <div class="scenario-grid">
+          <div class="card scenario">
+            <h3>1. Assistant documentaire conformité</h3>
+            <p>La conformité veut un chatbot répondant aux procédures internes. Comment cadrez-vous le projet ?</p>
+            <button class="btn secondary reveal">Voir une réponse structurée</button>
+            <div class="scenario-answer">
+              <ol class="mini-list">
+                <li>Définir population, décisions couvertes et usages interdits.</li>
+                <li>Qualifier corpus, propriétaires, fraîcheur et habilitations.</li>
+                <li>Construire un RAG avec citations et abstention.</li>
+                <li>Tester retrieval et factualité sur un jeu de questions représentatif.</li>
+                <li>Prévoir escalation vers un expert, logs et monitoring.</li>
+                <li>Mesurer temps de recherche, taux de résolution et erreurs critiques.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="card scenario">
+            <h3>2. Détection de fraude</h3>
+            <p>Le modèle bloque trop de clients légitimes. Que faites-vous ?</p>
+            <button class="btn secondary reveal">Voir une réponse structurée</button>
+            <div class="scenario-answer">
+              <ol class="mini-list">
+                <li>Analyser précision, rappel et faux positifs par segment.</li>
+                <li>Vérifier dérive, qualité des données et nouvelles règles de fraude.</li>
+                <li>Simuler différents seuils avec coût de fraude et coût client.</li>
+                <li>Créer des seuils différenciés selon montant, canal et profil.</li>
+                <li>Ajouter une étape de confirmation ou revue pour les cas intermédiaires.</li>
+                <li>Déployer progressivement et mesurer l’impact opérationnel.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="card scenario">
+            <h3>3. Génération d’e-mails clients</h3>
+            <p>Le métier veut automatiser les réponses aux réclamations. Quel niveau d’autonomie ?</p>
+            <button class="btn secondary reveal">Voir une réponse structurée</button>
+            <div class="scenario-answer">
+              <p>
+                Commencer par un copilote générant un brouillon à partir de motifs, historique autorisé et base de réponses.
+                Imposer validation humaine pour les réclamations sensibles, les gestes commerciaux et les mentions réglementaires.
+                Mesurer temps net gagné, taux de modification, erreurs, satisfaction et escalades avant toute automatisation complète.
+              </p>
+            </div>
+          </div>
+
+          <div class="card scenario">
+            <h3>4. PoC performant, mais pas d’adoption</h3>
+            <p>Le modèle fonctionne techniquement, pourtant les équipes ne l’utilisent pas. Pourquoi ?</p>
+            <button class="btn secondary reveal">Voir une réponse structurée</button>
+            <div class="scenario-answer">
+              <p>
+                Examiner l’intégration au workflow, la confiance, l’ergonomie, les temps de réponse, les incitations et la clarté
+                de la responsabilité. Comparer la métrique du PoC avec le KPI métier réel. Impliquer des utilisateurs pilotes,
+                instrumenter les abandons et traiter les causes avant de conclure que « le changement est culturel ».
+              </p>
+            </div>
+          </div>
+
+          <div class="card scenario">
+            <h3>5. Réutilisation de données clients</h3>
+            <p>Une équipe souhaite entraîner un modèle sur des conversations clients. Quels contrôles ?</p>
+            <button class="btn secondary reveal">Voir une réponse structurée</button>
+            <div class="scenario-answer">
+              <p>
+                Vérifier finalité, base légale, minimisation, information, rétention, localisation et droits. Pseudonymiser ou
+                supprimer les données inutiles, contrôler l’accès, séparer les environnements, auditer le fournisseur et documenter
+                les usages autorisés. Prévoir des tests de mémorisation et une procédure de suppression.
+              </p>
+            </div>
+          </div>
+
+          <div class="card scenario">
+            <h3>6. Prioriser trois cas d’usage</h3>
+            <p>Comment arbitrer entre valeur, faisabilité et risque ?</p>
+            <button class="btn secondary reveal">Voir une réponse structurée</button>
+            <div class="scenario-answer">
+              <p>
+                Utiliser une matrice : impact économique, volume, qualité des données, complexité d’intégration, exposition
+                réglementaire, coût d’erreur, délai de mise en œuvre et sponsor métier. Privilégier un cas à valeur mesurable,
+                périmètre maîtrisé et données accessibles, sans sélectionner uniquement le cas le plus spectaculaire.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="flashcards" class="section">
+        <div class="section-head">
+          <div>
+            <h2>Flashcards</h2>
+            <p>Cliquez sur une carte pour afficher la réponse.</p>
+          </div>
+        </div>
+        <div class="flashcards interactive-only">
+          <div class="flashcard"><div class="flash-inner"><div class="flash-front">Précision</div><div class="flash-back">Parmi les éléments prédits positifs, quelle proportion est réellement positive ? TP / (TP + FP)</div></div></div>
+          <div class="flashcard"><div class="flash-inner"><div class="flash-front">Rappel</div><div class="flash-back">Parmi les éléments réellement positifs, quelle proportion le modèle retrouve-t-il ? TP / (TP + FN)</div></div></div>
+          <div class="flashcard"><div class="flash-inner"><div class="flash-front">Data drift</div><div class="flash-back">Changement de la distribution des données d’entrée par rapport à la référence.</div></div></div>
+          <div class="flashcard"><div class="flash-inner"><div class="flash-front">Concept drift</div><div class="flash-back">Changement de la relation entre les variables d’entrée et la cible à prédire.</div></div></div>
+          <div class="flashcard"><div class="flash-inner"><div class="flash-front">RAG</div><div class="flash-back">Recherche de passages pertinents, ajout au contexte, puis génération d’une réponse idéalement sourcée.</div></div></div>
+          <div class="flashcard"><div class="flash-inner"><div class="flash-front">Human-on-the-loop</div><div class="flash-back">Le système agit automatiquement, mais un humain supervise, reçoit des alertes et peut reprendre la main.</div></div></div>
+          <div class="flashcard"><div class="flash-inner"><div class="flash-front">Data leakage</div><div class="flash-back">Utilisation d’une information indisponible au moment réel de la décision, créant une performance artificielle.</div></div></div>
+          <div class="flashcard"><div class="flash-inner"><div class="flash-front">Model card</div><div class="flash-back">Document décrivant objectif, données, performances, limites, risques et usages interdits d’un modèle.</div></div></div>
+          <div class="flashcard"><div class="flash-inner"><div class="flash-front">TCO</div><div class="flash-back">Coût total de possession : build, licences, données, intégration, sécurité, run, monitoring, support et retrait.</div></div></div>
+        </div>
+      </section>
+
+      <section id="plan" class="section">
+        <div class="section-head">
+          <div>
+            <h2>Plan de crédibilisation en 30 jours</h2>
+            <p>Produire des preuves concrètes plutôt que réciter du vocabulaire.</p>
+          </div>
+        </div>
+        <div class="checklist">
+          <div class="card check-card">
+            <h3>Semaine 1 — Fondamentaux</h3>
+            <label><input type="checkbox" class="plan-check"> Expliquer les 10 modules sans notes.</label>
+            <label><input type="checkbox" class="plan-check"> Refaire le quiz jusqu’à 10/12.</label>
+            <label><input type="checkbox" class="plan-check"> Savoir calculer précision et rappel.</label>
+            <label><input type="checkbox" class="plan-check"> Préparer trois exemples bancaires.</label>
+          </div>
+          <div class="card check-card">
+            <h3>Semaine 2 — Mini-projet</h3>
+            <label><input type="checkbox" class="plan-check"> Construire un petit RAG sur 10 documents publics.</label>
+            <label><input type="checkbox" class="plan-check"> Créer 20 questions de test.</label>
+            <label><input type="checkbox" class="plan-check"> Mesurer retrieval et qualité des réponses.</label>
+            <label><input type="checkbox" class="plan-check"> Documenter limites et contrôles.</label>
+          </div>
+          <div class="card check-card">
+            <h3>Semaines 3–4 — Entretien</h3>
+            <label><input type="checkbox" class="plan-check"> Chiffrer un business case réaliste.</label>
+            <label><input type="checkbox" class="plan-check"> Préparer une présentation de 5 minutes.</label>
+            <label><input type="checkbox" class="plan-check"> Répondre aux six cas à voix haute.</label>
+            <label><input type="checkbox" class="plan-check"> Relier le projet à votre expérience de transformation.</label>
+          </div>
+        </div>
+        <div class="card card-body" style="margin-top:1rem">
+          <h3 style="margin-top:0">Projet portfolio recommandé</h3>
+          <p>
+            Construisez un assistant documentaire sur un corpus public de rapports annuels, procédures ou documents réglementaires.
+            Livrez : architecture, jeu d’évaluation, résultats, analyse des erreurs, matrice de risques, règles d’accès simulées,
+            tableau de monitoring et business case. Ce livrable démontre simultanément produit, data, IA, gouvernance et transformation.
+          </p>
+          <div class="callout ok">
+            En entretien, présentez ce projet comme une décision de produit : problème, utilisateurs, données, architecture,
+            métriques, risques, coût, résultats et prochaines étapes.
+          </div>
+        </div>
+      </section>
+
+      <section id="glossaire" class="section">
+        <div class="section-head">
+          <div>
+            <h2>Glossaire essentiel</h2>
+            <p>Les termes à utiliser avec précision.</p>
+          </div>
+        </div>
+        <div class="glossary-grid">
+          <div class="glossary-item"><strong>Embedding</strong><br>Représentation numérique d’un contenu dans un espace où la proximité reflète une similarité.</div>
+          <div class="glossary-item"><strong>Chunk</strong><br>Segment de document indexé et récupéré par le moteur de recherche.</div>
+          <div class="glossary-item"><strong>Fine-tuning</strong><br>Ajustement des paramètres d’un modèle sur des exemples spécifiques ; différent du RAG.</div>
+          <div class="glossary-item"><strong>Prompt injection</strong><br>Instruction malveillante visant à détourner le comportement du modèle ou révéler des données.</div>
+          <div class="glossary-item"><strong>Hallucination</strong><br>Réponse plausible mais non fondée ou incorrecte produite par un modèle génératif.</div>
+          <div class="glossary-item"><strong>Calibration</strong><br>Correspondance entre score prédit et fréquence réelle. Un score de 0,8 devrait se vérifier environ 80 % du temps.</div>
+          <div class="glossary-item"><strong>Champion / challenger</strong><br>Comparaison du modèle en production avec un candidat alternatif avant remplacement.</div>
+          <div class="glossary-item"><strong>Feature</strong><br>Variable utilisée par un modèle pour produire une prédiction.</div>
+          <div class="glossary-item"><strong>Ground truth</strong><br>Référence considérée comme vraie pour entraîner ou évaluer.</div>
+          <div class="glossary-item"><strong>Guardrail</strong><br>Contrôle limitant les entrées, sorties ou actions autorisées d’un système d’IA.</div>
+          <div class="glossary-item"><strong>Latency</strong><br>Temps de réponse total du service, souvent critique pour l’adoption.</div>
+          <div class="glossary-item"><strong>Model registry</strong><br>Référentiel des versions, métadonnées, statuts et approbations des modèles.</div>
+        </div>
+      </section>
+
+      <section class="section print-only">
+        <p>Version imprimée du cours interactif « Data, IA & Transformation ».</p>
+      </section>
+    </div>
+
+    <footer>
+      Cours autonome — aucune donnée n’est envoyée à un serveur.
+    </footer>
+  </main>
+</div>
+
+<script>
+  const store = {
+    get(key, fallback){ try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch(e){ return fallback; } },
+    set(key, value){ localStorage.setItem(key, JSON.stringify(value)); }
+  };
+
+  const modules = [...document.querySelectorAll('.module')];
+  const checks = [...document.querySelectorAll('.module-check')];
+  const savedModules = store.get('aiCourseModules', {});
+
+  function updateProgress(){
+    const done = checks.filter(c => c.checked).length;
+    document.getElementById('progressText').textContent = `${done} / ${checks.length}`;
+    document.getElementById('progressBar').style.width = `${(done/checks.length)*100}%`;
+  }
+
+  checks.forEach(c => {
+    c.checked = !!savedModules[c.dataset.module];
+    c.addEventListener('change', () => {
+      savedModules[c.dataset.module] = c.checked;
+      store.set('aiCourseModules', savedModules);
+      updateProgress();
+    });
+  });
+  updateProgress();
+
+  document.querySelectorAll('.toggle-module').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const article = btn.closest('.module');
+      article.classList.toggle('open');
+      const open = article.classList.contains('open');
+      btn.textContent = open ? 'Réduire' : 'Développer';
+      btn.setAttribute('aria-expanded', open);
+    });
+  });
+
+  document.querySelectorAll('#courseNav a').forEach(link => {
+    link.addEventListener('click', () => document.getElementById('sidebar').classList.remove('open'));
+  });
+
+  document.getElementById('menuToggle').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('open');
+  });
+
+  const themeButtons = [document.getElementById('themeToggle'), document.getElementById('mobileThemeToggle')];
+  function setTheme(theme){
+    document.documentElement.dataset.theme = theme;
+    store.set('aiCourseTheme', theme);
+  }
+  setTheme(store.get('aiCourseTheme', 'light'));
+  themeButtons.forEach(b => b.addEventListener('click', () => {
+    setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+  }));
+
+  document.getElementById('searchInput').addEventListener('input', e => {
+    const q = e.target.value.trim().toLowerCase();
+    modules.forEach(m => {
+      const text = (m.dataset.title + ' ' + m.innerText).toLowerCase();
+      m.classList.toggle('hidden', q && !text.includes(q));
+      if(q && text.includes(q)) {
+        m.classList.add('open');
+        const btn = m.querySelector('.toggle-module');
+        btn.textContent = 'Réduire';
+        btn.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+
+  function pct(n){ return Number.isFinite(n) ? (n*100).toFixed(1)+' %' : '—'; }
+  function calculateMetrics(){
+    const tp = +document.getElementById('tp').value || 0;
+    const fp = +document.getElementById('fp').value || 0;
+    const fn = +document.getElementById('fn').value || 0;
+    const tn = +document.getElementById('tn').value || 0;
+    const precision = tp/(tp+fp);
+    const recall = tp/(tp+fn);
+    const specificity = tn/(tn+fp);
+    const accuracy = (tp+tn)/(tp+fp+fn+tn);
+    const f1 = 2*precision*recall/(precision+recall);
+    document.getElementById('metricResults').innerHTML = `
+      <div class="result-item"><span>Précision</span><strong>${pct(precision)}</strong></div>
+      <div class="result-item"><span>Rappel</span><strong>${pct(recall)}</strong></div>
+      <div class="result-item"><span>F1</span><strong>${pct(f1)}</strong></div>
+      <div class="result-item"><span>Spécificité</span><strong>${pct(specificity)}</strong></div>
+      <div class="result-item"><span>Exactitude globale</span><strong>${pct(accuracy)}</strong></div>
+      <div class="result-item"><span>Alertes à revoir</span><strong>${(tp+fp).toLocaleString('fr-FR')}</strong></div>`;
+  }
+  ['tp','fp','fn','tn'].forEach(id => document.getElementById(id).addEventListener('input', calculateMetrics));
+  calculateMetrics();
+
+  function euros(v){ return new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(v); }
+  function calculateBusiness(){
+    const cases = +document.getElementById('cases').value || 0;
+    const minutes = +document.getElementById('minutes').value || 0;
+    const hourly = +document.getElementById('hourly').value || 0;
+    const savedPct = (+document.getElementById('savedPct').value || 0)/100;
+    const aiCost = +document.getElementById('aiCost').value || 0;
+    const fixed = +document.getElementById('fixedCost').value || 0;
+    const annualHours = cases*12*minutes/60;
+    const grossValue = annualHours*hourly*savedPct;
+    const variable = cases*12*aiCost;
+    const net = grossValue-variable-fixed;
+    const payback = grossValue>variable ? fixed/((grossValue-variable)/12) : Infinity;
+    document.getElementById('businessResults').innerHTML = `
+      <div class="result-item"><span>Heures théoriques / an</span><strong>${Math.round(annualHours).toLocaleString('fr-FR')}</strong></div>
+      <div class="result-item"><span>Valeur brute / an</span><strong>${euros(grossValue)}</strong></div>
+      <div class="result-item"><span>Coût variable / an</span><strong>${euros(variable)}</strong></div>
+      <div class="result-item"><span>Valeur nette / an</span><strong>${euros(net)}</strong></div>
+      <div class="result-item"><span>Payback coûts fixes</span><strong>${Number.isFinite(payback) ? payback.toFixed(1)+' mois' : 'Non atteint'}</strong></div>
+      <div class="result-item"><span>Coût IA / mois</span><strong>${euros(variable/12)}</strong></div>`;
+  }
+  ['cases','minutes','hourly','savedPct','aiCost','fixedCost'].forEach(id => document.getElementById(id).addEventListener('input', calculateBusiness));
+  calculateBusiness();
+
+  const ragData = {
+    fraude: {
+      docs:[
+        ['PROC-CARTE-014 §3.2','Toute alerte à score élevé impose une vérification forte ou une revue analyste.'],
+        ['PROC-CARTE-014 §4.1','Le blocage permanent nécessite une validation selon la matrice de délégation.'],
+        ['GUIDE-CLIENT-007 §2','Informer le client sans divulguer les règles de détection.'],
+        ['FAQ-AGENCE-011','Une opposition carte peut être initiée 24/7.'],
+        ['ARCHIVE-2019','Ancienne procédure remplacée.']
+      ],
+      answer:'Appliquer une vérification forte ou transmettre à un analyste selon le score. Un blocage permanent suit la matrice de délégation. Informer le client sans révéler les règles de détection.'
+    },
+    kyc: {
+      docs:[
+        ['KYC-PART-002 Annexe A','Pièce d’identité valide, justificatif de domicile récent et justificatif de situation selon le niveau de risque.'],
+        ['KYC-PART-002 §5','Les documents expirés ne sont pas acceptés sauf procédure dérogatoire documentée.'],
+        ['KYC-DIGITAL-004','La vérification à distance exige un contrôle d’authenticité renforcé.'],
+        ['FAQ-CLIENT-003','Liste simplifiée destinée au canal web.'],
+        ['ARCHIVE-KYC-2018','Version obsolète.']
+      ],
+      answer:'Les pièces dépendent du niveau de risque : identité valide, domicile récent et justificatifs complémentaires selon la situation. À distance, un contrôle d’authenticité renforcé s’applique.'
+    },
+    credit: {
+      docs:[
+        ['DELEG-CREDIT-009 §7','Toute dérogation hors pouvoir de l’analyste est soumise au niveau de délégation supérieur.'],
+        ['POL-CREDIT-001 §8','Le motif, les compensants et l’approbation doivent être tracés.'],
+        ['RISK-COMMITTEE-003','Les dérogations majeures sont présentées au comité compétent.'],
+        ['GUIDE-VENTE-005','Le conseiller ne peut pas valider sa propre dérogation.'],
+        ['ARCHIVE-2017','Ancienne matrice.']
+      ],
+      answer:'La dérogation doit être validée par le niveau de délégation supérieur ou le comité compétent selon son importance. Le motif, les compensants et l’approbation doivent être tracés.'
+    }
+  };
+  document.getElementById('runRag').addEventListener('click', () => {
+    const key = document.getElementById('ragQuestion').value;
+    const k = +document.getElementById('ragK').value;
+    const item = ragData[key];
+    const docs = item.docs.slice(0,k).map((d,i)=>`<li><strong>${i+1}. ${d[0]}</strong> — ${d[1]}</li>`).join('');
+    document.getElementById('ragOutput').innerHTML = `
+      <strong>1. Retrieval — ${k} passages</strong>
+      <ol class="mini-list">${docs}</ol>
+      <strong>2. Génération fondée sur le contexte</strong>
+      <p>${item.answer}</p>
+      <strong>3. Contrôles suggérés</strong>
+      <p>Citations visibles, exclusion des archives, filtrage par habilitation, abstention si aucun passage fiable.</p>`;
+  });
+
+  const quiz = [
+    {
+      q:'Quel cas se prête le mieux à une automatisation déterministe ?',
+      options:['Rédiger librement une synthèse','Appliquer une règle de relance à J+5','Détecter une fraude inconnue','Prévoir le churn'],
+      a:1, e:'Une règle explicite et stable ne nécessite pas de modèle probabiliste.'
+    },
+    {
+      q:'Le jeu de validation sert principalement à…',
+      options:['Mesurer une seule fois la performance finale','Choisir le modèle et ses hyperparamètres','Entraîner tous les paramètres','Remplacer les données de production'],
+      a:1, e:'Le test reste intact jusqu’à l’évaluation finale.'
+    },
+    {
+      q:'Pour éviter une fuite temporelle, il faut…',
+      options:['Mélanger toutes les dates','Tester sur une période future','Supprimer les variables numériques','Augmenter le nombre de classes'],
+      a:1, e:'Un découpage chronologique reproduit mieux la situation réelle.'
+    },
+    {
+      q:'Une précision élevée signifie que…',
+      options:['La majorité des vrais positifs sont trouvés','Les alertes positives sont souvent justes','Le modèle est toujours bien calibré','Le coût métier est faible'],
+      a:1, e:'Précision = TP / (TP + FP).'
+    },
+    {
+      q:'Quel risque augmente lorsque le seuil de détection est fortement abaissé ?',
+      options:['Davantage de faux positifs','Davantage de faux négatifs','Moins d’alertes','Suppression du drift'],
+      a:0, e:'Un seuil plus bas capture plus de cas mais déclenche davantage d’alertes.'
+    },
+    {
+      q:'Dans un RAG, le retrieval sert à…',
+      options:['Réentraîner le LLM à chaque question','Retrouver des passages pertinents','Chiffrer les prompts','Supprimer les logs'],
+      a:1, e:'Les passages deviennent le contexte de génération.'
+    },
+    {
+      q:'Quel contrôle est indispensable dans un RAG d’entreprise ?',
+      options:['Le filtrage des documents par habilitation','Un seul document par réponse','Le fine-tuning obligatoire','La suppression de toutes les citations'],
+      a:0, e:'Le modèle ne doit jamais recevoir un passage interdit.'
+    },
+    {
+      q:'Le human-in-the-loop est utile surtout lorsque…',
+      options:['Toutes les règles sont triviales','Les conséquences ou incertitudes sont élevées','Le modèle a une latence faible','Le volume est nul'],
+      a:1, e:'La revue humaine doit être ciblée sur le risque et l’incertitude.'
+    },
+    {
+      q:'Le data drift désigne…',
+      options:['Un changement des données d’entrée','Un changement de fournisseur cloud','Une erreur de code seulement','Une baisse des coûts'],
+      a:0, e:'La distribution des variables observées change.'
+    },
+    {
+      q:'Quel élément appartient à la gouvernance des modèles ?',
+      options:['Inventaire, owner et validation','Uniquement la licence logicielle','Seulement la précision moyenne','La suppression des métriques'],
+      a:0, e:'La gouvernance couvre responsabilités, documentation, validation et surveillance.'
+    },
+    {
+      q:'Pourquoi un PoC positif peut-il avoir un ROI négatif à l’échelle ?',
+      options:['Les coûts de run et d’intégration peuvent dépasser les gains','La précision augmente toujours','Le volume supprime les coûts','Le monitoring devient inutile'],
+      a:0, e:'Le coût total de possession apparaît souvent après le prototype.'
+    },
+    {
+      q:'Quel KPI produit complète le mieux une métrique modèle ?',
+      options:['Taux de résolution du besoin utilisateur','Nombre de slides du projet','Âge moyen du code','Couleur du tableau de bord'],
+      a:0, e:'La performance technique doit se traduire en résultat métier.'
+    }
+  ];
+  let quizAnswers = store.get('aiCourseQuiz', {});
+
+  function renderQuiz(){
+    const root = document.getElementById('quizList');
+    root.innerHTML = '';
+    quiz.forEach((item, idx) => {
+      const box = document.createElement('div');
+      box.className = 'quiz-q';
+      const selected = quizAnswers[idx];
+      box.innerHTML = `<h4>${idx+1}. ${item.q}</h4>` + item.options.map((o,i)=>
+        `<label><input type="radio" name="q${idx}" value="${i}" ${selected==i?'checked':''}> ${o}</label>`
+      ).join('') + `<div class="quiz-feedback" id="fb${idx}"></div>`;
+      root.appendChild(box);
+      box.querySelectorAll('input').forEach(input => input.addEventListener('change', e => {
+        quizAnswers[idx] = +e.target.value;
+        store.set('aiCourseQuiz', quizAnswers);
+        updateQuizFeedback();
+      }));
+    });
+    updateQuizFeedback();
+  }
+
+  function updateQuizFeedback(){
+    let answered=0, score=0;
+    quiz.forEach((item,idx)=>{
+      const fb = document.getElementById('fb'+idx);
+      if(quizAnswers[idx] === undefined){ fb.textContent=''; return; }
+      answered++;
+      const ok = quizAnswers[idx] === item.a;
+      if(ok) score++;
+      fb.textContent = (ok ? '✓ Correct — ' : '✗ À revoir — ') + item.e;
+      fb.style.color = ok ? 'var(--ok)' : 'var(--danger)';
+    });
+    document.getElementById('quizScore').textContent = `Score : ${score} / ${quiz.length} — ${answered} question(s) répondue(s).`;
+  }
+  renderQuiz();
+
+  document.getElementById('resetQuiz').addEventListener('click',()=>{
+    quizAnswers={};
+    store.set('aiCourseQuiz',quizAnswers);
+    renderQuiz();
+  });
+
+  document.querySelectorAll('.reveal').forEach(b => b.addEventListener('click',()=>{
+    const card=b.closest('.scenario');
+    card.classList.toggle('revealed');
+    b.textContent=card.classList.contains('revealed')?'Masquer la réponse':'Voir une réponse structurée';
+  }));
+
+  document.querySelectorAll('.flashcard').forEach(c => c.addEventListener('click',()=>c.classList.toggle('flipped')));
+
+  const planChecks=[...document.querySelectorAll('.plan-check')];
+  const savedPlan=store.get('aiCoursePlan',[]);
+  planChecks.forEach((c,i)=>{
+    c.checked=!!savedPlan[i];
+    c.addEventListener('change',()=>{
+      store.set('aiCoursePlan',planChecks.map(x=>x.checked));
+    });
+  });
+
+  const navLinks=[...document.querySelectorAll('#courseNav a')];
+  const observed=[...document.querySelectorAll('section[id], article[id]')];
+  const observer=new IntersectionObserver(entries=>{
+    const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+    if(!visible)return;
+    navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+visible.target.id));
+  },{rootMargin:'-15% 0px -70% 0px',threshold:[0,.2,.5]});
+  observed.forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
