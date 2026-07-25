@@ -31,6 +31,7 @@ a{color:var(--accent)}
 .progress-shell{height:9px;background:var(--line);border-radius:99px;overflow:hidden;flex:1}
 .progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .2s}
 .icon-btn{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:10px;padding:8px 11px}
+.home-link{text-decoration:none;white-space:nowrap}
 .layout{max-width:1460px;margin:auto;display:grid;grid-template-columns:285px minmax(0,1fr);gap:24px;padding:24px}
 .sidebar{position:sticky;top:72px;height:calc(100vh - 96px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
 .sidebar h2{font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:0 0 10px}
@@ -162,6 +163,7 @@ textarea{width:100%;min-height:145px;background:var(--panel-2);border:1px solid 
   <div class="topbar-inner">
     <div class="brand">Assurance digitale</div>
     <div class="progress-shell" aria-label="Progression de lecture"><div id="readingProgress" class="progress-bar"></div></div>
+    <a class="icon-btn home-link" href="index.html">← Accueil</a>
     <button class="icon-btn" id="themeBtn" title="Changer de thème">◐</button>
     <button class="icon-btn" onclick="window.print()" title="Imprimer ou enregistrer en PDF">⎙</button>
   </div>
