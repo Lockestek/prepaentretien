@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="light">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -399,7 +399,7 @@ Règle : chaque transition a un déclencheur, une garde, un effet, une preuve et
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 // Theme
 const root=document.documentElement; const themeBtn=$('#themeBtn');
-if(localStorage.payTheme==='light') root.classList.add('light');
+if(localStorage.payTheme==='dark') root.classList.remove('light');
 themeBtn.addEventListener('click',()=>{root.classList.toggle('light');localStorage.payTheme=root.classList.contains('light')?'light':'dark'});
 // Mobile nav
 $('#mobileMenu').onclick=()=>$('#sidebar').classList.toggle('open');
