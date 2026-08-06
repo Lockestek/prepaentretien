@@ -152,9 +152,13 @@
       .section,.hero,.card,details,.question{background:white;color:black;border-color:#bbb;box-shadow:none}
       .muted,.lead{color:#333}
     }
+    .product-home-link{position:fixed;top:16px;right:16px;z-index:1000;display:inline-flex;align-items:center;padding:10px 14px;border:1px solid var(--border);border-radius:10px;background:var(--panel);color:var(--text);font-weight:700;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.22)}
+    .product-home-link:hover{border-color:var(--accent);transform:translateY(-1px)}
+    @media print{.product-home-link{display:none!important}}
   </style>
 </head>
 <body>
+<a class="product-home-link" href="../index.html" aria-label="Retourner à la page d’accueil">← Accueil</a>
 <div class="layout">
   <aside>
     <div class="brand">Product <span>GTM Lab</span></div>

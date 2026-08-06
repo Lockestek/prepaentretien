@@ -85,9 +85,13 @@
     main{max-width:none;padding:0}
     section,.hero{box-shadow:none;break-inside:avoid}
   }
+  .product-home-link{position:fixed;top:16px;right:16px;z-index:1000;display:inline-flex;align-items:center;padding:10px 14px;border:1px solid var(--brand);border-radius:10px;background:var(--panel);color:var(--brand);font-weight:700;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.12)}
+  .product-home-link:hover{background:var(--brand);color:white}
+  @media print{.product-home-link{display:none!important}}
 </style>
 </head>
 <body>
+<a class="product-home-link" href="../index.html" aria-label="Retourner à la page d’accueil">← Accueil</a>
 <div class="layout">
   <aside>
     <div class="brand">Product P&L Academy</div>

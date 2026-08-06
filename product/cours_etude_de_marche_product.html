@@ -149,9 +149,13 @@
       section,.hero{box-shadow:none;break-inside:avoid}
       body{background:white;color:black}
     }
-  </style>
+  .product-home-link{position:fixed;top:16px;right:16px;z-index:1000;display:inline-flex;align-items:center;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--text);font-weight:700;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.12)}
+  .product-home-link:hover{border-color:var(--accent);transform:translateY(-1px)}
+  @media print{.product-home-link{display:none!important}}
+</style>
 </head>
 <body>
+<a class="product-home-link no-print" href="../index.html" aria-label="Retourner à la page d’accueil">← Accueil</a>
 <div class="layout">
   <aside>
     <div class="brand">Étude de marché
