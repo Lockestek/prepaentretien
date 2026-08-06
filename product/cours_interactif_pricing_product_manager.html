@@ -113,9 +113,13 @@
       .module,.card,.quiz,.calculator,.interview,.glossary{box-shadow:none;background:white;color:#111;border-color:#bbb}
       .small,.lead,label{color:#444}
     }
+    .product-home-link{position:fixed;top:16px;right:16px;z-index:1000;display:inline-flex;align-items:center;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:#213153;color:var(--text);font-weight:700;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.22)}
+    .product-home-link:hover{border-color:var(--accent);transform:translateY(-1px)}
+    @media print{.product-home-link{display:none!important}}
   </style>
 </head>
 <body>
+  <a class="product-home-link" href="../index.html" aria-label="Retourner à la page d’accueil">← Accueil</a>
   <header class="hero">
     <div class="wrap hero-grid">
       <div>
