@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing pour Product Manager — Cours interactif & préparation entretien</title>
+  <style>
+    :root{
+      --bg:#0b1220; --panel:#111a2e; --panel2:#17233d; --text:#eaf0ff;
+      --muted:#9fb0cf; --accent:#66d9ef; --accent2:#8b7cff; --good:#46d39a;
+      --warn:#ffcc66; --bad:#ff7a90; --line:#2a3858; --white:#fff;
+      --shadow:0 18px 45px rgba(0,0,0,.25);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:linear-gradient(180deg,#08101d 0%,#0b1220 38%,#0d1628 100%);
+      color:var(--text); line-height:1.6;
+    }
+    button,input,select,textarea{font:inherit}
+    a{color:var(--accent)}
+    .hero{
+      padding:64px 24px 44px;
+      background:
+        radial-gradient(circle at 18% 15%, rgba(102,217,239,.16), transparent 32%),
+        radial-gradient(circle at 80% 10%, rgba(139,124,255,.18), transparent 30%);
+      border-bottom:1px solid var(--line);
+    }
+    .wrap{max-width:1180px;margin:auto}
+    .eyebrow{color:var(--accent);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:.78rem}
+    h1{font-size:clamp(2.1rem,5vw,4.5rem);line-height:1.05;margin:.5rem 0 1rem;max-width:980px}
+    .lead{font-size:1.12rem;color:var(--muted);max-width:850px}
+    .hero-grid{display:grid;grid-template-columns:1.6fr .8fr;gap:24px;align-items:end}
+    .score-card,.card,.module,.calculator,.quiz,.interview,.glossary{
+      background:rgba(17,26,46,.92); border:1px solid var(--line); border-radius:18px; box-shadow:var(--shadow);
+    }
+    .score-card{padding:22px}
+    .progress-track{height:12px;background:#0a1020;border-radius:999px;overflow:hidden;border:1px solid var(--line)}
+    .progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:.35s}
+    .small{font-size:.9rem;color:var(--muted)}
+    .layout{display:grid;grid-template-columns:260px 1fr;gap:24px;padding:28px 24px 64px}
+    nav{
+      position:sticky;top:18px;align-self:start;background:rgba(12,19,34,.88);
+      border:1px solid var(--line);border-radius:16px;padding:14px;backdrop-filter:blur(12px)
+    }
+    nav a{
+      display:block;text-decoration:none;color:var(--muted);padding:10px 12px;border-radius:10px;margin:3px 0
+    }
+    nav a:hover,nav a.active{background:var(--panel2);color:var(--white)}
+    main{min-width:0}
+    section{scroll-margin-top:24px;margin-bottom:28px}
+    .module{padding:26px;margin-bottom:24px}
+    .module h2{margin-top:0;font-size:1.75rem}
+    .module h3{margin-top:1.6rem}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{padding:18px}
+    .callout{border-left:4px solid var(--accent);background:#0d1730;padding:16px;border-radius:10px;margin:16px 0}
+    .warning{border-left-color:var(--warn)}
+    .good{border-left-color:var(--good)}
+    .bad{border-left-color:var(--bad)}
+    .pill{display:inline-block;padding:5px 10px;border-radius:999px;background:#192845;color:var(--accent);font-size:.82rem;font-weight:700;margin:2px}
+    table{width:100%;border-collapse:collapse;margin:14px 0;display:block;overflow-x:auto}
+    th,td{border-bottom:1px solid var(--line);padding:12px;text-align:left;vertical-align:top}
+    th{color:var(--accent);background:#0d1730}
+    ul,ol{padding-left:20px}
+    .checkline{display:flex;gap:10px;align-items:flex-start;margin:10px 0}
+    .checkline input{margin-top:6px;transform:scale(1.2)}
+    .calculator,.quiz,.interview,.glossary{padding:20px;margin:18px 0}
+    .calculator h3,.quiz h3,.interview h3,.glossary h3{margin-top:0}
+    .field-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    label{display:block;color:var(--muted);font-size:.9rem;margin-bottom:5px}
+    input[type="number"],input[type="text"],select,textarea{
+      width:100%;background:#0a1223;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px 12px
+    }
+    textarea{min-height:150px;resize:vertical}
+    .btn{
+      appearance:none;border:0;border-radius:10px;padding:10px 15px;font-weight:800;cursor:pointer;
+      background:linear-gradient(90deg,var(--accent),#61b8ff);color:#07111f;margin:8px 8px 0 0
+    }
+    .btn.secondary{background:#213153;color:var(--text);border:1px solid var(--line)}
+    .btn.danger{background:#472033;color:#ffd6df}
+    .result{margin-top:14px;padding:14px;background:#0b1428;border:1px dashed #3b537e;border-radius:12px}
+    .question{padding:16px 0;border-bottom:1px solid var(--line)}
+    .question:last-child{border-bottom:0}
+    .question label.option{display:block;padding:7px 10px;border-radius:8px;cursor:pointer;color:var(--text)}
+    .question label.option:hover{background:#17233d}
+    .feedback{margin-top:8px;font-weight:700}
+    .hidden{display:none!important}
+    .answer{
+      margin-top:12px;padding:14px;border-radius:10px;background:#0c1830;border:1px solid var(--line)
+    }
+    .answer strong{color:var(--good)}
+    .rubric{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    .rubric div{background:#0c1730;border:1px solid var(--line);border-radius:10px;padding:10px}
+    .kbd{font-family:ui-monospace,monospace;background:#0a1020;border:1px solid var(--line);padding:2px 6px;border-radius:6px}
+    .quote{font-size:1.05rem;padding:18px;border-radius:14px;background:linear-gradient(135deg,#13213f,#151d36);border:1px solid #344b78}
+    .footer{padding:28px 24px 60px;color:var(--muted);text-align:center}
+    .sticky-actions{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:10}
+    .note-badge{color:var(--warn);font-weight:800}
+    details{background:#0d1730;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
+    summary{cursor:pointer;font-weight:800}
+    .tagline{margin-top:10px;color:var(--muted)}
+    @media(max-width:900px){
+      .hero-grid,.layout,.grid-2,.grid-3,.field-grid{grid-template-columns:1fr}
+      nav{position:relative;top:auto}
+      .rubric{grid-template-columns:1fr 1fr}
+    }
+    @media print{
+      body{background:white;color:#111}
+      nav,.sticky-actions,.btn{display:none!important}
+      .module,.card,.quiz,.calculator,.interview,.glossary{box-shadow:none;background:white;color:#111;border-color:#bbb}
+      .small,.lead,label{color:#444}
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Préparation entretien Product — Module A</div>
+        <h1>Pricing : passer du « coût + marge » à une décision produit défendable</h1>
+        <p class="lead">
+          Un cours interactif conçu pour répondre comme un Product Manager, Senior Product Manager
+          ou Product Line Manager : valeur client, segmentation, willingness to pay, packaging,
+          élasticité, prix–volume–marge et storytelling d’entretien.
+        </p>
+        <p class="tagline">Contexte fil rouge : produit logiciel / service pour véhicules autonomes et clients industriels.</p>
+      </div>
+      <div class="score-card">
+        <strong>Progression du parcours</strong>
+        <div class="progress-track" style="margin:12px 0"><div id="progressFill" class="progress-fill"></div></div>
+        <div id="progressText" class="small">0 % terminé</div>
+        <div style="margin-top:12px"><span class="pill">7 modules</span><span class="pill">3 simulateurs</span><span class="pill">18 questions</span></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap layout">
+    <nav id="toc">
+      <a href="#diagnostic">0. Diagnostic initial</a>
+      <a href="#fondamentaux">1. Fondamentaux du pricing</a>
+      <a href="#valeur">2. Valeur & WTP</a>
+      <a href="#segmentation">3. Segmentation & packaging</a>
+      <a href="#economics">4. Prix–volume–marge</a>
+      <a href="#process">5. Processus de décision</a>
+      <a href="#entretien">6. Réussir l’entretien</a>
+      <a href="#quiz-final">7. Quiz final</a>
+      <a href="#plan">Plan d’action 30 jours</a>
+    </nav>
+
+    <main>
+      <section id="diagnostic" class="module">
+        <h2>0. Diagnostic initial : ce que le recruteur teste réellement</h2>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Question apparente</h3>
+            <p>« Comment fixeriez-vous le prix de ce produit ? »</p>
+            <p class="small">Le recruteur ne cherche pas une formule magique.</p>
+          </div>
+          <div class="card">
+            <h3>Question cachée</h3>
+            <p>« Savez-vous transformer une incertitude marché en décision économique argumentée ? »</p>
+          </div>
+        </div>
+
+        <div class="callout warning">
+          <strong>Erreur fréquente :</strong> répondre uniquement par le coût de développement, la marge cible ou le benchmark concurrentiel.
+          Ces éléments sont utiles, mais ils ne disent pas ce que le client est prêt à payer ni comment le prix affectera l’adoption.
+        </div>
+
+        <h3>Auto-positionnement</h3>
+        <div class="checkline"><input type="checkbox" class="progress-check"><span>Je peux expliquer la différence entre cost-plus, benchmark et value-based pricing.</span></div>
+        <div class="checkline"><input type="checkbox" class="progress-check"><span>Je peux identifier l’acheteur, l’utilisateur, le prescripteur et le décideur économique.</span></div>
+        <div class="checkline"><input type="checkbox" class="progress-check"><span>Je peux construire un cas prix–volume–marge simple.</span></div>
+        <div class="checkline"><input type="checkbox" class="progress-check"><span>Je peux proposer 2 à 3 packages cohérents et justifier leurs différences.</span></div>
+        <div class="checkline"><input type="checkbox" class="progress-check"><span>Je peux raconter une décision de pricing en 90 secondes.</span></div>
+
+        <div class="quiz" data-quiz="diag">
+          <h3>Question flash</h3>
+          <div class="question" data-answer="c">
+            <p><strong>Quelle réponse est la plus « Product » ?</strong></p>
+            <label class="option"><input type="radio" name="d1" value="a"> Nous ajoutons 30 % de marge au coût complet.</label>
+            <label class="option"><input type="radio" name="d1" value="b"> Nous nous alignons 5 % sous le concurrent principal.</label>
+            <label class="option"><input type="radio" name="d1" value="c"> Nous segmentons la valeur créée, testons la disposition à payer et simulons l’impact volume–marge.</label>
+            <div class="feedback"></div>
+          </div>
+          <button class="btn quiz-submit">Vérifier</button>
+        </div>
+      </section>
+
+      <section id="fondamentaux" class="module">
+        <h2>1. Fondamentaux : les trois logiques de pricing</h2>
+
+        <div class="grid-3">
+          <div class="card">
+            <h3>1. Cost-plus</h3>
+            <p><strong>Prix = coût complet + marge cible.</strong></p>
+            <p>Utile pour sécuriser la rentabilité minimale, les contrats d’ingénierie ou les offres très personnalisées.</p>
+            <p class="small">Limite : ignore la valeur client et peut sous-pricer une offre très rentable pour le client.</p>
+          </div>
+          <div class="card">
+            <h3>2. Competition-based</h3>
+            <p><strong>Prix positionné par rapport aux alternatives.</strong></p>
+            <p>Utile sur un marché mature et comparable, avec une structure d’offre bien connue.</p>
+            <p class="small">Limite : suppose que les concurrents ont raison et peut déclencher une guerre des prix.</p>
+          </div>
+          <div class="card">
+            <h3>3. Value-based</h3>
+            <p><strong>Prix ancré sur la valeur économique perçue.</strong></p>
+            <p>Utile quand le produit évite des coûts, augmente des revenus, réduit un risque ou accélère un processus.</p>
+            <p class="small">Limite : demande plus de recherche client et une vente consultative.</p>
+          </div>
+        </div>
+
+        <div class="quote">
+          <strong>Réponse d’entretien :</strong><br>
+          « Je n’utilise pas une seule méthode. Le coût fixe le plancher, les alternatives donnent un repère,
+          et la valeur client définit l’espace de prix. Ensuite je teste le modèle avec des clients et je mesure
+          l’effet sur l’adoption, la marge et le positionnement. »
+        </div>
+
+        <h3>Le corridor de prix</h3>
+        <table>
+          <thead><tr><th>Élément</th><th>Question</th><th>Rôle</th></tr></thead>
+          <tbody>
+            <tr><td>Plancher économique</td><td>Quel prix couvre coûts variables, support et acquisition ?</td><td>Évite une offre structurellement destructrice de marge.</td></tr>
+            <tr><td>Références marché</td><td>Combien coûtent les solutions alternatives ?</td><td>Cadre la crédibilité et le positionnement.</td></tr>
+            <tr><td>Plafond de valeur</td><td>Quelle valeur économique ou stratégique est créée ?</td><td>Évite de laisser trop de valeur au client sans capture.</td></tr>
+            <tr><td>Prix retenu</td><td>Quel compromis maximise adoption, marge et stratégie ?</td><td>Décision Product.</td></tr>
+          </tbody>
+        </table>
+
+        <div class="calculator">
+          <h3>Simulateur 1 — Cost-plus vs value-based</h3>
+          <div class="field-grid">
+            <div><label>Coût annuel de service par client (€)</label><input id="cost" type="number" value="12000"></div>
+            <div><label>Marge brute cible (%)</label><input id="marginTarget" type="number" value="60"></div>
+            <div><label>Valeur annuelle créée chez le client (€)</label><input id="clientValue" type="number" value="120000"></div>
+            <div><label>Part de valeur capturable (%)</label><input id="capture" type="number" value="15"></div>
+            <div><label>Prix concurrent / alternative (€)</label><input id="competitor" type="number" value="25000"></div>
+          </div>
+          <button class="btn" onclick="calcPricing()">Calculer</button>
+          <div id="pricingResult" class="result">Modifie les hypothèses puis clique sur « Calculer ».</div>
+        </div>
+
+        <div class="quiz" data-quiz="fund">
+          <h3>Quiz — Fondamentaux</h3>
+          <div class="question" data-answer="b">
+            <p><strong>1. Dans un pricing value-based, le coût sert principalement à :</strong></p>
+            <label class="option"><input type="radio" name="f1" value="a"> déterminer directement le prix final</label>
+            <label class="option"><input type="radio" name="f1" value="b"> vérifier le plancher de rentabilité</label>
+            <label class="option"><input type="radio" name="f1" value="c"> mesurer la satisfaction client</label>
+            <div class="feedback"></div>
+          </div>
+          <div class="question" data-answer="c">
+            <p><strong>2. Un benchmark concurrentiel est insuffisant car :</strong></p>
+            <label class="option"><input type="radio" name="f2" value="a"> les concurrents n’ont jamais de prix</label>
+            <label class="option"><input type="radio" name="f2" value="b"> le prix concurrent est toujours trop bas</label>
+            <label class="option"><input type="radio" name="f2" value="c"> il ne révèle pas la valeur propre de ton offre ni la qualité de leurs décisions</label>
+            <div class="feedback"></div>
+          </div>
+          <button class="btn quiz-submit">Corriger le quiz</button>
+        </div>
+      </section>
+
+      <section id="valeur" class="module">
+        <h2>2. Mesurer la valeur client et la willingness to pay</h2>
+
+        <h3>Les quatre sources de valeur</h3>
+        <div class="grid-2">
+          <div class="card"><strong>Revenus</strong><br>Plus de ventes, meilleur taux de conversion, nouveau service monétisable, capacité supplémentaire.</div>
+          <div class="card"><strong>Coûts</strong><br>Moins d’heures opérateur, moins d’intervention, moins de maintenance, automatisation.</div>
+          <div class="card"><strong>Risque</strong><br>Moins d’incidents, de non-conformité, d’arrêt de production, de pénalités ou d’exposition réputationnelle.</div>
+          <div class="card"><strong>Temps / stratégie</strong><br>Time-to-market, standardisation, scalabilité, accès à un nouveau marché, différenciation.</div>
+        </div>
+
+        <h3>Construire une équation de valeur</h3>
+        <div class="callout good">
+          <strong>Exemple — plateforme de supervision de flotte autonome</strong><br>
+          Valeur annuelle = heures opérateur économisées + incidents évités + disponibilité supplémentaire + coûts d’outils remplacés.
+        </div>
+
+        <table>
+          <thead><tr><th>Driver</th><th>Hypothèse</th><th>Valeur annuelle</th></tr></thead>
+          <tbody>
+            <tr><td>Réduction supervision</td><td>1 ETP évité à 65 k€ chargé</td><td>65 k€</td></tr>
+            <tr><td>Disponibilité flotte</td><td>+2 % de disponibilité sur 20 véhicules, 4 k€/véhicule/an</td><td>80 k€</td></tr>
+            <tr><td>Incidents évités</td><td>2 incidents à 15 k€</td><td>30 k€</td></tr>
+            <tr><td>Outil remplacé</td><td>Licence existante supprimée</td><td>20 k€</td></tr>
+            <tr><td><strong>Total</strong></td><td></td><td><strong>195 k€ / an</strong></td></tr>
+          </tbody>
+        </table>
+
+        <h3>Willingness to pay (WTP) : ne pas demander seulement « combien paieriez-vous ? »</h3>
+        <p>Les clients répondent mal aux questions abstraites. Il faut trianguler plusieurs méthodes :</p>
+        <div class="grid-3">
+          <div class="card">
+            <strong>Entretiens qualitatifs</strong>
+            <p>Comprendre le problème, les alternatives, le budget, le processus d’achat et le coût de l’inaction.</p>
+          </div>
+          <div class="card">
+            <strong>Tests d’offre</strong>
+            <p>Présenter des packages et prix réels, puis observer les arbitrages et objections.</p>
+          </div>
+          <div class="card">
+            <strong>Données comportementales</strong>
+            <p>Taux de conversion, churn, discount demandé, temps de vente, usage, expansion.</p>
+          </div>
+        </div>
+
+        <details>
+          <summary>Méthode Van Westendorp — à connaître sans la sur-vendre</summary>
+          <p>Quatre questions : prix trop cher, cher mais acceptable, bon marché, trop bon marché au point de douter de la qualité.
+          Elle fournit une zone de prix perçue, mais pas un prix optimal économique. Elle doit être complétée par des tests réels.</p>
+        </details>
+        <details>
+          <summary>Conjoint analysis — niveau Senior</summary>
+          <p>On demande aux répondants de choisir entre des offres combinant plusieurs attributs et prix.
+          Elle permet d’estimer l’utilité relative des fonctionnalités et la sensibilité au prix.</p>
+        </details>
+        <details>
+          <summary>Gabor-Granger — test simple de sensibilité</summary>
+          <p>On présente successivement plusieurs prix et on mesure l’intention d’achat.
+          On peut ensuite approximer la courbe de demande et le revenu attendu.</p>
+        </details>
+
+        <div class="quiz" data-quiz="wtp">
+          <h3>Quiz — Valeur & WTP</h3>
+          <div class="question" data-answer="b">
+            <p><strong>1. Quelle question révèle le mieux la valeur économique ?</strong></p>
+            <label class="option"><input type="radio" name="v1" value="a"> Aimez-vous cette fonctionnalité ?</label>
+            <label class="option"><input type="radio" name="v1" value="b"> Que se passe-t-il si vous ne résolvez pas ce problème pendant 12 mois ?</label>
+            <label class="option"><input type="radio" name="v1" value="c"> Préférez-vous le bleu ou le vert ?</label>
+            <div class="feedback"></div>
+          </div>
+          <div class="question" data-answer="c">
+            <p><strong>2. Le meilleur indicateur de WTP est :</strong></p>
+            <label class="option"><input type="radio" name="v2" value="a"> une déclaration spontanée sans contexte</label>
+            <label class="option"><input type="radio" name="v2" value="b"> le coût de développement</label>
+            <label class="option"><input type="radio" name="v2" value="c"> la combinaison entre entretiens, tests d’offres et comportement réel</label>
+            <div class="feedback"></div>
+          </div>
+          <button class="btn quiz-submit">Corriger le quiz</button>
+        </div>
+      </section>
+
+      <section id="segmentation" class="module">
+        <h2>3. Segmentation, métrique de prix et packaging</h2>
+
+        <h3>1. Qui paie ? Qui utilise ? Qui influence ?</h3>
+        <table>
+          <thead><tr><th>Rôle</th><th>Exemple</th><th>Question Product</th></tr></thead>
+          <tbody>
+            <tr><td>Utilisateur</td><td>Opérateur de supervision</td><td>Le produit améliore-t-il réellement son quotidien ?</td></tr>
+            <tr><td>Acheteur économique</td><td>Directeur opérations / BU</td><td>Quel KPI financier justifie la dépense ?</td></tr>
+            <tr><td>Prescripteur</td><td>Responsable sécurité / IT / architecture</td><td>Quelles exigences bloquent l’achat ?</td></tr>
+            <tr><td>Payeur</td><td>Entité centrale, filiale, client final</td><td>Sur quel budget la dépense sera-t-elle imputée ?</td></tr>
+          </tbody>
+        </table>
+
+        <h3>2. Choisir la bonne métrique de prix</h3>
+        <p>Une bonne métrique suit la valeur créée, reste prévisible et est difficile à contourner.</p>
+        <div class="grid-3">
+          <div class="card"><strong>Par véhicule</strong><p>Aligné avec la taille de flotte. Simple, mais peut pénaliser l’adoption initiale.</p></div>
+          <div class="card"><strong>Par site</strong><p>Prévisible pour le client. Risque de sous-capture sur très grands sites.</p></div>
+          <div class="card"><strong>Par usage / transaction</strong><p>Très aligné avec la valeur. Peut créer une facture volatile.</p></div>
+          <div class="card"><strong>Par utilisateur</strong><p>Facile pour du SaaS collaboratif. Mauvais si la valeur vient des actifs plutôt que des sièges.</p></div>
+          <div class="card"><strong>Licence + maintenance</strong><p>Adaptée à certains clients industriels. Revenus moins récurrents et upgrades plus complexes.</p></div>
+          <div class="card"><strong>Frais d’intégration</strong><p>Monétise le travail initial. À séparer du revenu récurrent.</p></div>
+        </div>
+
+        <h3>3. Packaging : faire payer les différences de valeur</h3>
+        <table>
+          <thead><tr><th>Package</th><th>Cible</th><th>Valeur principale</th><th>Exemple de contenu</th></tr></thead>
+          <tbody>
+            <tr><td>Essential</td><td>Pilote / petite flotte</td><td>Accès rapide</td><td>Supervision de base, 5 véhicules, support standard</td></tr>
+            <tr><td>Professional</td><td>Déploiement multi-véhicules</td><td>Productivité et intégration</td><td>20 véhicules, API, analytics, SLA renforcé</td></tr>
+            <tr><td>Enterprise</td><td>Grand compte / multi-sites</td><td>Risque, gouvernance, scalabilité</td><td>Illimité ou volume élevé, SSO, audit, SLA 24/7, onboarding dédié</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout warning">
+          <strong>Anti-pattern :</strong> mettre les fonctionnalités les plus demandées dans l’offre la moins chère.
+          Un bon packaging réserve les éléments à forte valeur ou à fort coût de service aux niveaux supérieurs.
+        </div>
+
+        <div class="quiz" data-quiz="pack">
+          <h3>Quiz — Segmentation & packaging</h3>
+          <div class="question" data-answer="a">
+            <p><strong>1. Pour une plateforme de flotte, la métrique la plus naturellement alignée est souvent :</strong></p>
+            <label class="option"><input type="radio" name="s1" value="a"> par véhicule ou par flotte</label>
+            <label class="option"><input type="radio" name="s1" value="b"> par couleur d’interface</label>
+            <label class="option"><input type="radio" name="s1" value="c"> par nombre de réunions projet</label>
+            <div class="feedback"></div>
+          </div>
+          <div class="question" data-answer="b">
+            <p><strong>2. Le packaging sert surtout à :</strong></p>
+            <label class="option"><input type="radio" name="s2" value="a"> rendre l’offre plus compliquée</label>
+            <label class="option"><input type="radio" name="s2" value="b"> faire correspondre différents niveaux de valeur, besoins et disposition à payer</label>
+            <label class="option"><input type="radio" name="s2" value="c"> éviter toute négociation commerciale</label>
+            <div class="feedback"></div>
+          </div>
+          <button class="btn quiz-submit">Corriger le quiz</button>
+        </div>
+      </section>
+
+      <section id="economics" class="module">
+        <h2>4. Économie du pricing : prix, volume, marge et élasticité</h2>
+
+        <h3>Les équations minimales à maîtriser</h3>
+        <div class="grid-2">
+          <div class="card">
+            <strong>Chiffre d’affaires</strong>
+            <p>CA = Prix × Volume</p>
+          </div>
+          <div class="card">
+            <strong>Marge brute</strong>
+            <p>Marge brute = CA − coûts variables</p>
+          </div>
+          <div class="card">
+            <strong>Taux de marge brute</strong>
+            <p>(CA − coûts variables) / CA</p>
+          </div>
+          <div class="card">
+            <strong>Élasticité prix</strong>
+            <p>% variation du volume / % variation du prix</p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <strong>Intuition :</strong> une baisse de prix n’est intéressante que si le volume additionnel compense la perte de marge unitaire,
+          et si le coût d’acquisition, de support et d’infrastructure ne détruit pas le gain.
+        </div>
+
+        <div class="calculator">
+          <h3>Simulateur 2 — Prix–volume–marge</h3>
+          <div class="field-grid">
+            <div><label>Prix actuel (€)</label><input id="p0" type="number" value="30000"></div>
+            <div><label>Volume actuel (clients)</label><input id="q0" type="number" value="20"></div>
+            <div><label>Coût variable/client (€)</label><input id="cv" type="number" value="8000"></div>
+            <div><label>Nouveau prix (€)</label><input id="p1" type="number" value="26000"></div>
+            <div><label>Nouveau volume estimé</label><input id="q1" type="number" value="28"></div>
+          </div>
+          <button class="btn" onclick="calcPVM()">Comparer</button>
+          <div id="pvmResult" class="result">Compare deux scénarios pour voir si la baisse de prix crée réellement plus de marge.</div>
+        </div>
+
+        <div class="calculator">
+          <h3>Simulateur 3 — Volume nécessaire après une baisse de prix</h3>
+          <div class="field-grid">
+            <div><label>Prix initial (€)</label><input id="bp0" type="number" value="30000"></div>
+            <div><label>Volume initial</label><input id="bq0" type="number" value="20"></div>
+            <div><label>Coût variable/client (€)</label><input id="bcv" type="number" value="8000"></div>
+            <div><label>Nouveau prix (€)</label><input id="bp1" type="number" value="26000"></div>
+          </div>
+          <button class="btn" onclick="calcBreakeven()">Calculer le break-even</button>
+          <div id="breakResult" class="result">Le résultat indiquera le volume minimum pour conserver la même marge brute totale.</div>
+        </div>
+
+        <h3>Élasticité : l’interprétation entretien</h3>
+        <table>
+          <thead><tr><th>Élasticité</th><th>Interprétation</th><th>Conséquence possible</th></tr></thead>
+          <tbody>
+            <tr><td>|E| &lt; 1</td><td>Demande relativement inélastique</td><td>Une hausse de prix peut augmenter le CA.</td></tr>
+            <tr><td>|E| ≈ 1</td><td>Demande proportionnelle</td><td>Le CA varie peu ; regarder la marge et le positionnement.</td></tr>
+            <tr><td>|E| &gt; 1</td><td>Demande élastique</td><td>Une hausse de prix peut fortement réduire le volume.</td></tr>
+          </tbody>
+        </table>
+
+        <div class="quiz" data-quiz="econ">
+          <h3>Quiz — Prix–volume–marge</h3>
+          <div class="question" data-answer="c">
+            <p><strong>1. Une baisse de prix de 10 % est justifiée si :</strong></p>
+            <label class="option"><input type="radio" name="e1" value="a"> le commercial la demande</label>
+            <label class="option"><input type="radio" name="e1" value="b"> le concurrent baisse aussi</label>
+            <label class="option"><input type="radio" name="e1" value="c"> l’effet volume, marge, acquisition et positionnement reste favorable</label>
+            <div class="feedback"></div>
+          </div>
+          <div class="question" data-answer="b">
+            <p><strong>2. Avec une demande inélastique, une hausse de prix peut :</strong></p>
+            <label class="option"><input type="radio" name="e2" value="a"> toujours réduire le CA</label>
+            <label class="option"><input type="radio" name="e2" value="b"> augmenter le CA si le volume baisse moins vite que le prix n’augmente</label>
+            <label class="option"><input type="radio" name="e2" value="c"> ne jamais affecter la marge</label>
+            <div class="feedback"></div>
+          </div>
+          <button class="btn quiz-submit">Corriger le quiz</button>
+        </div>
+      </section>
+
+      <section id="process" class="module">
+        <h2>5. Processus complet de décision pricing</h2>
+
+        <ol>
+          <li><strong>Définir l’objectif.</strong> Croissance, marge, pénétration, premiumisation, lancement, défense concurrentielle ?</li>
+          <li><strong>Segmenter.</strong> Taille, maturité, cas d’usage, valeur créée, capacité de paiement, complexité de vente.</li>
+          <li><strong>Quantifier la valeur.</strong> Revenus, coûts, risques, temps, bénéfices stratégiques.</li>
+          <li><strong>Cartographier les alternatives.</strong> Concurrent direct, solution interne, processus manuel, statu quo.</li>
+          <li><strong>Choisir la métrique.</strong> Utilisateur, véhicule, site, transaction, volume, abonnement, licence.</li>
+          <li><strong>Concevoir le packaging.</strong> Différencier les niveaux selon valeur et coût de service.</li>
+          <li><strong>Tester.</strong> Entretiens, offres réelles, pilote payant, A/B test, win/loss, discount.</li>
+          <li><strong>Simuler.</strong> CA, marge, churn, acquisition, payback, sensibilité, scénario pessimiste.</li>
+          <li><strong>Décider et documenter.</strong> Hypothèses, choix, risques, garde-fous, date de revue.</li>
+          <li><strong>Mesurer après lancement.</strong> Conversion, ASP, marge, expansion, churn, discount, usage.</li>
+        </ol>
+
+        <h3>KPIs à citer en entretien</h3>
+        <div class="grid-3">
+          <div class="card"><strong>ASP</strong><p>Average Selling Price.</p></div>
+          <div class="card"><strong>Gross Margin</strong><p>Marge brute par offre et segment.</p></div>
+          <div class="card"><strong>Win rate</strong><p>Taux d’affaires gagnées.</p></div>
+          <div class="card"><strong>Discount rate</strong><p>Remise moyenne et dispersion.</p></div>
+          <div class="card"><strong>Expansion / NRR</strong><p>Capacité à augmenter le revenu client.</p></div>
+          <div class="card"><strong>Churn</strong><p>Perte de clients ou de revenu après changement de prix.</p></div>
+        </div>
+
+        <div class="callout bad">
+          <strong>Décision à éviter :</strong> lancer un prix sans définir à l’avance ce qui invaliderait l’hypothèse.
+          Une vraie posture Senior inclut des seuils : « si la conversion tombe sous X % ou si le discount dépasse Y %, nous révisons le package. »
+        </div>
+
+        <div class="interview">
+          <h3>Cas pratique — Construire une recommandation</h3>
+          <p><strong>Situation :</strong> une plateforme de supervision de véhicules autonomes coûte 12 k€/client/an à servir.
+          Elle crée entre 100 et 220 k€ de valeur annuelle selon la taille de flotte. Un concurrent facture 25 k€/an avec moins d’intégrations.</p>
+          <p><strong>Ta mission :</strong> propose une structure d’offre en 5 minutes.</p>
+          <textarea id="caseNotes" placeholder="Écris ici : segments, métrique de prix, packages, niveau de prix, hypothèses, risques, KPIs…"></textarea>
+          <button class="btn secondary" onclick="toggle('caseAnswer')">Afficher une réponse modèle</button>
+          <div id="caseAnswer" class="answer hidden">
+            <strong>Structure recommandée :</strong>
+            <ol>
+              <li>Segmenter par taille de flotte et criticité opérationnelle.</li>
+              <li>Facturer un abonnement annuel par tranche de véhicules, avec frais d’intégration séparés.</li>
+              <li>Essential : 18–22 k€/an pour 1–5 véhicules, support standard.</li>
+              <li>Professional : 35–45 k€/an pour 6–20 véhicules, API, analytics, SLA.</li>
+              <li>Enterprise : à partir de 70 k€/an, multi-sites, sécurité avancée, 24/7, onboarding dédié.</li>
+              <li>Tester auprès de 8 à 12 prospects, mesurer objections, win rate, discount et cycle de vente.</li>
+              <li>Ne pas descendre sous un seuil garantissant une marge brute compatible avec le support et l’intégration.</li>
+            </ol>
+            <p><strong>Pourquoi c’est crédible :</strong> coût = plancher, concurrent = repère, valeur client = plafond,
+            segmentation = capture différenciée de la WTP.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="entretien" class="module">
+        <h2>6. Réussir l’entretien : transformer ton expérience en preuve</h2>
+
+        <h3>Ton point de départ crédible</h3>
+        <p>Ton profil montre déjà des briques utiles : présentation de coûts, contrôle budgétaire, produit interne,
+        environnement industriel complexe, coordination transverse et transformation d’un outil en offre potentiellement commercialisable.</p>
+
+        <div class="callout good">
+          <strong>Positionnement honnête et fort :</strong> ne prétends pas avoir détenu un pricing complet si ce n’est pas le cas.
+          Montre plutôt que tu comprends la méthode, sais construire une recommandation et peux relier tes expériences à une décision économique.
+        </div>
+
+        <h3>Réponse modèle — « Parlez-moi de votre expérience en pricing »</h3>
+        <div class="quote">
+          « Je n’ai pas encore eu la responsabilité finale d’un pricing de gamme, mais j’ai travaillé sur des sujets qui en constituent
+          les fondations : coûts, budgets, arbitrages de périmètre et transformation d’un outil interne en produit potentiellement commercialisable.
+          Pour structurer une décision de prix, je commencerais par segmenter les clients, quantifier la valeur créée, identifier les alternatives
+          et tester plusieurs modèles de monétisation. Je construirais ensuite une sensibilité prix–volume–marge avant de recommander un package.
+          C’est précisément la compétence que je cherche à approfondir dans un rôle Product avec responsabilité business. »
+        </div>
+
+        <h3>Réponse modèle — « Comment fixeriez-vous le prix d’un nouveau produit ? »</h3>
+        <div class="quote">
+          « Je cadrerais d’abord l’objectif stratégique : pénétration, marge ou premiumisation. Je segmenterais ensuite les clients
+          selon la valeur créée et le mode d’achat. Le coût me donnerait le plancher, les alternatives un repère,
+          et la valeur économique le plafond. Je testerais deux ou trois métriques et packages auprès de prospects,
+          puis je simulerais l’impact sur conversion, volume, marge, support et cycle de vente. Enfin, je lancerais avec des KPIs
+          et des seuils de révision explicites. »
+        </div>
+
+        <h3>Questions difficiles et logique de réponse</h3>
+        <div class="interview">
+          <p><strong>1. « Un commercial demande 20 % de remise pour gagner un gros client. Que faites-vous ? »</strong></p>
+          <button class="btn secondary" onclick="toggle('a1')">Voir la logique</button>
+          <div id="a1" class="answer hidden">
+            Vérifier la valeur stratégique, la marge après remise, le coût de service, le précédent créé et les contreparties :
+            durée d’engagement, volume, référence client, paiement anticipé, périmètre réduit ou montée en charge.
+            Une remise n’est pas gratuite : elle doit acheter quelque chose.
+          </div>
+        </div>
+        <div class="interview">
+          <p><strong>2. « Le concurrent est 30 % moins cher. Faut-il s’aligner ? »</strong></p>
+          <button class="btn secondary" onclick="toggle('a2')">Voir la logique</button>
+          <div id="a2" class="answer hidden">
+            Comparer le périmètre, la valeur, le coût total de possession, le niveau de service et le risque.
+            S’aligner seulement si la différence de valeur n’est pas défendable ou si le segment ciblé est réellement très sensible au prix.
+          </div>
+        </div>
+        <div class="interview">
+          <p><strong>3. « Comment savez-vous que le prix est trop élevé ? »</strong></p>
+          <button class="btn secondary" onclick="toggle('a3')">Voir la logique</button>
+          <div id="a3" class="answer hidden">
+            Observer conversion, win/loss, objections, durée de cycle, niveau de discount, churn et usage.
+            Distinguer un problème de prix d’un problème de valeur perçue, de produit, de ciblage ou de vente.
+          </div>
+        </div>
+        <div class="interview">
+          <p><strong>4. « Quel serait votre premier chantier en arrivant ? »</strong></p>
+          <button class="btn secondary" onclick="toggle('a4')">Voir la logique</button>
+          <div id="a4" class="answer hidden">
+            Auditer l’architecture de prix, les remises, la rentabilité par segment, les win/loss et la cohérence packaging–usage.
+            Puis identifier un test à faible risque : package pilote, seuil de volume, frais d’intégration ou discipline de discount.
+          </div>
+        </div>
+
+        <h3>Grille d’auto-évaluation d’une réponse</h3>
+        <div class="rubric">
+          <div><strong>Contexte</strong><br><span class="small">Ai-je défini client, segment et objectif ?</span></div>
+          <div><strong>Méthode</strong><br><span class="small">Ai-je utilisé coût, valeur, alternatives et tests ?</span></div>
+          <div><strong>Économie</strong><br><span class="small">Ai-je parlé de volume, marge et risques ?</span></div>
+          <div><strong>Décision</strong><br><span class="small">Ai-je conclu avec choix, KPI et seuils ?</span></div>
+        </div>
+
+        <h3>Pièges de langage</h3>
+        <table>
+          <thead><tr><th>À éviter</th><th>À dire</th></tr></thead>
+          <tbody>
+            <tr><td>« Le bon prix est celui du marché. »</td><td>« Le marché donne un repère, pas la réponse complète. »</td></tr>
+            <tr><td>« Nous avons mis une marge de 30 %. »</td><td>« Nous avons vérifié le plancher économique puis testé la valeur capturable. »</td></tr>
+            <tr><td>« Le client trouvait ça cher. »</td><td>« Nous avons analysé si l’objection venait du prix, du ciblage ou de la valeur perçue. »</td></tr>
+            <tr><td>« J’ai fait le pricing » sans preuve.</td><td>« J’ai contribué aux fondations et je peux expliquer la démarche complète. »</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="quiz-final" class="module">
+        <h2>7. Quiz final — Niveau entretien</h2>
+        <div class="quiz" data-quiz="final">
+          <div class="question" data-answer="b">
+            <p><strong>1. Le meilleur point de départ d’un pricing est :</strong></p>
+            <label class="option"><input type="radio" name="q1" value="a"> la marge habituelle de l’entreprise</label>
+            <label class="option"><input type="radio" name="q1" value="b"> l’objectif stratégique, le segment et la valeur créée</label>
+            <label class="option"><input type="radio" name="q1" value="c"> le prix le plus bas du marché</label>
+            <div class="feedback"></div>
+          </div>
+          <div class="question" data-answer="c">
+            <p><strong>2. Qui est l’acheteur économique ?</strong></p>
+            <label class="option"><input type="radio" name="q2" value="a"> toujours l’utilisateur final</label>
+            <label class="option"><input type="radio" name="q2" value="b"> la personne qui utilise le plus le produit</label>
+            <label class="option"><input type="radio" name="q2" value="c"> la personne qui arbitre le budget et le ROI</label>
+            <div class="feedback"></div>
+          </div>
+          <div class="question" data-answer="a">
+            <p><strong>3. Une bonne métrique de prix :</strong></p>
+            <label class="option"><input type="radio" name="q3" value="a"> évolue avec la valeur, reste compréhensible et mesurable</label>
+            <label class="option"><input type="radio" name="q3" value="b"> doit toujours être par utilisateur</label>
+            <label class="option"><input type="radio" name="q3" value="c"> doit maximiser la complexité</label>
+            <div class="feedback"></div>
+          </div>
+          <div class="question" data-answer="b">
+            <p><strong>4. Quel élément ne suffit pas à estimer la WTP ?</strong></p>
+            <label class="option"><input type="radio" name="q4" value="a"> un pilote payant</label>
+            <label class="option"><input type="radio" name="q4" value="b"> une question abstraite « combien paieriez-vous ? »</label>
+            <label class="option"><input type="radio" name="q4" value="c"> l’analyse des remises et du win rate</label>
+            <div class="feedback"></div>
+          </div>
+          <div class="question" data-answer="c">
+            <p><strong>5. Une remise commerciale doit idéalement :</strong></p>
+            <label class="option"><input type="radio" name="q5" value="a"> être accordée automatiquement</label>
+            <label class="option"><input type="radio" name="q5" value="b"> compenser un mauvais produit</label>
+            <label class="option"><input type="radio" name="q5" value="c"> obtenir une contrepartie mesurable</label>
+            <div class="feedback"></div>
+          </div>
+          <div class="question" data-answer="a">
+            <p><strong>6. Une baisse de prix augmente le CA lorsque :</strong></p>
+            <label class="option"><input type="radio" name="q6" value="a"> le volume augmente suffisamment</label>
+            <label class="option"><input type="radio" name="q6" value="b"> le coût variable disparaît</label>
+            <label class="option"><input type="radio" name="q6" value="c"> l’entreprise ne mesure pas la marge</label>
+            <div class="feedback"></div>
+          </div>
+          <div class="question" data-answer="b">
+            <p><strong>7. Le packaging permet :</strong></p>
+            <label class="option"><input type="radio" name="q7" value="a"> d’empêcher toute comparaison</label>
+            <label class="option"><input type="radio" name="q7" value="b"> de capter différentes dispositions à payer</label>
+            <label class="option"><input type="radio" name="q7" value="c"> de supprimer le besoin de segmentation</label>
+            <div class="feedback"></div>
+          </div>
+          <div class="question" data-answer="c">
+            <p><strong>8. Après lancement, le Product Manager doit suivre :</strong></p>
+            <label class="option"><input type="radio" name="q8" value="a"> uniquement le chiffre d’affaires</label>
+            <label class="option"><input type="radio" name="q8" value="b"> uniquement les retours commerciaux</label>
+            <label class="option"><input type="radio" name="q8" value="c"> conversion, ASP, marge, discount, churn, usage et expansion</label>
+            <div class="feedback"></div>
+          </div>
+          <div class="question" data-answer="b">
+            <p><strong>9. Le coût d’inaction sert à :</strong></p>
+            <label class="option"><input type="radio" name="q9" value="a"> calculer la TVA</label>
+            <label class="option"><input type="radio" name="q9" value="b"> rendre visible la valeur du problème non résolu</label>
+            <label class="option"><input type="radio" name="q9" value="c"> supprimer le benchmark</label>
+            <div class="feedback"></div>
+          </div>
+          <div class="question" data-answer="a">
+            <p><strong>10. Une réponse Senior se termine idéalement par :</strong></p>
+            <label class="option"><input type="radio" name="q10" value="a"> une décision, des hypothèses, des KPIs et des seuils de révision</label>
+            <label class="option"><input type="radio" name="q10" value="b"> « cela dépend » sans conclusion</label>
+            <label class="option"><input type="radio" name="q10" value="c"> le prix du concurrent</label>
+            <div class="feedback"></div>
+          </div>
+          <button class="btn quiz-submit">Obtenir mon score final</button>
+          <div class="result quiz-score">Ton score apparaîtra ici.</div>
+        </div>
+      </section>
+
+      <section id="plan" class="module">
+        <h2>Plan d’action 30 jours pour rendre la compétence crédible</h2>
+        <table>
+          <thead><tr><th>Période</th><th>Action</th><th>Preuve produite</th></tr></thead>
+          <tbody>
+            <tr><td>Semaine 1</td><td>Construire une étude de valeur sur un produit Navya / supervision / mobilité autonome.</td><td>1 page de value map avec 4 drivers chiffrés.</td></tr>
+            <tr><td>Semaine 2</td><td>Créer 3 segments et 3 packages, avec métrique et logique de prix.</td><td>Pricing architecture et tableau comparatif.</td></tr>
+            <tr><td>Semaine 3</td><td>Réaliser une sensibilité prix–volume–marge et un scénario pessimiste.</td><td>Mini business case Excel ou tableau.</td></tr>
+            <tr><td>Semaine 4</td><td>Répéter 10 questions d’entretien à voix haute et enregistrer les réponses.</td><td>Réponses de 90 secondes, structurées et mesurables.</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Checklist avant entretien</h3>
+        <div class="checkline"><input type="checkbox" class="progress-check"><span>J’ai un exemple de produit avec valeur client chiffrée.</span></div>
+        <div class="checkline"><input type="checkbox" class="progress-check"><span>J’ai un exemple de segmentation et de packaging.</span></div>
+        <div class="checkline"><input type="checkbox" class="progress-check"><span>Je sais expliquer un calcul prix–volume–marge sans notes.</span></div>
+        <div class="checkline"><input type="checkbox" class="progress-check"><span>Je sais reconnaître honnêtement mon gap sans me dévaloriser.</span></div>
+        <div class="checkline"><input type="checkbox" class="progress-check"><span>Je termine chaque réponse par une décision ou une prochaine étape.</span></div>
+
+        <div class="glossary">
+          <h3>Glossaire express</h3>
+          <input id="glossarySearch" type="text" placeholder="Rechercher : WTP, ASP, élasticité, NRR…" oninput="filterGlossary()">
+          <div id="glossaryItems">
+            <p data-term="wtp willingness to pay"><strong>WTP :</strong> disposition à payer.</p>
+            <p data-term="asp average selling price"><strong>ASP :</strong> prix de vente moyen réellement obtenu.</p>
+            <p data-term="elasticite prix demande"><strong>Élasticité :</strong> sensibilité du volume à une variation de prix.</p>
+            <p data-term="gross margin marge brute"><strong>Gross margin :</strong> CA moins coûts variables directs.</p>
+            <p data-term="packaging offre bundle"><strong>Packaging :</strong> organisation des fonctionnalités, services et limites par offre.</p>
+            <p data-term="metric pricing metrique prix"><strong>Pricing metric :</strong> unité facturée : utilisateur, véhicule, site, usage, transaction…</p>
+            <p data-term="discount remise"><strong>Discount :</strong> remise accordée par rapport au prix catalogue.</p>
+            <p data-term="nrr net revenue retention"><strong>NRR :</strong> revenu conservé et développé sur la base clients existante.</p>
+            <p data-term="churn attrition"><strong>Churn :</strong> perte de clients ou de revenu.</p>
+            <p data-term="tco total cost ownership"><strong>TCO :</strong> coût total de possession pour le client.</p>
+          </div>
+        </div>
+
+        <h3>Mes notes personnelles</h3>
+        <textarea id="personalNotes" placeholder="Écris ici tes exemples, chiffres, formulations et questions à répéter…"></textarea>
+        <button class="btn" onclick="saveNotes()">Sauvegarder mes notes</button>
+        <span id="saveStatus" class="small"></span>
+      </section>
+    </main>
+  </div>
+
+  <div class="sticky-actions">
+    <button class="btn secondary" onclick="window.print()">Imprimer / PDF</button>
+    <button class="btn danger" onclick="resetAll()">Réinitialiser</button>
+  </div>
+
+  <footer class="footer">
+    Cours interactif de préparation entretien — Pricing pour Product Management
+  </footer>
+
+  <script>
+    const fmt = new Intl.NumberFormat('fr-FR', {style:'currency', currency:'EUR', maximumFractionDigits:0});
+
+    function calcPricing(){
+      const cost=+document.getElementById('cost').value||0;
+      const margin=(+document.getElementById('marginTarget').value||0)/100;
+      const value=+document.getElementById('clientValue').value||0;
+      const capture=(+document.getElementById('capture').value||0)/100;
+      const competitor=+document.getElementById('competitor').value||0;
+      const costPlus = margin >= 1 ? Infinity : cost/(1-margin);
+      const valueBased = value*capture;
+      const low=Math.max(costPlus, Math.min(competitor,valueBased)*0.9);
+      const high=Math.max(low, Math.max(competitor,valueBased)*1.1);
+      document.getElementById('pricingResult').innerHTML =
+        `<strong>Plancher cost-plus :</strong> ${isFinite(costPlus)?fmt.format(costPlus):'marge invalide'}<br>
+         <strong>Repère concurrent :</strong> ${fmt.format(competitor)}<br>
+         <strong>Prix fondé sur ${Math.round(capture*100)} % de valeur capturée :</strong> ${fmt.format(valueBased)}<br>
+         <strong>Zone de discussion indicative :</strong> ${fmt.format(low)} à ${fmt.format(high)}<br>
+         <span class="small">Ce corridor n’est pas un prix final : il doit être validé par segmentation, packaging et tests réels.</span>`;
+    }
+
+    function calcPVM(){
+      const p0=+document.getElementById('p0').value||0, q0=+document.getElementById('q0').value||0;
+      const cv=+document.getElementById('cv').value||0, p1=+document.getElementById('p1').value||0;
+      const q1=+document.getElementById('q1').value||0;
+      const ca0=p0*q0, ca1=p1*q1, gm0=(p0-cv)*q0, gm1=(p1-cv)*q1;
+      const dca=ca1-ca0, dgm=gm1-gm0;
+      document.getElementById('pvmResult').innerHTML =
+        `<strong>Scénario actuel :</strong> CA ${fmt.format(ca0)} | marge brute ${fmt.format(gm0)}<br>
+         <strong>Nouveau scénario :</strong> CA ${fmt.format(ca1)} | marge brute ${fmt.format(gm1)}<br>
+         <strong>Variation :</strong> CA ${dca>=0?'+':''}${fmt.format(dca)} | marge ${dgm>=0?'+':''}${fmt.format(dgm)}<br>
+         <strong>Conclusion :</strong> ${dgm>0?'la nouvelle hypothèse crée plus de marge brute totale.':'la hausse de volume ne compense pas la perte de marge unitaire.'}`;
+    }
+
+    function calcBreakeven(){
+      const p0=+document.getElementById('bp0').value||0, q0=+document.getElementById('bq0').value||0;
+      const cv=+document.getElementById('bcv').value||0, p1=+document.getElementById('bp1').value||0;
+      const oldGM=(p0-cv)*q0;
+      const unitNew=p1-cv;
+      const qNeeded=unitNew>0?Math.ceil(oldGM/unitNew):Infinity;
+      const uplift=isFinite(qNeeded)&&q0>0?((qNeeded/q0)-1)*100:Infinity;
+      document.getElementById('breakResult').innerHTML =
+        unitNew>0
+        ? `<strong>Marge brute actuelle :</strong> ${fmt.format(oldGM)}<br>
+           <strong>Marge unitaire au nouveau prix :</strong> ${fmt.format(unitNew)}<br>
+           <strong>Volume minimum :</strong> ${qNeeded} clients, soit <strong>+${uplift.toFixed(1)} %</strong>.`
+        : `<strong>Impossible :</strong> le nouveau prix ne couvre pas le coût variable.`;
+    }
+
+    function toggle(id){ document.getElementById(id).classList.toggle('hidden'); }
+
+    document.querySelectorAll('.quiz-submit').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const quiz=btn.closest('.quiz');
+        const questions=[...quiz.querySelectorAll('.question')];
+        let correct=0, answered=0;
+        questions.forEach(q=>{
+          const chosen=q.querySelector('input[type=radio]:checked');
+          const fb=q.querySelector('.feedback');
+          if(!chosen){ fb.textContent='Réponse manquante'; fb.style.color='var(--warn)'; return; }
+          answered++;
+          if(chosen.value===q.dataset.answer){
+            correct++; fb.textContent='Correct'; fb.style.color='var(--good)';
+          } else {
+            fb.textContent=`Incorrect — bonne réponse : ${q.dataset.answer.toUpperCase()}`; fb.style.color='var(--bad)';
+          }
+        });
+        const score=quiz.querySelector('.quiz-score');
+        if(score){
+          const pct=Math.round(correct/questions.length*100);
+          let level=pct>=80?'Prêt pour un entretien solide':pct>=60?'Base correcte, encore quelques lacunes':'À retravailler avant entretien';
+          score.innerHTML=`<strong>${correct}/${questions.length} — ${pct} %</strong><br>${level}`;
+        }
+        localStorage.setItem('pricingQuiz_'+quiz.dataset.quiz, JSON.stringify({correct,answered,total:questions.length}));
+        updateProgress();
+      });
+    });
+
+    function updateProgress(){
+      const checks=[...document.querySelectorAll('.progress-check')];
+      const checked=checks.filter(c=>c.checked).length;
+      const quizKeys=['diag','fund','wtp','pack','econ','final'];
+      let quizDone=0;
+      quizKeys.forEach(k=>{ if(localStorage.getItem('pricingQuiz_'+k)) quizDone++; });
+      const total=checks.length+quizKeys.length;
+      const done=checked+quizDone;
+      const pct=Math.round(done/total*100);
+      document.getElementById('progressFill').style.width=pct+'%';
+      document.getElementById('progressText').textContent=`${pct} % terminé — ${done}/${total} étapes`;
+      localStorage.setItem('pricingChecks', JSON.stringify(checks.map(c=>c.checked)));
+    }
+
+    document.querySelectorAll('.progress-check').forEach(c=>c.addEventListener('change',updateProgress));
+
+    function saveNotes(){
+      const notes=document.getElementById('personalNotes').value;
+      const caseNotes=document.getElementById('caseNotes').value;
+      localStorage.setItem('pricingPersonalNotes',notes);
+      localStorage.setItem('pricingCaseNotes',caseNotes);
+      document.getElementById('saveStatus').textContent='Notes sauvegardées localement.';
+    }
+
+    function filterGlossary(){
+      const q=document.getElementById('glossarySearch').value.toLowerCase();
+      document.querySelectorAll('#glossaryItems p').forEach(p=>{
+        p.style.display=p.dataset.term.includes(q)||p.textContent.toLowerCase().includes(q)?'block':'none';
+      });
+    }
+
+    function resetAll(){
+      if(!confirm('Réinitialiser progression, quiz et notes ?')) return;
+      Object.keys(localStorage).filter(k=>k.startsWith('pricing')).forEach(k=>localStorage.removeItem(k));
+      document.querySelectorAll('.progress-check').forEach(c=>c.checked=false);
+      document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+      document.querySelectorAll('.feedback').forEach(f=>f.textContent='');
+      document.querySelectorAll('.quiz-score').forEach(s=>s.textContent='Ton score apparaîtra ici.');
+      document.getElementById('personalNotes').value='';
+      document.getElementById('caseNotes').value='';
+      updateProgress();
+    }
+
+    function restore(){
+      const saved=JSON.parse(localStorage.getItem('pricingChecks')||'[]');
+      document.querySelectorAll('.progress-check').forEach((c,i)=>c.checked=!!saved[i]);
+      document.getElementById('personalNotes').value=localStorage.getItem('pricingPersonalNotes')||'';
+      document.getElementById('caseNotes').value=localStorage.getItem('pricingCaseNotes')||'';
+      updateProgress();
+      calcPricing(); calcPVM(); calcBreakeven();
+    }
+
+    const sections=[...document.querySelectorAll('main section')];
+    const navLinks=[...document.querySelectorAll('nav a')];
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+entry.target.id));
+        }
+      });
+    },{rootMargin:'-20% 0px -70% 0px'});
+    sections.forEach(s=>observer.observe(s));
+
+    restore();
+  </script>
+</body>
+</html>

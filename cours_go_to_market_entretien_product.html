@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Go-to-Market — Cours & Quiz pour entretiens Product</title>
+  <meta name="description" content="Cours interactif approfondi sur le Go-to-Market pour préparer les entretiens Product Manager, Senior Product Manager et Product Line Manager." />
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#131a2c;
+      --panel-2:#182238;
+      --text:#eef3ff;
+      --muted:#aebbd6;
+      --accent:#7dd3fc;
+      --accent-2:#a78bfa;
+      --good:#34d399;
+      --warn:#fbbf24;
+      --bad:#fb7185;
+      --border:#2b3858;
+      --shadow:0 18px 45px rgba(0,0,0,.25);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(125,211,252,.10), transparent 30%),
+        radial-gradient(circle at 100% 10%, rgba(167,139,250,.12), transparent 28%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.65;
+    }
+    a{color:inherit}
+    button,input{font:inherit}
+    .layout{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+    aside{
+      position:sticky;top:0;height:100vh;padding:24px 18px;
+      border-right:1px solid var(--border);
+      background:rgba(11,16,32,.92);backdrop-filter:blur(16px);
+      overflow:auto;
+    }
+    .brand{font-weight:800;font-size:1.08rem;margin-bottom:6px}
+    .brand span{color:var(--accent)}
+    .subtitle{color:var(--muted);font-size:.88rem;margin-bottom:20px}
+    nav a{
+      display:block;text-decoration:none;padding:9px 12px;margin:3px 0;
+      color:var(--muted);border-radius:10px;border:1px solid transparent;
+    }
+    nav a:hover,nav a.active{color:var(--text);background:var(--panel);border-color:var(--border)}
+    .progress-wrap{margin-top:20px}
+    .progress-label{display:flex;justify-content:space-between;color:var(--muted);font-size:.8rem}
+    .progress{height:8px;background:#202a43;border-radius:999px;overflow:hidden;margin-top:6px}
+    .progress > div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:.25s}
+    main{padding:36px clamp(20px,4vw,64px) 80px;max-width:1280px;width:100%}
+    .hero{
+      padding:42px;border:1px solid var(--border);border-radius:24px;
+      background:linear-gradient(145deg,rgba(24,34,56,.96),rgba(19,26,44,.90));
+      box-shadow:var(--shadow);margin-bottom:28px;
+    }
+    .eyebrow{color:var(--accent);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem}
+    h1{font-size:clamp(2rem,5vw,4rem);line-height:1.05;margin:10px 0 16px}
+    h2{font-size:1.9rem;line-height:1.2;margin-top:0}
+    h3{font-size:1.25rem;margin-top:0}
+    h4{margin-bottom:6px}
+    p{margin:10px 0}
+    .lead{font-size:1.12rem;color:#d8e2f7;max-width:850px}
+    .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+    .chip{padding:7px 11px;border-radius:999px;background:#202a43;border:1px solid var(--border);font-size:.84rem;color:#dbe7ff}
+    .section{
+      margin:26px 0;padding:30px;border:1px solid var(--border);border-radius:20px;background:rgba(19,26,44,.92);
+    }
+    .grid{display:grid;gap:18px}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .card{
+      padding:20px;border-radius:16px;background:var(--panel-2);border:1px solid var(--border)
+    }
+    .card strong{color:white}
+    .muted{color:var(--muted)}
+    .callout{
+      border-left:4px solid var(--accent);padding:14px 16px;background:rgba(125,211,252,.08);
+      border-radius:10px;margin:16px 0
+    }
+    .callout.warn{border-left-color:var(--warn);background:rgba(251,191,36,.08)}
+    .callout.good{border-left-color:var(--good);background:rgba(52,211,153,.08)}
+    .callout.bad{border-left-color:var(--bad);background:rgba(251,113,133,.08)}
+    table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.94rem}
+    th,td{padding:12px 10px;border-bottom:1px solid var(--border);vertical-align:top;text-align:left}
+    th{color:#dce7fb;background:#1b253d}
+    code{background:#202a43;padding:2px 6px;border-radius:6px}
+    .formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;padding:12px 14px;background:#0e1527;border:1px solid var(--border);border-radius:10px;overflow:auto}
+    details{background:var(--panel-2);border:1px solid var(--border);border-radius:12px;padding:13px 16px;margin:10px 0}
+    summary{cursor:pointer;font-weight:700}
+    .badge{display:inline-block;padding:3px 8px;border-radius:999px;font-size:.75rem;font-weight:700}
+    .b-good{background:rgba(52,211,153,.14);color:#7ef0bd}
+    .b-warn{background:rgba(251,191,36,.14);color:#ffd76a}
+    .b-bad{background:rgba(251,113,133,.14);color:#ff9bad}
+    .timeline{display:grid;grid-template-columns:120px 1fr;gap:12px 20px}
+    .time{font-weight:800;color:var(--accent)}
+    .question{margin:18px 0;padding:20px;border:1px solid var(--border);border-radius:16px;background:var(--panel-2)}
+    .question h3{font-size:1.03rem}
+    .option{
+      display:block;width:100%;text-align:left;margin:9px 0;padding:12px 14px;border-radius:10px;
+      border:1px solid var(--border);background:#121a2e;color:var(--text);cursor:pointer;transition:.15s
+    }
+    .option:hover{transform:translateY(-1px);border-color:var(--accent)}
+    .option.selected{outline:2px solid var(--accent);background:rgba(125,211,252,.10)}
+    .option.correct{border-color:var(--good);background:rgba(52,211,153,.12)}
+    .option.incorrect{border-color:var(--bad);background:rgba(251,113,133,.12)}
+    .feedback{display:none;margin-top:12px;padding:12px;border-radius:10px;background:#0e1527;color:#d8e2f7}
+    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+    .btn{
+      border:0;border-radius:10px;padding:11px 16px;cursor:pointer;font-weight:800;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#08111f
+    }
+    .btn.secondary{background:#202a43;color:var(--text);border:1px solid var(--border)}
+    .score{
+      display:none;padding:22px;border-radius:16px;border:1px solid var(--border);
+      background:linear-gradient(145deg,#182238,#11192c);margin-top:18px
+    }
+    .score-num{font-size:2.6rem;font-weight:900}
+    .interview-answer{
+      white-space:pre-line;background:#0e1527;border:1px solid var(--border);border-radius:12px;padding:16px
+    }
+    .flashcard{cursor:pointer;min-height:170px;display:flex;align-items:center;justify-content:center;text-align:center}
+    .flashcard .back{display:none}
+    .flashcard.flipped .front{display:none}
+    .flashcard.flipped .back{display:block}
+    .top-btn{
+      position:fixed;right:18px;bottom:18px;width:46px;height:46px;border-radius:50%;
+      border:1px solid var(--border);background:var(--panel);color:var(--text);cursor:pointer;display:none
+    }
+    .print-note{color:var(--muted);font-size:.82rem}
+    ul{padding-left:20px}
+    li{margin:6px 0}
+    @media (max-width:900px){
+      .layout{display:block}
+      aside{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--border)}
+      nav{display:flex;overflow:auto;gap:5px}
+      nav a{white-space:nowrap}
+      .grid-2,.grid-3{grid-template-columns:1fr}
+      .hero{padding:28px}
+      main{padding:20px}
+      .timeline{grid-template-columns:1fr}
+    }
+    @media print{
+      aside,.top-btn,.actions{display:none!important}
+      body{background:white;color:black}
+      main{padding:0}
+      .section,.hero,.card,details,.question{background:white;color:black;border-color:#bbb;box-shadow:none}
+      .muted,.lead{color:#333}
+    }
+  </style>
+</head>
+<body>
+<div class="layout">
+  <aside>
+    <div class="brand">Product <span>GTM Lab</span></div>
+    <div class="subtitle">Préparation entretiens Product Manager, Senior PM et Product Line Manager</div>
+    <nav id="nav">
+      <a href="#intro">1. Fondamentaux</a>
+      <a href="#strategy">2. Stratégie GTM</a>
+      <a href="#icp">3. ICP & buying committee</a>
+      <a href="#value">4. Proposition de valeur</a>
+      <a href="#motion">5. Sales motion & canaux</a>
+      <a href="#launch">6. Plan de lancement</a>
+      <a href="#enablement">7. Sales enablement</a>
+      <a href="#pilot">8. Pilote, onboarding, support</a>
+      <a href="#metrics">9. Métriques & diagnostic</a>
+      <a href="#industrial">10. Cas industriel</a>
+      <a href="#interview">11. Entretien</a>
+      <a href="#quiz">12. Quiz final</a>
+    </nav>
+    <div class="progress-wrap">
+      <div class="progress-label"><span>Progression</span><span id="progressText">0 %</span></div>
+      <div class="progress"><div id="progressBar"></div></div>
+    </div>
+  </aside>
+
+  <main>
+    <section class="hero" id="intro">
+      <div class="eyebrow">Cours approfondi · Go-to-Market</div>
+      <h1>Transformer un produit disponible en produit vendu, adopté et rentable</h1>
+      <p class="lead">
+        Un go-to-market n’est pas une campagne marketing. C’est le système complet qui relie un segment client,
+        une proposition de valeur, une offre, un canal de vente, un processus d’adoption et un modèle économique.
+      </p>
+      <div class="chips">
+        <span class="chip">ICP</span><span class="chip">Segmentation</span><span class="chip">Value proposition</span>
+        <span class="chip">Sales motion</span><span class="chip">Pricing</span><span class="chip">Onboarding</span>
+        <span class="chip">Sales enablement</span><span class="chip">KPIs</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>1. La définition que vous devez maîtriser en entretien</h2>
+      <div class="callout good">
+        <strong>Définition solide :</strong> « Le go-to-market est le plan coordonné permettant de sélectionner
+        les bons clients, de formuler une proposition de valeur crédible, de construire l’offre, de choisir le canal
+        de vente, de préparer l’organisation et de mesurer l’adoption et la rentabilité du lancement. »
+      </div>
+      <div class="grid grid-3">
+        <div class="card"><h3>Market</h3><p>Où jouer ? Segment, géographie, verticale, maturité, taille de client, contraintes réglementaires.</p></div>
+        <div class="card"><h3>Offer</h3><p>Quoi vendre ? Produit, service, intégration, SLA, prix, contrat, bundle, options.</p></div>
+        <div class="card"><h3>Motion</h3><p>Comment gagner ? Vente directe, partenaires, self-service, appel d’offres, land-and-expand.</p></div>
+      </div>
+      <div class="callout warn">
+        <strong>Erreur fréquente :</strong> confondre « product launch » et « go-live technique ». Un produit peut être
+        techniquement livré mais commercialement invendable, difficile à déployer ou impossible à supporter.
+      </div>
+    </section>
+
+    <section class="section" id="strategy">
+      <h2>2. L’architecture d’une stratégie GTM</h2>
+      <p>Une stratégie GTM robuste répond à neuf décisions, dans cet ordre logique :</p>
+      <table>
+        <thead><tr><th>Décision</th><th>Question</th><th>Livrable attendu</th></tr></thead>
+        <tbody>
+          <tr><td>1. Segment</td><td>Quel marché prioritaire ?</td><td>Segmentation et critères de priorité</td></tr>
+          <tr><td>2. ICP</td><td>Quel type de client a le plus de valeur et de probabilité d’achat ?</td><td>Fiche ICP quantifiée</td></tr>
+          <tr><td>3. Problème</td><td>Quelle douleur urgente et coûteuse résolvons-nous ?</td><td>Jobs-to-be-done et preuves</td></tr>
+          <tr><td>4. Proposition de valeur</td><td>Pourquoi nous plutôt qu’une alternative ?</td><td>Message, bénéfices, preuves</td></tr>
+          <tr><td>5. Offre</td><td>Que contient exactement le package vendu ?</td><td>Produit, services, SLA, prix, contrat</td></tr>
+          <tr><td>6. Canal</td><td>Comment atteindre et convertir le client ?</td><td>Sales motion et parcours d’achat</td></tr>
+          <tr><td>7. Adoption</td><td>Comment atteindre le premier résultat client ?</td><td>Onboarding, formation, support</td></tr>
+          <tr><td>8. Mesure</td><td>Comment savoir si le lancement fonctionne ?</td><td>Funnel, usage, revenu, marge, rétention</td></tr>
+          <tr><td>9. Boucle d’apprentissage</td><td>Comment corriger rapidement ?</td><td>Rituels, owners, critères stop/continue</td></tr>
+        </tbody>
+      </table>
+      <details>
+        <summary>Le GTM canvas en une phrase</summary>
+        <p>
+          Pour <strong>[ICP]</strong> qui rencontre <strong>[problème prioritaire]</strong>, nous proposons
+          <strong>[offre]</strong> qui crée <strong>[valeur mesurable]</strong>, contrairement à
+          <strong>[alternative]</strong>. Nous vendons via <strong>[canal]</strong>, à
+          <strong>[prix/modèle]</strong>, avec un onboarding permettant <strong>[time-to-value]</strong>.
+        </p>
+      </details>
+    </section>
+
+    <section class="section" id="icp">
+      <h2>3. ICP, persona utilisateur et buying committee</h2>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>ICP — Ideal Customer Profile</h3>
+          <p>L’ICP décrit l’organisation qui a le meilleur fit économique, opérationnel et commercial avec l’offre.</p>
+          <ul>
+            <li>Taille, secteur, pays, parc installé</li>
+            <li>Niveau de maturité digitale</li>
+            <li>Problème suffisamment coûteux</li>
+            <li>Budget et urgence disponibles</li>
+            <li>Compatibilité technique et réglementaire</li>
+            <li>Coût de service acceptable</li>
+            <li>Potentiel de marge, rétention et expansion</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Persona</h3>
+          <p>Le persona décrit une personne impliquée dans l’usage ou la décision.</p>
+          <ul>
+            <li><strong>Utilisateur :</strong> exploite le produit</li>
+            <li><strong>Champion :</strong> porte le projet en interne</li>
+            <li><strong>Décideur économique :</strong> arbitre le budget</li>
+            <li><strong>Acheteur :</strong> négocie contrat et prix</li>
+            <li><strong>Bloqueur :</strong> sécurité, juridique, IT, opérations</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout">
+        <strong>Question d’entretien classique :</strong> « Qui est votre client ? » Une bonne réponse distingue
+        le client contractuel, le décideur, l’utilisateur, le payeur et les fonctions capables de bloquer la vente.
+      </div>
+
+      <h3>Scoring simple d’un ICP</h3>
+      <div class="formula">Score ICP = 30 % douleur + 20 % budget + 15 % urgence + 15 % fit technique + 10 % marge + 10 % potentiel d’expansion</div>
+      <p class="muted">Le poids varie selon le contexte. L’objectif est d’éviter une sélection basée uniquement sur la taille ou la notoriété du prospect.</p>
+
+      <details>
+        <summary>Exemple : plateforme de supervision de véhicules autonomes</summary>
+        <p><strong>ICP prioritaire :</strong> opérateur de transport ou site industriel exploitant déjà 10 à 50 véhicules,
+        disposant d’un centre d’opérations, d’un budget sécurité/exploitation et d’un problème mesurable de supervision.</p>
+        <p><strong>Non-ICP :</strong> petit site pilote avec un véhicule, sans équipe d’exploitation et sans budget de déploiement.</p>
+      </details>
+    </section>
+
+    <section class="section" id="value">
+      <h2>4. De la fonctionnalité à la proposition de valeur</h2>
+      <p>Le recruteur Product attend que vous passiez de « ce que le produit fait » à « pourquoi le client paie ».</p>
+      <table>
+        <thead><tr><th>Niveau faible</th><th>Niveau crédible</th></tr></thead>
+        <tbody>
+          <tr><td>« Le dashboard affiche l’historique. »</td><td>« Il réduit de 30 minutes à 5 minutes le temps d’analyse d’un incident. »</td></tr>
+          <tr><td>« Le produit dispose d’alertes. »</td><td>« Il diminue le risque qu’un opérateur manque un événement critique. »</td></tr>
+          <tr><td>« Nous avons une API. »</td><td>« L’API réduit le coût d’intégration et accélère le déploiement multi-sites. »</td></tr>
+        </tbody>
+      </table>
+
+      <h3>La chaîne de valeur</h3>
+      <div class="formula">Fonctionnalité → capacité → résultat opérationnel → impact financier → preuve</div>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Message commercial</h3>
+          <p><strong>Pour</strong> [cible], <strong>qui doit</strong> [job], notre produit
+          <strong>permet</strong> [résultat], <strong>grâce à</strong> [différenciation], avec
+          <strong>comme preuve</strong> [donnée, pilote, référence].</p>
+        </div>
+        <div class="card">
+          <h3>Objection à éviter</h3>
+          <p>Une promesse non quantifiée, sans preuve et sans comparaison à l’alternative semble marketing.
+          Une proposition de valeur crédible relie bénéfice, mécanisme et preuve.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="motion">
+      <h2>5. Sales motion et canaux de vente</h2>
+      <table>
+        <thead><tr><th>Motion</th><th>Quand l’utiliser</th><th>Risques</th></tr></thead>
+        <tbody>
+          <tr><td>Self-service / product-led</td><td>Produit simple, faible prix, activation rapide</td><td>Faible conversion payante, support diffus</td></tr>
+          <tr><td>Inside sales</td><td>Cycle relativement standardisé, ACV moyen</td><td>Qualification insuffisante</td></tr>
+          <tr><td>Enterprise direct</td><td>Produit complexe, ticket élevé, nombreux décideurs</td><td>Cycle long, coût de vente élevé</td></tr>
+          <tr><td>Partenaires / intégrateurs</td><td>Besoin de couverture locale ou d’intégration</td><td>Perte de contrôle, marge partagée</td></tr>
+          <tr><td>Appels d’offres</td><td>Secteur public, transport, industrie réglementée</td><td>Spécifications subies, pression prix</td></tr>
+          <tr><td>Land-and-expand</td><td>Déploiement progressif par site, équipe ou module</td><td>Pilotes non convertis</td></tr>
+        </tbody>
+      </table>
+      <div class="callout warn">
+        Le canal doit être cohérent avec le prix, la complexité et le coût de vente.
+        Une offre à 5 000 € par an ne supporte généralement pas un cycle de vente de 12 mois mobilisant cinq experts.
+      </div>
+      <h3>Unit economics du canal</h3>
+      <div class="formula">Contribution commerciale = Revenu brut − coût produit/service − coût d’acquisition − coût d’onboarding − coût de support</div>
+    </section>
+
+    <section class="section" id="launch">
+      <h2>6. Construire un plan de lancement</h2>
+      <div class="timeline">
+        <div class="time">T−12 à T−8</div><div><strong>Décider.</strong> Segment, ICP, problème, proposition de valeur, business case, critères de succès.</div>
+        <div class="time">T−8 à T−4</div><div><strong>Préparer.</strong> Packaging, prix, contrats, documentation, démonstration, formation vente, support.</div>
+        <div class="time">T−4 à T−1</div><div><strong>Valider.</strong> Beta/pilote, readiness review, références, objections, test du parcours client.</div>
+        <div class="time">T0</div><div><strong>Lancer.</strong> Communication, activation des canaux, support renforcé, suivi quotidien.</div>
+        <div class="time">T+1 à T+12</div><div><strong>Apprendre.</strong> Funnel, adoption, tickets, churn, marge, corrections produit et GTM.</div>
+      </div>
+
+      <h3>Launch readiness checklist</h3>
+      <div class="grid grid-3">
+        <div class="card"><span class="badge b-good">Produit</span><ul><li>Qualité et sécurité</li><li>Scalabilité</li><li>Migration</li><li>Roadmap post-lancement</li></ul></div>
+        <div class="card"><span class="badge b-good">Commercial</span><ul><li>ICP</li><li>Pitch</li><li>Démo</li><li>Pricing</li><li>Pipeline</li></ul></div>
+        <div class="card"><span class="badge b-good">Opérations</span><ul><li>Onboarding</li><li>SLA</li><li>Support L1/L2/L3</li><li>Escalade</li></ul></div>
+        <div class="card"><span class="badge b-warn">Juridique</span><ul><li>Contrat</li><li>RGPD</li><li>Responsabilité</li><li>Garanties</li></ul></div>
+        <div class="card"><span class="badge b-warn">Finance</span><ul><li>Revenue recognition</li><li>Marge</li><li>Remises</li><li>Facturation</li></ul></div>
+        <div class="card"><span class="badge b-warn">Organisation</span><ul><li>Owners</li><li>Formation</li><li>RACI</li><li>Rituels de suivi</li></ul></div>
+      </div>
+
+      <details>
+        <summary>Le rôle du Product Manager dans le lancement</summary>
+        <p>Le PM n’exécute pas seul toutes les tâches. Il rend les dépendances visibles, définit les décisions produit,
+        synchronise les fonctions, sécurise les arbitrages et garantit que les métriques du lancement correspondent au résultat business attendu.</p>
+      </details>
+    </section>
+
+    <section class="section" id="enablement">
+      <h2>7. Sales enablement, pitch, démonstration et objections</h2>
+      <p>Le sales enablement donne aux équipes commerciales les moyens de vendre correctement l’offre.</p>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Kit minimum</h3>
+          <ul>
+            <li>One-pager de valeur</li>
+            <li>Pitch de 30 secondes et de 5 minutes</li>
+            <li>Deck commercial</li>
+            <li>Script de qualification</li>
+            <li>Démo orientée cas d’usage</li>
+            <li>Battlecard concurrentielle</li>
+            <li>FAQ et objections</li>
+            <li>Calculateur ROI</li>
+            <li>Cas client ou résultats pilote</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Une bonne démonstration</h3>
+          <ol>
+            <li>Rappelle le problème du prospect</li>
+            <li>Montre un workflow réel</li>
+            <li>Fait apparaître le bénéfice</li>
+            <li>Traite les contraintes d’intégration</li>
+            <li>Conclut par une prochaine étape</li>
+          </ol>
+        </div>
+      </div>
+
+      <h3>Objection handling</h3>
+      <table>
+        <thead><tr><th>Objection</th><th>Mauvaise réponse</th><th>Réponse Product</th></tr></thead>
+        <tbody>
+          <tr><td>« C’est trop cher. »</td><td>Accorder immédiatement une remise.</td><td>Revenir à la valeur, au périmètre, au coût de l’alternative et au ROI.</td></tr>
+          <tr><td>« Nous pouvons le développer en interne. »</td><td>Dénigrer l’équipe client.</td><td>Comparer délai, coût total, maintenance, risque et expertise nécessaire.</td></tr>
+          <tr><td>« Le produit n’est pas mature. »</td><td>Promettre sans preuve.</td><td>Proposer pilote cadré, critères de succès, références et plan de sécurisation.</td></tr>
+          <tr><td>« L’intégration sera trop complexe. »</td><td>Dire que c’est simple.</td><td>Montrer architecture, prérequis, charge, responsabilités et planning.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section" id="pilot">
+      <h2>8. Offre pilote, onboarding et support</h2>
+      <h3>Le pilote n’est pas une démonstration gratuite</h3>
+      <p>Un pilote doit réduire un risque d’achat précis et préparer une décision de déploiement.</p>
+      <div class="grid grid-3">
+        <div class="card"><h3>Entrée</h3><p>Problème, sponsor, périmètre, données, environnement, calendrier.</p></div>
+        <div class="card"><h3>Succès</h3><p>KPIs quantifiés, seuils, responsabilité de mesure, date de décision.</p></div>
+        <div class="card"><h3>Sortie</h3><p>Déploiement, extension, arrêt ou nouveau test explicitement défini.</p></div>
+      </div>
+
+      <h3>Time-to-value</h3>
+      <div class="formula">Time-to-value = date du premier résultat utile − date de démarrage du client</div>
+      <p>Plus le time-to-value est long, plus le risque d’abandon, de frustration et de coût de support augmente.</p>
+
+      <h3>Support L1 / L2 / L3</h3>
+      <table>
+        <thead><tr><th>Niveau</th><th>Responsabilité</th><th>Exemple</th></tr></thead>
+        <tbody>
+          <tr><td>L1</td><td>Qualification, incidents simples, questions d’usage</td><td>Réinitialisation, accès, documentation</td></tr>
+          <tr><td>L2</td><td>Diagnostic fonctionnel ou technique avancé</td><td>Configuration, logs, intégration</td></tr>
+          <tr><td>L3</td><td>Expert produit / engineering</td><td>Défaut logiciel, architecture, correctif</td></tr>
+        </tbody>
+      </table>
+      <div class="callout bad">
+        Sans modèle de support, chaque nouveau client crée une dette opérationnelle. Le Product Line Manager doit
+        intégrer le coût du support à la marge du produit.
+      </div>
+    </section>
+
+    <section class="section" id="metrics">
+      <h2>9. Mesurer et diagnostiquer le lancement</h2>
+      <div class="grid grid-3">
+        <div class="card"><h3>Acquisition</h3><p>Leads qualifiés, coût par lead, taux de qualification, pipeline créé.</p></div>
+        <div class="card"><h3>Conversion</h3><p>Win rate, durée du cycle, taux pilote→contrat, raisons de perte.</p></div>
+        <div class="card"><h3>Adoption</h3><p>Activation, fréquence d’usage, utilisateurs actifs, time-to-value.</p></div>
+        <div class="card"><h3>Revenu</h3><p>Bookings, MRR/ARR, panier moyen, expansion, renouvellement.</p></div>
+        <div class="card"><h3>Économie</h3><p>Marge brute, CAC, payback, coût onboarding, coût support.</p></div>
+        <div class="card"><h3>Qualité</h3><p>Incidents, tickets, SLA, disponibilité, satisfaction, NPS/CSAT.</p></div>
+      </div>
+
+      <h3>Lecture du funnel</h3>
+      <div class="formula">Prospects → opportunités qualifiées → démonstrations → pilotes → contrats → clients activés → clients renouvelés</div>
+
+      <h3>Exemples de diagnostics</h3>
+      <table>
+        <thead><tr><th>Symptôme</th><th>Hypothèses</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>Beaucoup de leads, peu d’opportunités</td><td>ICP trop large, message faible, mauvais canal</td><td>Resegmenter et renforcer la qualification</td></tr>
+          <tr><td>Beaucoup de pilotes, peu de contrats</td><td>Critères flous, sponsor faible, valeur non prouvée</td><td>Reconcevoir l’offre pilote et la décision de sortie</td></tr>
+          <tr><td>Ventes correctes, faible usage</td><td>Mauvais onboarding, produit complexe, mauvais use case</td><td>Réduire le time-to-value</td></tr>
+          <tr><td>Revenu en hausse, marge en baisse</td><td>Remises, services excessifs, support coûteux</td><td>Revoir packaging, prix et standardisation</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section" id="industrial">
+      <h2>10. Cas complet : lancement d’une solution de supervision industrielle</h2>
+      <div class="card">
+        <h3>Contexte</h3>
+        <p>Une entreprise lance une plateforme de supervision pour une flotte de robots ou véhicules autonomes sur sites privés.</p>
+      </div>
+      <div class="grid grid-2">
+        <div class="card"><h3>ICP</h3><p>Sites industriels avec 10+ véhicules, opérations 16/7 ou 24/7, centre de contrôle et incidents coûteux.</p></div>
+        <div class="card"><h3>Buying committee</h3><p>Directeur opérations, responsable automatisation, IT/OT, cybersécurité, achats, HSE.</p></div>
+        <div class="card"><h3>Valeur</h3><p>Réduction du temps d’arrêt, meilleure traçabilité, supervision centralisée, réduction des interventions terrain.</p></div>
+        <div class="card"><h3>Offre</h3><p>Licence annuelle par véhicule/site + intégration + support premium + option analytics.</p></div>
+        <div class="card"><h3>Motion</h3><p>Vente enterprise directe, pilote payant sur un site, extension multi-sites.</p></div>
+        <div class="card"><h3>KPIs</h3><p>Temps de résolution, disponibilité flotte, incidents évités, conversion pilote, marge par site.</p></div>
+      </div>
+      <div class="callout">
+        <strong>Décision Product :</strong> ne pas commencer par tous les opérateurs de mobilité. Prioriser les sites
+        où l’environnement est contrôlé, le ROI mesurable et le déploiement reproductible.
+      </div>
+    </section>
+
+    <section class="section" id="interview">
+      <h2>11. Réussir l’entretien : transformer votre expérience en preuve GTM</h2>
+      <p>Votre profil montre déjà de fortes compétences de coordination, de livraison et de compréhension technique.
+      L’objectif en entretien est de reformuler vos expériences avec une logique business.</p>
+
+      <h3>Structure STAR + Business</h3>
+      <div class="formula">Situation → enjeu client/business → arbitrage → coordination → résultat → apprentissage GTM</div>
+
+      <h3>Exemple de réponse adaptée à votre profil</h3>
+      <div class="interview-answer">« Sur un outil de supervision, mon rôle ne se limitait pas à coordonner le développement. J’ai commencé par clarifier les utilisateurs, leurs workflows et les situations opérationnelles critiques. J’ai ensuite traduit ces besoins en fonctionnalités et en critères d’acceptation, tout en coordonnant les équipes système, logiciel et validation.
+
+Pour transformer cette expérience en approche go-to-market, je formaliserais désormais l’ICP, le buying committee, la proposition de valeur mesurable, le pilote et le plan d’onboarding. Par exemple, je ciblerais d’abord les exploitants ayant une flotte suffisante pour générer un ROI mesurable, puis je définirais un pilote avec des critères tels que la réduction du temps d’analyse des incidents et la disponibilité opérationnelle. »</div>
+
+      <h3>Questions probables du recruteur</h3>
+      <details><summary>Comment définiriez-vous l’ICP ?</summary><p>Expliquez vos critères : douleur, budget, urgence, fit, marge, potentiel d’expansion. Donnez un exemple concret et dites aussi qui vous excluez.</p></details>
+      <details><summary>Comment lanceriez-vous ce produit dans un nouveau marché ?</summary><p>Répondez dans l’ordre : segmentation, recherche client, proposition de valeur, packaging/prix, canal, pilote, enablement, onboarding, KPIs, boucle d’apprentissage.</p></details>
+      <details><summary>Que faites-vous si les ventes sont faibles après le lancement ?</summary><p>Ne proposez pas immédiatement plus de marketing. Localisez la rupture du funnel, comparez ICP, message, prix, canal, produit et onboarding, puis testez une hypothèse à la fois.</p></details>
+      <details><summary>Comment travaillez-vous avec les ventes ?</summary><p>Co-construction du ciblage, qualification, démos, objections, win/loss analysis, feedback roadmap, forecast et formation.</p></details>
+      <details><summary>Quand faut-il arrêter un lancement ?</summary><p>Quand le problème n’est pas prioritaire, que le coût d’acquisition ou de service détruit la marge, que les pilotes ne convertissent pas ou que le produit ne peut pas satisfaire les contraintes essentielles du marché.</p></details>
+
+      <h3>Flashcards</h3>
+      <div class="grid grid-3">
+        <div class="card flashcard" onclick="this.classList.toggle('flipped')">
+          <div class="front"><strong>ICP ≠ persona. Pourquoi ?</strong><br><span class="muted">Cliquez</span></div>
+          <div class="back">L’ICP décrit l’organisation idéale. Le persona décrit une personne impliquée dans l’achat ou l’usage.</div>
+        </div>
+        <div class="card flashcard" onclick="this.classList.toggle('flipped')">
+          <div class="front"><strong>Premier KPI après vente ?</strong><br><span class="muted">Cliquez</span></div>
+          <div class="back">L’activation et le time-to-value : le client doit obtenir rapidement un premier résultat utile.</div>
+        </div>
+        <div class="card flashcard" onclick="this.classList.toggle('flipped')">
+          <div class="front"><strong>Pourquoi un pilote échoue ?</strong><br><span class="muted">Cliquez</span></div>
+          <div class="back">Absence de sponsor, critères de succès flous, périmètre irréaliste ou aucune décision de sortie.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="quiz">
+      <h2>12. Quiz final</h2>
+      <p>Répondez à toutes les questions, puis cliquez sur « Corriger ». Une explication apparaît pour chaque réponse.</p>
+      <div id="quizContainer"></div>
+      <div class="actions">
+        <button class="btn" id="submitQuiz">Corriger le quiz</button>
+        <button class="btn secondary" id="resetQuiz">Recommencer</button>
+      </div>
+      <div class="score" id="scoreBox"></div>
+      <p class="print-note">Conseil : visez au moins 80 %, puis reprenez les sections associées aux erreurs.</p>
+    </section>
+  </main>
+</div>
+
+<button class="top-btn" id="topBtn" aria-label="Retour en haut">↑</button>
+
+<script>
+const quiz = [
+  {
+    q:"Quelle définition décrit le mieux un go-to-market ?",
+    options:[
+      "La date de mise en production du produit",
+      "Le plan coordonné reliant marché, offre, vente, adoption et économie",
+      "La campagne de communication du marketing",
+      "La roadmap technique des six prochains mois"
+    ],
+    answer:1,
+    topic:"Fondamentaux",
+    explanation:"Le GTM couvre le marché, l’offre, le canal, l’organisation, l’adoption et les métriques. Il dépasse largement le lancement technique."
+  },
+  {
+    q:"Quelle différence entre ICP et persona est correcte ?",
+    options:[
+      "L’ICP est une personne, le persona une entreprise",
+      "Ils sont synonymes",
+      "L’ICP décrit l’entreprise idéale, le persona un acteur du buying committee",
+      "L’ICP ne concerne que le B2C"
+    ],
+    answer:2,
+    topic:"ICP",
+    explanation:"L’ICP qualifie l’organisation cible. Les personas représentent les utilisateurs, champions, décideurs, acheteurs ou bloqueurs."
+  },
+  {
+    q:"Quel critère est le moins pertinent pour prioriser un ICP ?",
+    options:[
+      "L’intensité de la douleur",
+      "La disponibilité du budget",
+      "La compatibilité technique",
+      "La notoriété du logo, indépendamment du fit"
+    ],
+    answer:3,
+    topic:"ICP",
+    explanation:"Un logo prestigieux peut coûter cher à servir et ne jamais convertir. Le fit, l’urgence, la marge et le potentiel d’expansion priment."
+  },
+  {
+    q:"Quelle formulation constitue une proposition de valeur crédible ?",
+    options:[
+      "Notre produit utilise une architecture moderne",
+      "Notre dashboard contient beaucoup de graphiques",
+      "Notre solution réduit le temps d’analyse d’incident de 30 à 5 minutes",
+      "Notre produit est innovant et intuitif"
+    ],
+    answer:2,
+    topic:"Valeur",
+    explanation:"Une proposition de valeur relie le produit à un résultat mesurable pour le client."
+  },
+  {
+    q:"Pourquoi le buying committee est-il important en B2B ?",
+    options:[
+      "Parce qu’une seule personne prend toujours la décision",
+      "Parce que plusieurs acteurs peuvent influencer, payer, utiliser ou bloquer",
+      "Parce qu’il remplace l’ICP",
+      "Parce qu’il sert uniquement à la communication"
+    ],
+    answer:1,
+    topic:"ICP",
+    explanation:"Une vente complexe implique souvent utilisateur, champion, décideur économique, achats, sécurité, IT et juridique."
+  },
+  {
+    q:"Quel canal convient le mieux à une solution industrielle complexe et chère ?",
+    options:[
+      "Self-service sans accompagnement",
+      "Vente enterprise directe ou via intégrateur",
+      "Uniquement publicité grand public",
+      "Téléchargement anonyme"
+    ],
+    answer:1,
+    topic:"Sales motion",
+    explanation:"Une offre complexe avec intégration et cycle d’achat long nécessite une vente consultative et souvent des partenaires."
+  },
+  {
+    q:"Quel signal indique un problème de ciblage ou de qualification ?",
+    options:[
+      "Beaucoup de leads mais peu d’opportunités qualifiées",
+      "Bonne activation après onboarding",
+      "Forte marge brute",
+      "Faible taux de tickets support"
+    ],
+    answer:0,
+    topic:"Métriques",
+    explanation:"Le haut du funnel fonctionne, mais les leads ne correspondent probablement pas au bon ICP ou au bon message."
+  },
+  {
+    q:"Quel est le meilleur objectif d’un pilote ?",
+    options:[
+      "Offrir une démonstration gratuite sans limite",
+      "Prouver un critère de valeur et préparer une décision de déploiement",
+      "Retarder la négociation commerciale",
+      "Tester toutes les fonctionnalités possibles"
+    ],
+    answer:1,
+    topic:"Pilote",
+    explanation:"Le pilote doit réduire un risque d’achat défini, avec sponsor, métriques, durée et décision de sortie."
+  },
+  {
+    q:"Quel élément doit être défini avant le début d’un pilote ?",
+    options:[
+      "Les critères de succès et la décision de sortie",
+      "Le nombre maximal de fonctionnalités futures",
+      "Le logo de la campagne",
+      "La roadmap de trois ans complète"
+    ],
+    answer:0,
+    topic:"Pilote",
+    explanation:"Sans critères mesurables et prochaine décision explicite, le pilote risque de devenir un test sans fin."
+  },
+  {
+    q:"Que mesure le time-to-value ?",
+    options:[
+      "Le délai entre le développement et la mise en production",
+      "Le délai avant le premier résultat utile obtenu par le client",
+      "Le délai de paiement de la facture",
+      "La durée du contrat"
+    ],
+    answer:1,
+    topic:"Onboarding",
+    explanation:"Le time-to-value mesure la rapidité avec laquelle le client perçoit une valeur réelle après le démarrage."
+  },
+  {
+    q:"Quel contenu appartient au sales enablement ?",
+    options:[
+      "Pitch, démo, battlecard, objections, calculateur ROI",
+      "Uniquement la documentation technique interne",
+      "Uniquement les posts sur les réseaux sociaux",
+      "Le backlog de bugs"
+    ],
+    answer:0,
+    topic:"Enablement",
+    explanation:"Le sales enablement prépare les équipes à cibler, qualifier, démontrer, défendre la valeur et conclure."
+  },
+  {
+    q:"Face à l’objection « c’est trop cher », quelle réponse est la plus solide ?",
+    options:[
+      "Accorder immédiatement 30 % de remise",
+      "Ignorer la question",
+      "Revenir à la valeur, au coût de l’alternative et au périmètre",
+      "Dire que tous les concurrents sont plus chers"
+    ],
+    answer:2,
+    topic:"Objections",
+    explanation:"Une objection prix peut révéler une valeur mal démontrée, un mauvais périmètre ou un mauvais ICP."
+  },
+  {
+    q:"Quel indicateur révèle le mieux un problème post-vente ?",
+    options:[
+      "Le nombre de visiteurs du site web",
+      "Un fort taux de signature accompagné d’une faible activation",
+      "Le volume de communiqués de presse",
+      "Le nombre de réunions internes"
+    ],
+    answer:1,
+    topic:"Métriques",
+    explanation:"Le produit se vend, mais le client n’atteint pas la valeur. Il faut revoir onboarding, use case ou complexité."
+  },
+  {
+    q:"Quelle situation peut justifier l’arrêt d’un lancement ?",
+    options:[
+      "Le produit reçoit une objection isolée",
+      "Le marché exige plusieurs démonstrations",
+      "Les pilotes ne convertissent pas et le coût de service détruit la marge",
+      "Le marketing souhaite modifier un visuel"
+    ],
+    answer:2,
+    topic:"Décision",
+    explanation:"Un produit peut être techniquement bon mais économiquement non viable ou mal adapté au marché."
+  },
+  {
+    q:"Quel rôle le Product Manager joue-t-il dans un lancement transverse ?",
+    options:[
+      "Exécuter seul toutes les tâches",
+      "Coordonner les décisions, dépendances, arbitrages et métriques",
+      "Laisser chaque fonction travailler sans synchronisation",
+      "Se limiter à écrire les user stories"
+    ],
+    answer:1,
+    topic:"Rôle PM",
+    explanation:"Le PM crée l’alignement et garantit la cohérence entre produit, marché, vente, opérations et objectifs business."
+  },
+  {
+    q:"Une hausse du revenu accompagnée d’une baisse de marge peut indiquer :",
+    options:[
+      "Un GTM nécessairement excellent",
+      "Des remises fortes, trop de services ou un support coûteux",
+      "Un problème de visibilité du site web uniquement",
+      "Une activation trop rapide"
+    ],
+    answer:1,
+    topic:"Économie",
+    explanation:"Le revenu seul ne suffit pas. Il faut suivre le coût d’acquisition, d’onboarding, de support et la marge par client."
+  },
+  {
+    q:"Dans une réponse d’entretien, quelle structure est la plus convaincante ?",
+    options:[
+      "Décrire uniquement les tâches réalisées",
+      "Présenter situation, enjeu business, arbitrage, action, résultat et apprentissage",
+      "Citer le maximum de technologies",
+      "Rester très général pour éviter les chiffres"
+    ],
+    answer:1,
+    topic:"Entretien",
+    explanation:"Le recruteur veut comprendre votre jugement, vos décisions et leur impact, pas seulement votre liste de tâches."
+  },
+  {
+    q:"Quel ordre est le plus logique pour préparer un GTM ?",
+    options:[
+      "Campagne, logo, démo, marché",
+      "Segment, ICP, problème, valeur, offre, canal, adoption, métriques",
+      "Support, prix, développement, persona",
+      "Roadmap, publicité, contrat, ICP"
+    ],
+    answer:1,
+    topic:"Stratégie",
+    explanation:"Le choix du marché et du problème précède l’offre et le canal. L’adoption et la mesure complètent le système."
+  }
+];
+
+const container = document.getElementById("quizContainer");
+const answers = new Array(quiz.length).fill(null);
+
+quiz.forEach((item, i) => {
+  const box = document.createElement("div");
+  box.className = "question";
+  box.innerHTML = `<h3>${i+1}. ${item.q}</h3>`;
+  item.options.forEach((opt, j) => {
+    const btn = document.createElement("button");
+    btn.className = "option";
+    btn.textContent = opt;
+    btn.addEventListener("click", () => {
+      answers[i] = j;
+      [...box.querySelectorAll(".option")].forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+    });
+    box.appendChild(btn);
+  });
+  const feedback = document.createElement("div");
+  feedback.className = "feedback";
+  feedback.id = `feedback-${i}`;
+  box.appendChild(feedback);
+  container.appendChild(box);
+});
+
+document.getElementById("submitQuiz").addEventListener("click", () => {
+  let score = 0;
+  const byTopic = {};
+  quiz.forEach((item, i) => {
+    byTopic[item.topic] ??= {good:0,total:0};
+    byTopic[item.topic].total++;
+    const box = container.children[i];
+    const opts = box.querySelectorAll(".option");
+    opts.forEach((b,j) => {
+      b.classList.remove("correct","incorrect");
+      if(j === item.answer) b.classList.add("correct");
+      if(answers[i] === j && j !== item.answer) b.classList.add("incorrect");
+    });
+    const ok = answers[i] === item.answer;
+    if(ok){ score++; byTopic[item.topic].good++; }
+    const feedback = document.getElementById(`feedback-${i}`);
+    feedback.style.display = "block";
+    feedback.innerHTML = `<strong>${ok ? "Correct" : "À revoir"}.</strong> ${item.explanation}`;
+  });
+  const pct = Math.round(score / quiz.length * 100);
+  let level = pct >= 85 ? "Très bonne maîtrise" : pct >= 70 ? "Base solide, encore quelques angles morts" : pct >= 50 ? "Connaissances partielles" : "Reprise du cours recommandée";
+  const weak = Object.entries(byTopic).filter(([_,v]) => v.good < v.total).map(([k]) => k);
+  const box = document.getElementById("scoreBox");
+  box.style.display = "block";
+  box.innerHTML = `<div class="score-num">${score}/${quiz.length} — ${pct}%</div>
+    <strong>${level}</strong>
+    <p>${weak.length ? "Thèmes à revoir : " + weak.join(", ") + "." : "Toutes les notions sont maîtrisées."}</p>`;
+  box.scrollIntoView({behavior:"smooth", block:"center"});
+  localStorage.setItem("gtmQuizScore", pct);
+});
+
+document.getElementById("resetQuiz").addEventListener("click", () => {
+  answers.fill(null);
+  document.querySelectorAll(".option").forEach(b => b.classList.remove("selected","correct","incorrect"));
+  document.querySelectorAll(".feedback").forEach(f => f.style.display = "none");
+  document.getElementById("scoreBox").style.display = "none";
+  window.scrollTo({top:document.getElementById("quiz").offsetTop-10,behavior:"smooth"});
+});
+
+const progressBar = document.getElementById("progressBar");
+const progressText = document.getElementById("progressText");
+const topBtn = document.getElementById("topBtn");
+const navLinks = [...document.querySelectorAll("nav a")];
+const sections = navLinks.map(a => document.querySelector(a.getAttribute("href")));
+
+function updateScroll(){
+  const doc = document.documentElement;
+  const max = doc.scrollHeight - doc.clientHeight;
+  const pct = max > 0 ? Math.round(doc.scrollTop / max * 100) : 0;
+  progressBar.style.width = pct + "%";
+  progressText.textContent = pct + " %";
+  topBtn.style.display = doc.scrollTop > 650 ? "block" : "none";
+  let active = 0;
+  sections.forEach((s,i) => { if(s && s.getBoundingClientRect().top < 180) active=i; });
+  navLinks.forEach((a,i)=>a.classList.toggle("active", i===active));
+}
+window.addEventListener("scroll", updateScroll);
+updateScroll();
+topBtn.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+</script>
+</body>
+</html>

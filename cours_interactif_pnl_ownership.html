@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P&L Ownership — Cours interactif et préparation entretien</title>
+<style>
+  :root{
+    --bg:#f5f7fb; --panel:#ffffff; --text:#172033; --muted:#5d6b82;
+    --brand:#2f6fed; --brand2:#1f4fae; --ok:#1a9b62; --warn:#d68a00;
+    --bad:#c93c3c; --line:#dfe5ef; --soft:#eef4ff; --shadow:0 10px 30px rgba(31,52,92,.08);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+  a{color:inherit}
+  .layout{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+  aside{position:sticky;top:0;height:100vh;background:#10213f;color:#fff;padding:24px 18px;overflow:auto}
+  .brand{font-size:1.1rem;font-weight:800;margin-bottom:18px}
+  .badge{display:inline-block;background:rgba(255,255,255,.12);padding:5px 9px;border-radius:999px;font-size:.78rem;margin-bottom:18px}
+  nav a{display:block;text-decoration:none;color:#dce6fb;padding:10px 12px;border-radius:10px;margin:4px 0;font-size:.94rem}
+  nav a:hover, nav a.active{background:rgba(255,255,255,.12);color:#fff}
+  .aside-note{margin-top:24px;padding:14px;border:1px solid rgba(255,255,255,.15);border-radius:12px;color:#c9d8f4;font-size:.84rem}
+  main{padding:34px;max-width:1180px;width:100%}
+  .hero{background:linear-gradient(135deg,#173a78,#2f6fed);color:white;padding:34px;border-radius:22px;box-shadow:var(--shadow);margin-bottom:24px}
+  .hero h1{margin:0 0 8px;font-size:2rem;line-height:1.2}
+  .hero p{margin:0;max-width:850px;color:#e8efff}
+  .hero-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+  .hero-card{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.16);padding:14px;border-radius:14px}
+  .hero-card strong{display:block;font-size:1.2rem}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px;margin-bottom:22px;box-shadow:var(--shadow)}
+  h2{margin-top:0;font-size:1.55rem}
+  h3{margin-top:1.6rem;font-size:1.13rem}
+  .lead{font-size:1.06rem;color:#34425a}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .card{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fff}
+  .card h3{margin-top:0}
+  .callout{border-left:5px solid var(--brand);background:var(--soft);padding:15px 17px;border-radius:10px;margin:16px 0}
+  .callout.ok{border-color:var(--ok);background:#edfbf5}
+  .callout.warn{border-color:var(--warn);background:#fff8e8}
+  .callout.bad{border-color:var(--bad);background:#fff0f0}
+  .formula{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#111a2d;color:#edf4ff;padding:12px 14px;border-radius:10px;overflow:auto}
+  table{width:100%;border-collapse:collapse;margin:14px 0}
+  th,td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}
+  th{background:#f4f7fb;font-size:.9rem}
+  details{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0;background:#fbfcfe}
+  summary{font-weight:700;cursor:pointer}
+  label{display:block;font-weight:650;margin:8px 0 4px}
+  input[type="number"],input[type="text"],textarea,select{
+    width:100%;padding:10px 11px;border:1px solid #cfd8e7;border-radius:9px;font:inherit;background:#fff;color:var(--text)
+  }
+  textarea{min-height:130px;resize:vertical}
+  button{border:0;border-radius:10px;background:var(--brand);color:white;padding:10px 15px;font-weight:700;cursor:pointer}
+  button:hover{background:var(--brand2)}
+  button.secondary{background:#e8eef9;color:#1b3768}
+  button.ghost{background:#fff;color:var(--brand);border:1px solid var(--brand)}
+  .result{margin-top:14px;padding:14px;border-radius:12px;background:#f5f8fd;border:1px solid var(--line)}
+  .kpi{font-size:1.65rem;font-weight:800}
+  .muted{color:var(--muted)}
+  .pill{display:inline-block;padding:4px 9px;border-radius:999px;font-size:.78rem;font-weight:700;background:#edf2fb;color:#31558c;margin:2px}
+  .progress-wrap{background:#dfe7f5;border-radius:999px;height:12px;overflow:hidden;margin:8px 0}
+  .progress{height:100%;background:linear-gradient(90deg,#2f6fed,#6d9dff);width:0;transition:.3s}
+  .quiz-question{padding:16px;border:1px solid var(--line);border-radius:12px;margin:12px 0}
+  .quiz-question.correct{border-color:#88d7b4;background:#f0fbf6}
+  .quiz-question.incorrect{border-color:#efaaaa;background:#fff5f5}
+  .quiz-question label{font-weight:500;margin:7px 0}
+  .feedback{margin-top:8px;font-size:.92rem}
+  .score-box{font-size:1.1rem;font-weight:800;margin-top:16px}
+  .interview-q{background:#f8faff;border:1px solid var(--line);border-radius:12px;padding:14px;margin:10px 0}
+  .rubric{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}
+  .rubric div{background:#eef3fb;border-radius:8px;padding:8px;text-align:center;font-size:.8rem}
+  .footer{color:var(--muted);font-size:.85rem;text-align:center;padding:10px 0 30px}
+  .sticky-score{position:fixed;right:20px;bottom:20px;background:#10213f;color:#fff;padding:12px 15px;border-radius:12px;box-shadow:var(--shadow);z-index:10}
+  .hidden{display:none}
+  @media(max-width:900px){
+    .layout{grid-template-columns:1fr}
+    aside{position:relative;height:auto}
+    main{padding:18px}
+    .grid,.grid-3,.hero-grid{grid-template-columns:1fr}
+    .sticky-score{position:static;margin:12px 0}
+  }
+  @media print{
+    aside,.sticky-score,button{display:none!important}
+    .layout{display:block}
+    main{max-width:none;padding:0}
+    section,.hero{box-shadow:none;break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside>
+    <div class="brand">Product P&L Academy</div>
+    <div class="badge">Niveau entretien Senior / Product Line</div>
+    <nav id="nav">
+      <a href="#objectifs">1. Objectifs</a>
+      <a href="#fondamentaux">2. Fondamentaux du P&L</a>
+      <a href="#structure">3. Construire un P&L produit</a>
+      <a href="#decisions">4. Décisions de Product Leader</a>
+      <a href="#cas">5. Cas chiffré complet</a>
+      <a href="#simulateur">6. Simulateur financier</a>
+      <a href="#profil">7. Traduire ton expérience</a>
+      <a href="#entretien">8. Préparer l’entretien</a>
+      <a href="#quiz">9. Quiz final</a>
+      <a href="#plan">10. Plan de progression</a>
+    </nav>
+    <div class="aside-note">
+      Conseil : ne cherche pas seulement à mémoriser les définitions. En entretien, le recruteur teste ta capacité à relier une décision produit à un revenu, une marge, un risque et une allocation de ressources.
+    </div>
+  </aside>
+
+  <main>
+    <div class="hero">
+      <h1>P&L Ownership pour Product Manager</h1>
+      <p>Un cours approfondi pour passer d’une logique de pilotage coût–qualité–délai à une logique de création de valeur, d’arbitrage économique et de responsabilité de gamme.</p>
+      <div class="hero-grid">
+        <div class="hero-card"><strong>10 modules</strong><span>Théorie, calculs, cas et entretien</span></div>
+        <div class="hero-card"><strong>15 questions</strong><span>Quiz corrigé avec score</span></div>
+        <div class="hero-card"><strong>1 simulateur</strong><span>Prix, volume, marge et seuil de rentabilité</span></div>
+      </div>
+    </div>
+
+    <div class="sticky-score">Progression : <span id="globalProgress">0%</span></div>
+
+    <section id="objectifs">
+      <h2>1. Ce que tu dois savoir faire en entretien</h2>
+      <p class="lead">L’objectif n’est pas de prétendre que tu as déjà détenu un P&L complet. L’objectif est de démontrer que tu comprends les mécanismes, que tu as déjà exercé plusieurs briques de la responsabilité économique, et que tu sais raisonner comme un futur owner.</p>
+      <div class="grid-3">
+        <div class="card"><h3>Lire</h3><p>Comprendre un compte de résultat produit, ses lignes, ses unités économiques et ses variations.</p></div>
+        <div class="card"><h3>Décider</h3><p>Choisir entre croissance, marge, investissement, maintien, retrait ou repositionnement d’un produit.</p></div>
+        <div class="card"><h3>Défendre</h3><p>Présenter une recommandation structurée avec hypothèses, risques, sensibilité et critères de succès.</p></div>
+      </div>
+      <div class="callout ok"><strong>Résultat attendu :</strong> être capable de répondre à une étude de cas P&L en 10 à 15 minutes et de relier ton expérience projet à des décisions business crédibles.</div>
+    </section>
+
+    <section id="fondamentaux">
+      <h2>2. Les fondamentaux du P&L produit</h2>
+      <h3>2.1 Le P&L n’est pas un budget</h3>
+      <table>
+        <thead><tr><th>Budget projet</th><th>P&L produit</th></tr></thead>
+        <tbody>
+          <tr><td>Combien pouvons-nous dépenser ?</td><td>Combien de valeur économique créons-nous ?</td></tr>
+          <tr><td>Horizon souvent limité au projet</td><td>Horizon du cycle de vie du produit ou de la gamme</td></tr>
+          <tr><td>Succès = livraison dans coût, délai, qualité</td><td>Succès = croissance, marge, cash, satisfaction et pérennité</td></tr>
+          <tr><td>Responsabilité principalement interne</td><td>Responsabilité client, marché, commerciale et opérationnelle</td></tr>
+          <tr><td>Le revenu peut être hors périmètre</td><td>Le revenu et la rentabilité sont centraux</td></tr>
+        </tbody>
+      </table>
+
+      <h3>2.2 Les grandes lignes d’un P&L produit</h3>
+      <div class="grid">
+        <div class="card">
+          <h3>Revenus</h3>
+          <p><span class="pill">Prix catalogue</span><span class="pill">Remises</span><span class="pill">Mix produit</span><span class="pill">Volume</span><span class="pill">Renouvellement</span></p>
+          <p>Le chiffre d’affaires net est ce qui reste après remises, rabais, avoirs et éléments contractuels.</p>
+          <div class="formula">CA net = volume × prix moyen net</div>
+        </div>
+        <div class="card">
+          <h3>Coûts variables</h3>
+          <p><span class="pill">Matériel</span><span class="pill">Cloud</span><span class="pill">Licences</span><span class="pill">Installation</span><span class="pill">Support variable</span></p>
+          <p>Ils augmentent avec chaque unité, client, transaction ou usage supplémentaire.</p>
+          <div class="formula">Marge contributive = prix net – coût variable unitaire</div>
+        </div>
+        <div class="card">
+          <h3>Coûts fixes directs</h3>
+          <p><span class="pill">Équipe R&D</span><span class="pill">Maintenance</span><span class="pill">QA</span><span class="pill">Product</span><span class="pill">Infrastructure de base</span></p>
+          <p>Ils existent même si aucun nouvel exemplaire n’est vendu à court terme.</p>
+        </div>
+        <div class="card">
+          <h3>Résultat</h3>
+          <p><span class="pill">Marge brute</span><span class="pill">Contribution</span><span class="pill">EBIT produit</span></p>
+          <div class="formula">Résultat opérationnel = CA net – coûts variables – coûts fixes directs – frais commerciaux alloués</div>
+        </div>
+      </div>
+
+      <details>
+        <summary>Marge brute, marge contributive et EBIT : quelle différence ?</summary>
+        <p><strong>Marge brute :</strong> revenu moins coût des ventes directement associé. La définition précise dépend de l’entreprise.</p>
+        <p><strong>Marge contributive :</strong> revenu moins tous les coûts variables. Elle mesure ce que chaque vente apporte pour couvrir les coûts fixes puis générer un profit.</p>
+        <p><strong>EBIT produit :</strong> résultat avant intérêts et impôts après déduction des coûts opérationnels attribuables au produit.</p>
+      </details>
+    </section>
+
+    <section id="structure">
+      <h2>3. Construire un P&L produit étape par étape</h2>
+      <h3>Étape 1 — Définir l’unité économique</h3>
+      <p>Avant de calculer, il faut choisir ce que signifie « une unité » : un véhicule, un site, une licence, un utilisateur actif, un million de transactions, un contrat annuel ou un déploiement.</p>
+      <div class="callout warn"><strong>Erreur fréquente :</strong> utiliser une unité commerciale qui ne reflète pas le coût réel. Exemple : facturer par client alors que les coûts cloud dépendent fortement du nombre de véhicules actifs.</div>
+
+      <h3>Étape 2 — Réconcilier prix catalogue et prix net</h3>
+      <div class="formula">Prix net = prix catalogue – remise – coût des options offertes – avoirs – incentives</div>
+      <p>Une gamme peut afficher un prix élevé tout en ayant un prix net faible à cause des remises, bundles ou concessions commerciales.</p>
+
+      <h3>Étape 3 — Séparer coûts variables et coûts fixes</h3>
+      <table>
+        <thead><tr><th>Type</th><th>Exemples</th><th>Question à poser</th></tr></thead>
+        <tbody>
+          <tr><td>Variable</td><td>hardware, data, transaction fee, licence tierce par unité</td><td>Ce coût augmente-t-il à chaque vente ou usage ?</td></tr>
+          <tr><td>Semi-variable</td><td>support, opérations, cloud par palier</td><td>À quel seuil faut-il recruter ou augmenter la capacité ?</td></tr>
+          <tr><td>Fixe direct</td><td>équipe produit, développement, maintenance de base</td><td>Le coût existe-t-il sans vente additionnelle ?</td></tr>
+          <tr><td>Alloué</td><td>finance, RH, locaux, management corporate</td><td>La clé d’allocation est-elle pertinente pour la décision ?</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Étape 4 — Construire un bridge de marge</h3>
+      <p>Le bridge explique le passage d’une période à l’autre :</p>
+      <div class="formula">Variation de résultat = effet volume + effet prix + effet mix + effet coût unitaire + effet coûts fixes + effet change</div>
+
+      <h3>Étape 5 — Distinguer comptabilité et décision</h3>
+      <p>Un produit peut être déficitaire en comptabilité mais utile dans une logique de plateforme, de bundle ou d’acquisition client. Inversement, un produit historiquement rentable peut détruire de la valeur s’il consomme trop de support, bloque la roadmap ou impose une dette technique excessive.</p>
+    </section>
+
+    <section id="decisions">
+      <h2>4. Les décisions qu’un owner P&L doit prendre</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Investir</h3>
+          <p>Augmenter R&D, capacité, marketing ou force commerciale lorsque le rendement attendu est supérieur au coût d’opportunité.</p>
+          <strong>Question :</strong> quel incrément de revenu et de marge l’investissement doit-il générer ?
+        </div>
+        <div class="card">
+          <h3>Réduire le prix</h3>
+          <p>Possible si l’élasticité, le mix, le coût marginal et la capacité commerciale compensent la baisse de marge unitaire.</p>
+          <strong>Question :</strong> combien de volume additionnel faut-il pour maintenir la contribution ?
+        </div>
+        <div class="card">
+          <h3>Maintenir</h3>
+          <p>Conserver un produit mature si sa base installée génère du cash et si le coût de maintien reste maîtrisé.</p>
+          <strong>Question :</strong> la maintenance détourne-t-elle des ressources critiques ?
+        </div>
+        <div class="card">
+          <h3>Retirer</h3>
+          <p>Arrêter lorsqu’un produit détruit durablement de la valeur, cannibalise la gamme ou immobilise trop de compétences rares.</p>
+          <strong>Question :</strong> quel coût de migration et quel risque client ?
+        </div>
+      </div>
+
+      <h3>4.1 Effet d’une baisse de prix</h3>
+      <p>Une baisse de prix de 10 % ne nécessite pas seulement 10 % de volume en plus. Le volume requis dépend de la marge contributive initiale.</p>
+      <div class="formula">Volume requis après baisse = Volume initial × Contribution unitaire initiale / Contribution unitaire après baisse</div>
+      <div class="callout">
+        Exemple : prix 100 €, coût variable 60 €, contribution 40 €. Prix baissé à 90 €, contribution 30 €. Il faut 40/30 = 1,333, soit environ 33 % de volume supplémentaire pour préserver la contribution totale.
+      </div>
+
+      <h3>4.2 Seuil de rentabilité</h3>
+      <div class="formula">Seuil de rentabilité en unités = coûts fixes / marge contributive unitaire</div>
+      <p>Cette formule est centrale en entretien. Elle permet de répondre rapidement à une question de lancement, de dimensionnement ou d’arrêt de produit.</p>
+
+      <h3>4.3 Coût d’opportunité</h3>
+      <p>La vraie question n’est pas seulement « ce produit est-il rentable ? », mais « est-ce le meilleur usage des ressources rares ? ». Une équipe de dix ingénieurs affectée à un produit à faible croissance ne peut pas travailler sur une plateforme plus stratégique.</p>
+    </section>
+
+    <section id="cas">
+      <h2>5. Cas chiffré complet — gamme de supervision de véhicules autonomes</h2>
+      <p>Ce cas est volontairement proche de ton univers professionnel pour faciliter la transposition en entretien.</p>
+      <table>
+        <thead><tr><th>Donnée</th><th>Produit Legacy</th><th>Produit NextGen</th></tr></thead>
+        <tbody>
+          <tr><td>Clients actifs</td><td>30</td><td>12</td></tr>
+          <tr><td>Prix annuel moyen</td><td>24 000 €</td><td>42 000 €</td></tr>
+          <tr><td>Coût variable annuel / client</td><td>9 000 €</td><td>13 000 €</td></tr>
+          <tr><td>Coûts fixes directs</td><td>500 000 €</td><td>650 000 €</td></tr>
+          <tr><td>Croissance annuelle</td><td>-10 %</td><td>+40 %</td></tr>
+          <tr><td>Support incidents / client</td><td>18 j/an</td><td>7 j/an</td></tr>
+        </tbody>
+      </table>
+
+      <h3>5.1 Calcul initial</h3>
+      <div class="grid">
+        <div class="card">
+          <h3>Legacy</h3>
+          <p>CA = 30 × 24 000 = <strong>720 000 €</strong></p>
+          <p>Coûts variables = 30 × 9 000 = <strong>270 000 €</strong></p>
+          <p>Contribution = <strong>450 000 €</strong></p>
+          <p>Résultat direct = 450 000 – 500 000 = <strong>-50 000 €</strong></p>
+        </div>
+        <div class="card">
+          <h3>NextGen</h3>
+          <p>CA = 12 × 42 000 = <strong>504 000 €</strong></p>
+          <p>Coûts variables = 12 × 13 000 = <strong>156 000 €</strong></p>
+          <p>Contribution = <strong>348 000 €</strong></p>
+          <p>Résultat direct = 348 000 – 650 000 = <strong>-302 000 €</strong></p>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        Une lecture superficielle conduirait à arrêter NextGen, car il perd davantage d’argent. Une lecture de Product Line Manager regarde la croissance, le coût de support, la migration, la capacité à augmenter le prix et le potentiel de mutualisation.
+      </div>
+
+      <h3>5.2 Questions de décision</h3>
+      <details>
+        <summary>Quel produit subventionne l’autre ?</summary>
+        <p>À ce stade, Legacy génère plus de contribution absolue et finance partiellement NextGen, même s’il est légèrement déficitaire après coûts fixes directs.</p>
+      </details>
+      <details>
+        <summary>Faut-il arrêter Legacy immédiatement ?</summary>
+        <p>Probablement pas. Une sortie brutale détruirait du revenu, créerait un risque contractuel et pourrait surcharger la migration. Une stratégie de harvest est plus logique : limiter les nouvelles fonctionnalités, maintenir la conformité et migrer progressivement les clients rentables.</p>
+      </details>
+      <details>
+        <summary>Que faut-il prouver pour continuer NextGen ?</summary>
+        <p>Une trajectoire crédible vers le break-even : croissance clients, amélioration du coût cloud, standardisation du déploiement, baisse du support, pricing plus élevé ou réduction des coûts fixes unitaires par réutilisation de plateforme.</p>
+      </details>
+
+      <h3>5.3 Recommandation type entretien</h3>
+      <div class="callout ok">
+        « Je ne déciderais pas sur le seul résultat comptable actuel. Legacy est proche de l’équilibre mais décroît et consomme beaucoup de support. NextGen est déficitaire, mais sa contribution unitaire est plus élevée et sa croissance est forte. Je recommanderais un plan de migration segmenté, un gel des développements non essentiels sur Legacy et des jalons précis pour NextGen : nombre de clients, marge contributive, coût de déploiement et taux d’incidents. Si ces jalons ne sont pas atteints sous 12 à 18 mois, je réduirais l’investissement. »
+      </div>
+    </section>
+
+    <section id="simulateur">
+      <h2>6. Simulateur P&L</h2>
+      <p>Modifie les hypothèses pour observer l’impact d’une baisse de prix, d’une variation de volume ou d’un changement de coût.</p>
+      <div class="grid">
+        <div class="card">
+          <label for="price">Prix net unitaire (€)</label>
+          <input id="price" type="number" value="10000" min="0" step="100">
+          <label for="volume">Volume annuel</label>
+          <input id="volume" type="number" value="100" min="0" step="1">
+          <label for="varCost">Coût variable unitaire (€)</label>
+          <input id="varCost" type="number" value="6000" min="0" step="100">
+          <label for="fixedCost">Coûts fixes annuels (€)</label>
+          <input id="fixedCost" type="number" value="300000" min="0" step="1000">
+          <label for="discount">Baisse de prix simulée (%)</label>
+          <input id="discount" type="number" value="10" min="0" max="99" step="1">
+          <button onclick="calculatePL()">Calculer</button>
+        </div>
+        <div class="card">
+          <div id="simResult" class="result">Renseigne les hypothèses puis clique sur « Calculer ».</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="profil">
+      <h2>7. Traduire ton expérience vers le P&L ownership</h2>
+      <h3>7.1 Ce que tu peux légitimement revendiquer</h3>
+      <table>
+        <thead><tr><th>Expérience existante</th><th>Lecture P&L possible</th><th>Limite à reconnaître</th></tr></thead>
+        <tbody>
+          <tr><td>Pilotage d’un projet de 3 M€</td><td>Discipline d’investissement, suivi des écarts, arbitrage de ressources</td><td>Pas de revenu ni marge directement détenus</td></tr>
+          <tr><td>Arbitrages coût–qualité–délai</td><td>Capacité à comparer valeur attendue, risque et coût d’opportunité</td><td>Le critère commercial doit être davantage explicité</td></tr>
+          <tr><td>Spécifications et user stories</td><td>Transformation d’un besoin client en investissement produit</td><td>Besoin de preuves sur segmentation, prix et adoption</td></tr>
+          <tr><td>Coordination multi-équipes</td><td>Capacité à exécuter une décision économique à l’échelle</td><td>La gouvernance financière reste à démontrer</td></tr>
+          <tr><td>Outils de supervision / data</td><td>Possibilité de raisonner sur coût de support, récurrence, usage et valeur client</td><td>Il faut reconstruire les métriques business manquantes</td></tr>
+        </tbody>
+      </table>
+
+      <h3>7.2 Réponse crédible à « Avez-vous déjà détenu un P&L ? »</h3>
+      <div class="callout">
+        « Je n’ai pas encore eu la responsabilité formelle d’un P&L complet. En revanche, j’ai piloté des budgets significatifs, des arbitrages de ressources et des décisions coût–qualité–délai sur des produits complexes. Je maîtrise donc déjà la partie investissement et exécution. Ce que je développe aujourd’hui, c’est la couche revenu, marge, pricing et cycle de vie. Sur un rôle de Product Manager, je peux prendre cette responsabilité progressivement ; sur un rôle de Product Line Manager, je serais transparent sur le fait qu’il s’agit encore de mon principal gap. »
+      </div>
+
+      <h3>7.3 Transformer une histoire projet en histoire business</h3>
+      <p>Utilise la structure <strong>Contexte → Décision → Impact économique → Apprentissage</strong>.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Version faible</h3>
+          <p>« J’ai coordonné les équipes et livré la fonctionnalité dans les délais. »</p>
+        </div>
+        <div class="card">
+          <h3>Version forte</h3>
+          <p>« Nous avions trois demandes concurrentes et une capacité limitée. J’ai comparé criticité client, coût de développement, risque opérationnel et réutilisabilité. Nous avons dépriorisé la demande la moins scalable afin de sécuriser la fonctionnalité ayant le plus fort impact sur le déploiement et le support. »</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="entretien">
+      <h2>8. Préparation à l’entretien</h2>
+      <h3>8.1 Les questions les plus probables</h3>
+      <div class="interview-q"><strong>1. Comment évalueriez-vous la rentabilité d’un produit ?</strong><br><span class="muted">Attendu : revenu net, coûts variables, contribution, coûts fixes, cycle de vie, cash, sensibilité et qualité des données.</span></div>
+      <div class="interview-q"><strong>2. Que faites-vous si les ventes augmentent mais la marge baisse ?</strong><br><span class="muted">Attendu : analyser remise, mix, coût unitaire, canaux, support, coût d’acquisition et cannibalisation.</span></div>
+      <div class="interview-q"><strong>3. Comment décidez-vous d’arrêter un produit ?</strong><br><span class="muted">Attendu : rentabilité actuelle et future, coût d’opportunité, obligations clients, migration, impact portefeuille.</span></div>
+      <div class="interview-q"><strong>4. Quel serait l’effet d’une baisse de prix de 10 % ?</strong><br><span class="muted">Attendu : ne pas répondre uniquement « plus de volume ». Calculer la contribution et l’élasticité requise.</span></div>
+      <div class="interview-q"><strong>5. Quel produit subventionne les autres ?</strong><br><span class="muted">Attendu : comparer contribution absolue, coûts fixes dédiés, allocations et externalités de gamme.</span></div>
+
+      <h3>8.2 Trame de réponse en 90 secondes</h3>
+      <ol>
+        <li><strong>Définir l’objectif :</strong> croissance, marge, cash, adoption ou maintien stratégique.</li>
+        <li><strong>Nommer les métriques :</strong> revenu net, contribution, coûts fixes, support, rétention.</li>
+        <li><strong>Formuler 2 à 3 hypothèses :</strong> prix, volume, coût, mix, capacité.</li>
+        <li><strong>Comparer les scénarios :</strong> base, upside, downside.</li>
+        <li><strong>Prendre une décision :</strong> avec jalons, risques et conditions d’arrêt.</li>
+      </ol>
+
+      <h3>8.3 Atelier de réponse</h3>
+      <label for="interviewAnswer">Réponds à la question : « Un produit croît de 20 %, mais sa marge opérationnelle passe de 15 % à 6 %. Que fais-tu ? »</label>
+      <textarea id="interviewAnswer" placeholder="Écris ta réponse structurée ici..."></textarea>
+      <button onclick="evaluateAnswer()">Évaluer ma structure</button>
+      <div id="answerFeedback" class="result">L’évaluation vérifie la présence des dimensions essentielles, pas la qualité stylistique.</div>
+
+      <h3>8.4 Grille d’auto-évaluation</h3>
+      <div class="rubric">
+        <div><strong>1/5</strong><br>Opinion sans données</div>
+        <div><strong>2/5</strong><br>Quelques coûts cités</div>
+        <div><strong>3/5</strong><br>Analyse revenu + marge</div>
+        <div><strong>4/5</strong><br>Scénarios et arbitrage</div>
+        <div><strong>5/5</strong><br>Décision, risques et jalons</div>
+      </div>
+    </section>
+
+    <section id="quiz">
+      <h2>9. Quiz final</h2>
+      <p>Choisis une réponse par question. Le score est enregistré dans ton navigateur.</p>
+      <div id="quizContainer"></div>
+      <button onclick="submitQuiz()">Corriger le quiz</button>
+      <button class="secondary" onclick="resetQuiz()">Réinitialiser</button>
+      <div id="quizScore" class="score-box"></div>
+    </section>
+
+    <section id="plan">
+      <h2>10. Plan de progression sur 14 jours</h2>
+      <table>
+        <thead><tr><th>Jours</th><th>Objectif</th><th>Livrable</th></tr></thead>
+        <tbody>
+          <tr><td>1–2</td><td>Maîtriser vocabulaire et formules</td><td>Reproduire de mémoire un P&L simplifié</td></tr>
+          <tr><td>3–4</td><td>Calculer break-even, marge et effet prix</td><td>Résoudre 5 mini-cas sans tableur</td></tr>
+          <tr><td>5–6</td><td>Comprendre le cycle de vie produit</td><td>Construire une décision invest / maintain / harvest / exit</td></tr>
+          <tr><td>7–8</td><td>Relier ton expérience à des leviers business</td><td>Préparer 3 histoires au format Contexte–Décision–Impact</td></tr>
+          <tr><td>9–10</td><td>Travailler les questions difficiles</td><td>Réponses de 90 secondes enregistrées à l’oral</td></tr>
+          <tr><td>11–12</td><td>Étude de cas complète</td><td>P&L, scénarios, recommandation et risques</td></tr>
+          <tr><td>13</td><td>Simulation d’entretien</td><td>30 minutes sans notes</td></tr>
+          <tr><td>14</td><td>Révision ciblée</td><td>Reprendre uniquement les erreurs du quiz et de la simulation</td></tr>
+        </tbody>
+      </table>
+      <div class="callout ok">
+        <strong>Critère de préparation :</strong> tu es prêt lorsque tu peux expliquer une décision de prix, calculer un seuil de rentabilité, identifier le produit qui détruit de la valeur et défendre une recommandation avec une hypothèse mesurable.
+      </div>
+      <button class="ghost" onclick="window.print()">Imprimer ou enregistrer en PDF</button>
+    </section>
+
+    <div class="footer">Cours autonome — aucune donnée n’est envoyée à un serveur. Les scores restent dans ton navigateur.</div>
+  </main>
+</div>
+
+<script>
+const questions = [
+  {
+    q:"Quelle est la différence la plus importante entre budget projet et P&L produit ?",
+    options:["Le budget concerne uniquement les salaires","Le P&L relie revenus, coûts et rentabilité","Le budget est toujours annuel","Le P&L ne contient pas de coûts fixes"],
+    answer:1,
+    exp:"Un P&L mesure la création de valeur économique du produit, alors qu’un budget encadre principalement les dépenses."
+  },
+  {
+    q:"Un produit est vendu 100 €, avec 60 € de coût variable. Quelle est sa marge contributive unitaire ?",
+    options:["20 €","40 €","60 €","160 €"],
+    answer:1,
+    exp:"100 – 60 = 40 €."
+  },
+  {
+    q:"Les coûts fixes sont de 400 000 € et la contribution unitaire de 80 €. Quel est le break-even ?",
+    options:["3 200 unités","4 000 unités","5 000 unités","8 000 unités"],
+    answer:2,
+    exp:"400 000 / 80 = 5 000 unités."
+  },
+  {
+    q:"Le prix passe de 100 € à 90 €, le coût variable reste 60 €. Quel volume supplémentaire faut-il environ pour préserver la contribution totale ?",
+    options:["10 %","20 %","33 %","50 %"],
+    answer:2,
+    exp:"La contribution passe de 40 à 30. Il faut 40/30 = 1,333, soit environ +33 %."
+  },
+  {
+    q:"Les ventes augmentent de 20 %, mais la marge baisse. Quelle première analyse est la plus pertinente ?",
+    options:["Augmenter immédiatement les prix","Analyser prix net, mix, remises et coûts unitaires","Réduire toutes les équipes","Arrêter le produit"],
+    answer:1,
+    exp:"La baisse de marge peut venir du mix, des remises, du coût des ventes, du support ou du canal."
+  },
+  {
+    q:"Un produit mature légèrement rentable consomme beaucoup de support. Que faut-il regarder ?",
+    options:["Seulement le chiffre d’affaires historique","Le coût d’opportunité et la migration client","Uniquement le prix catalogue","La taille de l’équipe commerciale"],
+    answer:1,
+    exp:"Le support et les ressources rares peuvent justifier une stratégie de harvest ou de retrait progressif."
+  },
+  {
+    q:"Quel indicateur mesure le mieux l’apport d’une vente à la couverture des coûts fixes ?",
+    options:["Le chiffre d’affaires brut","La marge contributive","Le nombre de fonctionnalités","Le budget initial"],
+    answer:1,
+    exp:"La marge contributive correspond au revenu moins les coûts variables."
+  },
+  {
+    q:"Pourquoi un produit déficitaire peut-il malgré tout être conservé ?",
+    options:["Parce que tout produit doit rester au catalogue","Parce qu’il peut avoir une valeur stratégique ou de plateforme","Parce que les coûts n’ont pas d’importance","Parce que la croissance remplace toujours la marge"],
+    answer:1,
+    exp:"Un produit peut soutenir un bundle, une plateforme, l’acquisition ou la rétention, mais cette valeur doit être démontrée."
+  },
+  {
+    q:"Quelle décision correspond à une stratégie de harvest ?",
+    options:["Investir massivement dans toutes les fonctionnalités","Maintenir le nécessaire et maximiser le cash","Baisser le prix sans analyse","Arrêter immédiatement tous les contrats"],
+    answer:1,
+    exp:"Harvest signifie limiter les investissements tout en exploitant la base installée et en préparant la sortie."
+  },
+  {
+    q:"Quel est le meilleur signal qu’un prix est trop bas ?",
+    options:["Les clients ne négocient jamais et la capacité est saturée","Le produit a beaucoup de fonctionnalités","Le budget R&D est élevé","Le concurrent communique davantage"],
+    answer:0,
+    exp:"Une demande forte, peu de résistance au prix et une capacité saturée peuvent signaler une sous-tarification."
+  },
+  {
+    q:"Quelle formulation est la plus crédible sans expérience formelle de P&L ?",
+    options:["J’ai déjà détenu un P&L parce que j’avais un budget","Je n’ai aucune expérience pertinente","Je maîtrise l’investissement et l’exécution, et je développe la couche revenu et marge","Le P&L est uniquement un sujet finance"],
+    answer:2,
+    exp:"Il faut reconnaître le gap tout en montrant les briques transférables."
+  },
+  {
+    q:"Dans une analyse de retrait produit, quel coût est souvent oublié ?",
+    options:["Le coût de migration et le risque client","Le prix catalogue","Le nombre de réunions","La couleur de l’interface"],
+    answer:0,
+    exp:"La sortie entraîne migration, communication, support, obligations contractuelles et risque de churn."
+  },
+  {
+    q:"Quel bridge explique le mieux la variation du résultat ?",
+    options:["Volume, prix, mix, coûts variables, coûts fixes","Nombre d’emails, réunions, slides","Budget, organigramme, ancienneté","Roadmap, design, méthode agile uniquement"],
+    answer:0,
+    exp:"Le bridge P&L doit isoler les effets économiques principaux."
+  },
+  {
+    q:"Quel est le principal blocker pour un rôle de Product Line Manager dans ton profil actuel ?",
+    options:["Le manque d’expérience technique","L’absence de responsabilité directe sur revenus et marge","Le manque de gestion de projet","Le manque de coordination d’équipe"],
+    answer:1,
+    exp:"Ton expérience montre déjà le pilotage de projet, mais pas encore le ownership revenu-marge."
+  },
+  {
+    q:"Une bonne recommandation P&L doit se terminer par quoi ?",
+    options:["Une opinion générale","Une liste de fonctionnalités","Une décision, des jalons, des risques et une condition d’arrêt","Un rappel du budget initial uniquement"],
+    answer:2,
+    exp:"La recommandation doit être actionnable et mesurable."
+  }
+];
+
+function euro(n){
+  return new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
+}
+
+function calculatePL(){
+  const price=Number(document.getElementById('price').value);
+  const volume=Number(document.getElementById('volume').value);
+  const varCost=Number(document.getElementById('varCost').value);
+  const fixedCost=Number(document.getElementById('fixedCost').value);
+  const discount=Number(document.getElementById('discount').value)/100;
+  if(price<=0 || volume<0 || varCost<0 || fixedCost<0 || discount<0 || discount>=1){
+    document.getElementById('simResult').innerHTML="Vérifie les valeurs saisies.";
+    return;
+  }
+  const revenue=price*volume;
+  const contribution=(price-varCost)*volume;
+  const operating=contribution-fixedCost;
+  const unitContribution=price-varCost;
+  const breakEven=unitContribution>0?fixedCost/unitContribution:Infinity;
+  const newPrice=price*(1-discount);
+  const newUnitContribution=newPrice-varCost;
+  const requiredVolume=newUnitContribution>0 ? volume*unitContribution/newUnitContribution : Infinity;
+  const increase=Number.isFinite(requiredVolume)?(requiredVolume/volume-1)*100:Infinity;
+  document.getElementById('simResult').innerHTML=`
+    <div class="kpi">${euro(operating)}</div>
+    <div class="muted">Résultat opérationnel actuel</div>
+    <hr>
+    <p><strong>Chiffre d’affaires :</strong> ${euro(revenue)}</p>
+    <p><strong>Contribution totale :</strong> ${euro(contribution)}</p>
+    <p><strong>Marge contributive :</strong> ${revenue?((contribution/revenue)*100).toFixed(1):0}%</p>
+    <p><strong>Seuil de rentabilité :</strong> ${Number.isFinite(breakEven)?Math.ceil(breakEven).toLocaleString('fr-FR')+" unités":"Impossible avec une contribution négative"}</p>
+    <hr>
+    <p><strong>Nouveau prix après baisse :</strong> ${euro(newPrice)}</p>
+    <p><strong>Contribution unitaire après baisse :</strong> ${euro(newUnitContribution)}</p>
+    <p><strong>Volume requis pour préserver la contribution :</strong> ${Number.isFinite(requiredVolume)?Math.ceil(requiredVolume).toLocaleString('fr-FR')+" unités":"Impossible"}</p>
+    <p><strong>Hausse de volume nécessaire :</strong> ${Number.isFinite(increase)?increase.toFixed(1)+" %":"Impossible"}</p>`;
+  localStorage.setItem('plSimulatorUsed','1');
+  updateProgress();
+}
+
+function renderQuiz(){
+  const c=document.getElementById('quizContainer');
+  c.innerHTML=questions.map((q,i)=>`
+    <div class="quiz-question" id="qbox${i}">
+      <strong>${i+1}. ${q.q}</strong>
+      ${q.options.map((opt,j)=>`
+        <label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>
+      `).join('')}
+      <div class="feedback" id="fb${i}"></div>
+    </div>
+  `).join('');
+  const saved=JSON.parse(localStorage.getItem('plQuizAnswers')||'{}');
+  Object.entries(saved).forEach(([k,v])=>{
+    const el=document.querySelector(`input[name="q${k}"][value="${v}"]`);
+    if(el)el.checked=true;
+  });
+}
+
+function submitQuiz(){
+  let score=0, answered=0;
+  const saved={};
+  questions.forEach((q,i)=>{
+    const box=document.getElementById('qbox'+i);
+    const fb=document.getElementById('fb'+i);
+    const selected=document.querySelector(`input[name="q${i}"]:checked`);
+    box.classList.remove('correct','incorrect');
+    if(!selected){
+      fb.textContent="Non répondu.";
+      return;
+    }
+    answered++;
+    const val=Number(selected.value);
+    saved[i]=val;
+    if(val===q.answer){
+      score++;
+      box.classList.add('correct');
+      fb.innerHTML="✓ Correct. "+q.exp;
+    } else {
+      box.classList.add('incorrect');
+      fb.innerHTML="✗ Incorrect. "+q.exp;
+    }
+  });
+  const pct=Math.round(score/questions.length*100);
+  let level=pct>=85?"Prêt pour un entretien exigeant":pct>=70?"Base solide, quelques points à consolider":pct>=50?"Compréhension intermédiaire":"Fondamentaux à reprendre";
+  document.getElementById('quizScore').innerHTML=`Score : ${score}/${questions.length} (${pct} %) — ${level}. ${answered<questions.length?"Certaines questions ne sont pas répondues.":""}`;
+  localStorage.setItem('plQuizAnswers',JSON.stringify(saved));
+  localStorage.setItem('plQuizScore',String(pct));
+  updateProgress();
+}
+
+function resetQuiz(){
+  localStorage.removeItem('plQuizAnswers');
+  localStorage.removeItem('plQuizScore');
+  renderQuiz();
+  document.getElementById('quizScore').textContent="";
+  updateProgress();
+}
+
+function evaluateAnswer(){
+  const text=document.getElementById('interviewAnswer').value.toLowerCase();
+  const dimensions=[
+    {name:"revenu / volume",words:["revenu","chiffre d’affaires","vente","volume","croissance"]},
+    {name:"prix / remises / mix",words:["prix","remise","mix","discount"]},
+    {name:"coûts / marge",words:["coût","marge","contribution","support","cloud"]},
+    {name:"hypothèses / scénarios",words:["hypothèse","scénario","base","downside","upside","sensibilité"]},
+    {name:"décision / jalons",words:["décision","jalon","objectif","seuil","arrêt","plan d’action","priorité"]}
+  ];
+  const found=dimensions.filter(d=>d.words.some(w=>text.includes(w)));
+  const missing=dimensions.filter(d=>!d.words.some(w=>text.includes(w)));
+  const score=found.length;
+  let msg=`Structure détectée : <strong>${score}/5</strong>. `;
+  if(found.length) msg+=`Présent : ${found.map(x=>x.name).join(", ")}. `;
+  if(missing.length) msg+=`À ajouter : ${missing.map(x=>x.name).join(", ")}.`;
+  if(text.length<250) msg+=" Ta réponse est probablement trop courte pour démontrer un raisonnement complet.";
+  else if(score>=4) msg+=" Ta structure est proche d’un niveau entretien.";
+  document.getElementById('answerFeedback').innerHTML=msg;
+  localStorage.setItem('plInterviewDraft',document.getElementById('interviewAnswer').value);
+  localStorage.setItem('plInterviewScore',String(score));
+  updateProgress();
+}
+
+function updateProgress(){
+  let points=0;
+  if(localStorage.getItem('plSimulatorUsed')) points+=25;
+  const q=Number(localStorage.getItem('plQuizScore')||0);
+  points+=Math.min(50,Math.round(q/2));
+  const a=Number(localStorage.getItem('plInterviewScore')||0);
+  points+=a*5;
+  points=Math.min(100,points);
+  document.getElementById('globalProgress').textContent=points+"%";
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  renderQuiz();
+  document.getElementById('interviewAnswer').value=localStorage.getItem('plInterviewDraft')||"";
+  const savedScore=localStorage.getItem('plQuizScore');
+  if(savedScore) document.getElementById('quizScore').textContent="Dernier score enregistré : "+savedScore+" %";
+  calculatePL();
+  updateProgress();
+
+  const links=[...document.querySelectorAll('nav a')];
+  const sections=[...document.querySelectorAll('main section')];
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.classList.remove('active'));
+        const a=document.querySelector(`nav a[href="#${e.target.id}"]`);
+        if(a)a.classList.add('active');
+      }
+    });
+  },{rootMargin:"-35% 0px -55% 0px"});
+  sections.forEach(s=>observer.observe(s));
+});
+</script>
+</body>
+</html>

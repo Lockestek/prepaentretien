@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Étude de marché — Cours interactif pour entretiens Product</title>
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --panel:#ffffff;
+      --text:#172033;
+      --muted:#64748b;
+      --line:#dbe3ef;
+      --accent:#3157d5;
+      --accent-2:#0f766e;
+      --warn:#a16207;
+      --danger:#b42318;
+      --success:#087443;
+      --soft:#eef3ff;
+      --shadow:0 10px 30px rgba(28,39,69,.08);
+      --radius:18px;
+    }
+    body.dark{
+      --bg:#0f172a;
+      --panel:#111c33;
+      --text:#edf2f7;
+      --muted:#a9b7cc;
+      --line:#293753;
+      --accent:#86a5ff;
+      --accent-2:#5eead4;
+      --warn:#fbbf24;
+      --danger:#ff8a80;
+      --success:#6ee7b7;
+      --soft:#162748;
+      --shadow:0 10px 30px rgba(0,0,0,.25);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.65;
+    }
+    button,input,select,textarea{font:inherit}
+    a{color:inherit}
+    .layout{display:grid;grid-template-columns:290px minmax(0,1fr);min-height:100vh}
+    aside{
+      position:sticky;top:0;height:100vh;overflow:auto;
+      border-right:1px solid var(--line);background:var(--panel);padding:22px 18px;
+    }
+    .brand{font-weight:800;font-size:1.1rem;line-height:1.25;margin-bottom:18px}
+    .brand span{display:block;color:var(--accent);font-size:.82rem;margin-top:5px;font-weight:700}
+    .progress-wrap{margin:12px 0 18px}
+    .progress-label{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);margin-bottom:6px}
+    .progress{height:8px;background:var(--line);border-radius:999px;overflow:hidden}
+    .progress > div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:.3s}
+    nav a{
+      display:block;text-decoration:none;padding:9px 10px;border-radius:10px;margin:3px 0;
+      color:var(--muted);font-size:.9rem;
+    }
+    nav a:hover,nav a.active{background:var(--soft);color:var(--text)}
+    .aside-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}
+    .btn{
+      border:1px solid var(--line);background:var(--panel);color:var(--text);
+      border-radius:10px;padding:9px 12px;cursor:pointer;font-weight:700;
+    }
+    .btn:hover{border-color:var(--accent)}
+    .btn.primary{background:var(--accent);color:white;border-color:var(--accent)}
+    .btn.success{background:var(--success);color:white;border-color:var(--success)}
+    main{padding:34px 5vw 70px;max-width:1240px;width:100%}
+    .hero{
+      background:linear-gradient(135deg,var(--soft),var(--panel));
+      border:1px solid var(--line);border-radius:24px;padding:34px;box-shadow:var(--shadow);
+    }
+    .kicker{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:800}
+    h1{font-size:clamp(2rem,4vw,3.45rem);line-height:1.05;margin:.4rem 0 1rem}
+    h2{font-size:1.8rem;margin:0 0 1rem}
+    h3{font-size:1.2rem;margin:1.2rem 0 .5rem}
+    p{margin:.55rem 0 1rem}
+    .lead{font-size:1.08rem;color:var(--muted);max-width:920px}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+    .chip{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 11px;font-size:.84rem;font-weight:700}
+    section{
+      background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+      padding:28px;margin-top:24px;box-shadow:var(--shadow);
+    }
+    .grid-2,.grid-3{display:grid;gap:16px}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .card{border:1px solid var(--line);border-radius:14px;padding:16px;background:linear-gradient(180deg,var(--panel),var(--soft))}
+    .card h3{margin-top:0}
+    .callout{border-left:5px solid var(--accent);background:var(--soft);padding:15px 18px;border-radius:10px;margin:16px 0}
+    .callout.warn{border-left-color:var(--warn)}
+    .callout.success{border-left-color:var(--success)}
+    .callout.danger{border-left-color:var(--danger)}
+    .formula{
+      padding:13px 15px;border:1px dashed var(--accent);border-radius:12px;background:var(--soft);
+      font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;font-size:.94rem;
+      overflow:auto;
+    }
+    table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.92rem}
+    th,td{border-bottom:1px solid var(--line);padding:11px 10px;text-align:left;vertical-align:top}
+    th{background:var(--soft);font-size:.82rem;text-transform:uppercase;letter-spacing:.04em}
+    .step{display:grid;grid-template-columns:42px 1fr;gap:12px;margin:14px 0}
+    .step-num{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:white;font-weight:800}
+    details{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
+    summary{cursor:pointer;font-weight:800}
+    .tag{display:inline-block;font-size:.75rem;font-weight:800;padding:3px 8px;border-radius:999px;background:var(--soft);color:var(--accent)}
+    .exercise{
+      border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--soft);margin:16px 0;
+    }
+    .exercise label{display:block;font-weight:800;margin:10px 0 5px}
+    input[type="number"],input[type="text"],textarea,select{
+      width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--panel);color:var(--text)
+    }
+    textarea{min-height:110px;resize:vertical}
+    .result{display:none;margin-top:12px;padding:12px;border-radius:10px;background:var(--panel);border:1px solid var(--line)}
+    .quiz-question{border:1px solid var(--line);border-radius:14px;padding:17px;margin:14px 0}
+    .quiz-question.correct{border-color:var(--success)}
+    .quiz-question.incorrect{border-color:var(--danger)}
+    .quiz-question p{font-weight:800}
+    .option{display:block;padding:8px 10px;border-radius:9px;margin:5px 0;cursor:pointer}
+    .option:hover{background:var(--soft)}
+    .feedback{display:none;margin-top:9px;font-size:.92rem;padding:10px;border-radius:9px;background:var(--soft)}
+    .score{
+      display:none;font-size:1.1rem;font-weight:800;padding:16px;border-radius:12px;margin-top:14px;background:var(--soft)
+    }
+    .interview-answer{border-left:4px solid var(--accent-2);padding-left:14px;margin:14px 0}
+    .checklist{list-style:none;padding:0}
+    .checklist li{padding:7px 0 7px 30px;position:relative}
+    .checklist li::before{content:"✓";position:absolute;left:0;color:var(--success);font-weight:900}
+    .mini{font-size:.85rem;color:var(--muted)}
+    .sticky-note{background:#fff7cf;color:#3f3400;border:1px solid #eadb86;padding:14px;border-radius:12px}
+    body.dark .sticky-note{background:#3b330b;color:#fff6b8;border-color:#75691a}
+    footer{text-align:center;color:var(--muted);font-size:.84rem;padding:28px 0}
+    @media(max-width:950px){
+      .layout{grid-template-columns:1fr}
+      aside{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--line)}
+      nav{display:none}
+      main{padding:22px 16px 50px}
+      .grid-2,.grid-3{grid-template-columns:1fr}
+    }
+    @media print{
+      aside,.no-print{display:none!important}
+      .layout{display:block}
+      main{max-width:none;padding:0}
+      section,.hero{box-shadow:none;break-inside:avoid}
+      body{background:white;color:black}
+    }
+  </style>
+</head>
+<body>
+<div class="layout">
+  <aside>
+    <div class="brand">Étude de marché
+      <span>Préparation entretien Product / P&L</span>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-label"><span>Progression</span><span id="progressText">0 %</span></div>
+      <div class="progress"><div id="progressBar"></div></div>
+    </div>
+    <nav id="nav">
+      <a href="#objectifs">1. Objectif d'une étude</a>
+      <a href="#methode">2. Méthode complète</a>
+      <a href="#sizing">3. TAM, SAM, SOM</a>
+      <a href="#segmentation">4. Segmentation</a>
+      <a href="#concurrence">5. Concurrence</a>
+      <a href="#dynamics">6. Market dynamics</a>
+      <a href="#research">7. Recherche clients</a>
+      <a href="#decision">8. Décision stratégique</a>
+      <a href="#cv">9. CV et preuves</a>
+      <a href="#entretien">10. Entretien</a>
+      <a href="#cas">11. Cas pratique</a>
+      <a href="#quiz">12. Quiz final</a>
+    </nav>
+    <div class="aside-actions no-print">
+      <button class="btn" onclick="toggleDark()">Thème</button>
+      <button class="btn" onclick="window.print()">Imprimer</button>
+      <button class="btn" onclick="resetCourse()">Réinitialiser</button>
+      <button class="btn primary" onclick="markAllRead()">Tout marquer lu</button>
+    </div>
+  </aside>
+
+  <main>
+    <header class="hero">
+      <div class="kicker">Compétence E — Étude de marché</div>
+      <h1>Passer de « j’ai fait une étude » à « j’ai changé une décision business »</h1>
+      <p class="lead">
+        Ce cours vous apprend à conduire, défendre et raconter une étude de marché comme un Product Manager,
+        Senior Product Manager ou Product Line Manager. L’objectif n’est pas de réciter des frameworks,
+        mais de produire une recommandation crédible, chiffrée et actionnable.
+      </p>
+      <div class="chips">
+        <span class="chip">Market sizing</span>
+        <span class="chip">Segmentation</span>
+        <span class="chip">Analyse concurrentielle</span>
+        <span class="chip">Recherche clients</span>
+        <span class="chip">Décision stratégique</span>
+        <span class="chip">Réponses d’entretien</span>
+      </div>
+    </header>
+
+    <section id="objectifs" data-track>
+      <h2>1. À quoi sert réellement une étude de marché ?</h2>
+      <p>
+        Une étude de marché n’est pas un document descriptif sur « l’état du secteur ». Elle sert à réduire
+        l’incertitude avant une décision : investir, cibler, lancer, tarifer, différencier, arrêter ou séquencer.
+      </p>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Décision d’entrée</h3>
+          <p>Le marché est-il suffisamment grand, accessible et rentable pour justifier un investissement ?</p>
+        </div>
+        <div class="card">
+          <h3>Décision de ciblage</h3>
+          <p>Quel segment souffre le plus du problème, paie réellement et peut être acquis avec un cycle raisonnable ?</p>
+        </div>
+        <div class="card">
+          <h3>Décision produit</h3>
+          <p>Quelles capacités sont indispensables, différenciantes ou inutiles pour gagner sur le segment prioritaire ?</p>
+        </div>
+      </div>
+      <div class="callout success">
+        <strong>La phrase qu’un recruteur veut entendre :</strong><br>
+        « Nous avons étudié X afin de décider Y. Les données ont invalidé l’hypothèse Z et nous avons donc réalloué
+        les ressources vers A, avec un impact mesuré par B. »
+      </div>
+      <h3>Les neuf questions de contrôle</h3>
+      <table>
+        <thead><tr><th>Question</th><th>Ce qu’elle prouve</th></tr></thead>
+        <tbody>
+          <tr><td>Quelle question business ?</td><td>Vous ne faites pas de recherche sans décision cible.</td></tr>
+          <tr><td>Quel périmètre de marché ?</td><td>Vous savez définir géographie, produit, client et période.</td></tr>
+          <tr><td>Quelle taille ?</td><td>Vous savez quantifier le potentiel et expliciter les hypothèses.</td></tr>
+          <tr><td>Quels segments ?</td><td>Vous évitez le « marché moyen » qui n’existe pas.</td></tr>
+          <tr><td>Quels clients interrogés ?</td><td>Vous confrontez les données secondaires au terrain.</td></tr>
+          <tr><td>Quels concurrents ?</td><td>Vous comprenez les alternatives, pas seulement les produits similaires.</td></tr>
+          <tr><td>Quelles sources ?</td><td>Vous savez hiérarchiser la fiabilité des preuves.</td></tr>
+          <tr><td>Quelle conclusion ?</td><td>Vous synthétisez au lieu d’empiler des informations.</td></tr>
+          <tr><td>Quelle décision a changé ?</td><td>Vous démontrez un impact Product et business.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="methode" data-track>
+      <h2>2. La méthode complète, de la question à la décision</h2>
+      <div class="step"><div class="step-num">1</div><div><h3>Cadrer la décision</h3><p>Écrire la décision à prendre, l’échéance, le décideur et les critères de succès. Exemple : « Décider d’ici six semaines si nous lançons une offre de supervision de navettes autonomes pour sites industriels européens. »</p></div></div>
+      <div class="step"><div class="step-num">2</div><div><h3>Formuler les hypothèses</h3><p>Exemples : le segment a un budget identifié ; la douleur opérationnelle est prioritaire ; l’intégration peut être réalisée en moins de trois mois ; la marge brute dépasse 55 %.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div><h3>Construire le plan de preuve</h3><p>Associer chaque hypothèse à une donnée : nombre de sites, budget moyen, fréquence d’incident, taux d’adoption, prix concurrent, cycle d’achat, exigences réglementaires.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div><h3>Collecter les données</h3><p>Combiner sources secondaires, entretiens, enquêtes, données internes, pilotes et tests de prix.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div><h3>Analyser et trianguler</h3><p>Comparer plusieurs méthodes et sources. Un chiffre unique non recoupé est une opinion déguisée.</p></div></div>
+      <div class="step"><div class="step-num">6</div><div><h3>Recommander</h3><p>Présenter le choix, les raisons, les risques, les conditions de réussite et les prochaines expériences à faible coût.</p></div></div>
+
+      <div class="callout warn">
+        <strong>Erreur fréquente :</strong> commencer par « chercher des informations sur le marché » sans écrire la décision.
+        Cela produit souvent une présentation riche mais inutilisable.
+      </div>
+
+      <details>
+        <summary>Modèle de question d’étude robuste</summary>
+        <p><strong>Décision :</strong> devons-nous lancer / étendre / arrêter / repositionner ?</p>
+        <p><strong>Pour :</strong> quel segment client, cas d’usage et zone géographique ?</p>
+        <p><strong>Sous quelles conditions :</strong> taille, croissance, marge, capacité à gagner, risques et délai ?</p>
+        <p><strong>À quel horizon :</strong> 12, 24 ou 36 mois ?</p>
+      </details>
+    </section>
+
+    <section id="sizing" data-track>
+      <h2>3. Market sizing : TAM, SAM et SOM</h2>
+      <div class="grid-3">
+        <div class="card">
+          <span class="tag">TAM</span>
+          <h3>Total Addressable Market</h3>
+          <p>Valeur théorique si vous capturiez 100 % de tous les clients compatibles, sans contrainte opérationnelle immédiate.</p>
+        </div>
+        <div class="card">
+          <span class="tag">SAM</span>
+          <h3>Serviceable Available Market</h3>
+          <p>Part du TAM réellement adressable par votre offre, votre géographie, vos capacités, votre modèle de vente et la réglementation.</p>
+        </div>
+        <div class="card">
+          <span class="tag">SOM</span>
+          <h3>Serviceable Obtainable Market</h3>
+          <p>Part que vous pouvez raisonnablement conquérir à court ou moyen terme, compte tenu de la concurrence et de vos ressources.</p>
+        </div>
+      </div>
+
+      <h3>Trois méthodes complémentaires</h3>
+      <table>
+        <thead><tr><th>Méthode</th><th>Principe</th><th>Forces</th><th>Limites</th></tr></thead>
+        <tbody>
+          <tr><td>Top-down</td><td>Partir d’un chiffre de marché publié puis filtrer.</td><td>Rapide, utile pour cadrer.</td><td>Peut masquer une définition trop large.</td></tr>
+          <tr><td>Bottom-up</td><td>Nombre de clients × unités/client × prix.</td><td>Plus opérationnel et défendable.</td><td>Dépend de la qualité des hypothèses.</td></tr>
+          <tr><td>Value-based</td><td>Valeur économique créée × part capturable.</td><td>Relie marché, pricing et ROI client.</td><td>Difficile sans données terrain.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="formula">
+        TAM = nombre total de clients potentiels × unités moyennes par client × revenu annuel par unité
+      </div>
+      <div class="formula" style="margin-top:10px">
+        SAM = TAM × part géographique × part techniquement compatible × part réglementairement accessible
+      </div>
+      <div class="formula" style="margin-top:10px">
+        SOM = SAM × taux de pénétration réaliste sur l’horizon choisi
+      </div>
+
+      <h3>Exemple simplifié — supervision de flottes autonomes</h3>
+      <p class="mini">Chiffres fictifs, utilisés uniquement pour l’apprentissage.</p>
+      <table>
+        <tbody>
+          <tr><th>Clients potentiels en Europe</th><td>2 000 sites industriels et logistiques</td></tr>
+          <tr><th>Flotte compatible moyenne</th><td>8 véhicules par site</td></tr>
+          <tr><th>Revenu annuel par véhicule</th><td>6 000 €</td></tr>
+          <tr><th>TAM</th><td>2 000 × 8 × 6 000 € = <strong>96 M€</strong></td></tr>
+          <tr><th>Sites techniquement et réglementairement adressables</th><td>35 %</td></tr>
+          <tr><th>SAM</th><td>96 M€ × 35 % = <strong>33,6 M€</strong></td></tr>
+          <tr><th>Pénétration réaliste à 3 ans</th><td>8 %</td></tr>
+          <tr><th>SOM</th><td>33,6 M€ × 8 % = <strong>2,69 M€ d’ARR</strong></td></tr>
+        </tbody>
+      </table>
+
+      <div class="exercise">
+        <h3>Calculateur TAM / SAM / SOM</h3>
+        <div class="grid-2">
+          <div><label>Nombre de clients</label><input id="clients" type="number" value="1200"></div>
+          <div><label>Unités moyennes par client</label><input id="units" type="number" value="6"></div>
+          <div><label>Revenu annuel par unité (€)</label><input id="arpu" type="number" value="4500"></div>
+          <div><label>Part adressable (%)</label><input id="addressable" type="number" value="40"></div>
+          <div><label>Pénétration réaliste (%)</label><input id="penetration" type="number" value="7"></div>
+        </div>
+        <button class="btn primary" style="margin-top:12px" onclick="calcSizing()">Calculer</button>
+        <div class="result" id="sizingResult"></div>
+      </div>
+
+      <div class="callout">
+        <strong>En entretien, explicitez toujours :</strong> la définition exacte du marché, l’année de référence,
+        les hypothèses, les sources, la méthode de triangulation et la sensibilité du résultat.
+      </div>
+    </section>
+
+    <section id="segmentation" data-track>
+      <h2>4. Segmentation : choisir où jouer</h2>
+      <p>
+        Segmenter consiste à former des groupes de clients suffisamment homogènes pour avoir des besoins,
+        comportements d’achat, niveaux de valeur et stratégies de go-to-market distincts.
+      </p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Variables descriptives</h3>
+          <p>Industrie, taille, géographie, type d’organisation, maturité technologique, structure de flotte.</p>
+        </div>
+        <div class="card">
+          <h3>Variables comportementales</h3>
+          <p>Urgence du problème, fréquence d’usage, criticité, budget, cycle de vente, propension au changement.</p>
+        </div>
+        <div class="card">
+          <h3>Variables de valeur</h3>
+          <p>Économie générée, revenu potentiel, marge, coût de service, expansion, rétention.</p>
+        </div>
+        <div class="card">
+          <h3>Variables d’accessibilité</h3>
+          <p>Canal, réglementation, intégrations, références nécessaires, capacité commerciale, partenaires.</p>
+        </div>
+      </div>
+
+      <h3>Une bonne segmentation doit être</h3>
+      <ul class="checklist">
+        <li><strong>Mesurable :</strong> taille et valeur estimables.</li>
+        <li><strong>Différenciante :</strong> besoins ou comportements distincts.</li>
+        <li><strong>Accessible :</strong> possibilité réelle de toucher et servir le segment.</li>
+        <li><strong>Actionnable :</strong> impact sur produit, prix, message ou canal.</li>
+        <li><strong>Assez stable :</strong> utile pour une décision, sans être figée pour toujours.</li>
+      </ul>
+
+      <h3>Prioriser les segments</h3>
+      <table>
+        <thead><tr><th>Critère</th><th>Question</th><th>Exemple de poids</th></tr></thead>
+        <tbody>
+          <tr><td>Attractivité</td><td>Taille, croissance, budget, marge.</td><td>30 %</td></tr>
+          <tr><td>Intensité du problème</td><td>Douleur urgente, coût de l’inaction.</td><td>20 %</td></tr>
+          <tr><td>Product fit</td><td>Notre solution répond-elle sans développement excessif ?</td><td>20 %</td></tr>
+          <tr><td>Ability to win</td><td>Avons-nous une différenciation, une référence ou un canal ?</td><td>20 %</td></tr>
+          <tr><td>Risque</td><td>Réglementation, dépendance, concentration.</td><td>10 %</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout danger">
+        <strong>Piège :</strong> choisir le plus grand segment. Le meilleur premier segment est souvent celui où
+        le problème est intense, le buyer identifiable, le cycle plus court et la crédibilité de l’entreprise forte.
+      </div>
+    </section>
+
+    <section id="concurrence" data-track>
+      <h2>5. Analyse concurrentielle : comprendre les alternatives</h2>
+      <p>
+        Un concurrent n’est pas seulement une entreprise qui vend le même produit. Il peut être un outil générique,
+        une équipe interne, un intégrateur, un processus manuel ou le statu quo.
+      </p>
+      <div class="grid-3">
+        <div class="card"><h3>Direct</h3><p>Même problème, même client, proposition similaire.</p></div>
+        <div class="card"><h3>Indirect</h3><p>Même problème, solution différente.</p></div>
+        <div class="card"><h3>Non-consommation</h3><p>Le client préfère ne rien faire, reporter ou accepter le coût actuel.</p></div>
+      </div>
+
+      <h3>Grille de comparaison utile</h3>
+      <table>
+        <thead><tr><th>Dimension</th><th>Pourquoi elle compte</th></tr></thead>
+        <tbody>
+          <tr><td>Fonctionnalités</td><td>Couverture des cas d’usage critiques, pas quantité totale de fonctions.</td></tr>
+          <tr><td>Prix et modèle</td><td>Unité de facturation, minimum contractuel, frais d’intégration, maintenance.</td></tr>
+          <tr><td>Distribution</td><td>Vente directe, partenaires, OEM, intégrateurs, marketplace.</td></tr>
+          <tr><td>Intégrations</td><td>Temps de déploiement et dépendances techniques.</td></tr>
+          <tr><td>Expérience utilisateur</td><td>Adoption, formation, erreurs, vitesse de décision.</td></tr>
+          <tr><td>Performance</td><td>Fiabilité, latence, disponibilité, précision.</td></tr>
+          <tr><td>Service</td><td>SLA, support, accompagnement, présence locale.</td></tr>
+          <tr><td>Réputation</td><td>Références, confiance, certification, risque fournisseur.</td></tr>
+          <tr><td>Coût de changement</td><td>Données, formation, contrats, intégrations, habitudes.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Comment éviter la « feature checklist »</h3>
+      <p>Pour chaque différence, reliez la caractéristique à une conséquence client :</p>
+      <div class="formula">
+        Fonction → capacité opérationnelle → résultat client → valeur économique → volonté de payer
+      </div>
+      <p><strong>Exemple :</strong> détection d’incident en temps réel → intervention plus rapide → moins d’immobilisation
+        → plus de disponibilité de flotte → réduction du coût par mission.</p>
+
+      <details>
+        <summary>Question d’entretien : « Comment analysez-vous un concurrent ? »</summary>
+        <p>
+          « Je commence par le segment et le job-to-be-done, puis je cartographie les alternatives directes,
+          indirectes et le statu quo. Je compare la proposition de valeur, le modèle de prix, le canal, la preuve
+          de performance, les intégrations et les coûts de changement. Je complète les sources publiques par des
+          retours clients, des démos ou des win/loss reviews. Enfin, je transforme l’analyse en choix : où nous
+          différencier, où atteindre la parité et ce que nous refusons de construire. »
+        </p>
+      </details>
+    </section>
+
+    <section id="dynamics" data-track>
+      <h2>6. Market dynamics : comprendre ce qui fait bouger le marché</h2>
+      <p>
+        Une photographie du marché est vite obsolète. Les dynamiques expliquent comment la taille, la rentabilité,
+        les critères d’achat et la structure concurrentielle peuvent évoluer.
+      </p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Croissance et moteurs</h3>
+          <p>Volume, prix, adoption, nouveaux cas d’usage, renouvellement, substitution, réglementation.</p>
+        </div>
+        <div class="card">
+          <h3>Structure des acheteurs</h3>
+          <p>Utilisateur, prescripteur, décideur économique, achat, IT, juridique, sécurité, direction générale.</p>
+        </div>
+        <div class="card">
+          <h3>Pouvoir de négociation</h3>
+          <p>Concentration des clients, appels d’offres, standardisation, alternatives, coûts de changement.</p>
+        </div>
+        <div class="card">
+          <h3>Barrières à l’entrée</h3>
+          <p>Capital, données, réglementation, réseau de distribution, intégrations, réputation, économies d’échelle.</p>
+        </div>
+      </div>
+
+      <h3>Deux outils à maîtriser sans les réciter mécaniquement</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h3>PESTEL</h3>
+          <p><strong>Politique, Économique, Socioculturel, Technologique, Environnemental, Légal.</strong></p>
+          <p>À utiliser pour identifier les forces externes qui modifient l’adoption ou la rentabilité.</p>
+        </div>
+        <div class="card">
+          <h3>5 forces de Porter</h3>
+          <p><strong>Rivalité, nouveaux entrants, substituts, pouvoir clients, pouvoir fournisseurs.</strong></p>
+          <p>À utiliser pour comprendre la structure de profit, pas simplement l’attractivité « générale ».</p>
+        </div>
+      </div>
+
+      <div class="sticky-note">
+        <strong>Réflexe Product Line Manager :</strong> demander non seulement « le marché croît-il ? », mais
+        « qui capte la valeur, à quel niveau de marge, et pourquoi cette structure pourrait-elle changer ? »
+      </div>
+    </section>
+
+    <section id="research" data-track>
+      <h2>7. Recherche clients et qualité des preuves</h2>
+      <h3>Hiérarchie pratique des sources</h3>
+      <table>
+        <thead><tr><th>Source</th><th>Usage</th><th>Risque</th></tr></thead>
+        <tbody>
+          <tr><td>Données internes</td><td>Pipeline, win/loss, usage, support, churn, prix réel.</td><td>Biais de clientèle existante.</td></tr>
+          <tr><td>Entretiens clients</td><td>Problèmes, contexte, processus d’achat, objections.</td><td>Échantillon réduit, déclaratif.</td></tr>
+          <tr><td>Observation / pilote</td><td>Comportement réel, performance, adoption.</td><td>Coût, conditions non représentatives.</td></tr>
+          <tr><td>Sources publiques</td><td>Taille, tendances, concurrence, réglementation.</td><td>Définitions incompatibles ou promotionnelles.</td></tr>
+          <tr><td>Enquête quantitative</td><td>Mesurer fréquence et distribution des réponses.</td><td>Questionnaire biaisé, panel inadéquat.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Combien de clients interroger ?</h3>
+      <p>
+        Il n’existe pas de nombre magique. Pour une exploration qualitative, la qualité de l’échantillonnage
+        et la saturation des thèmes comptent davantage que la taille brute. Dix entretiens dans un seul profil
+        peuvent être moins utiles que douze répartis entre utilisateurs, décideurs, acheteurs et non-clients.
+      </p>
+      <div class="callout">
+        En entretien, donnez : <strong>le nombre, les profils, le mode de sélection, les thèmes, les biais et ce
+        qui a changé après les échanges.</strong>
+      </div>
+
+      <h3>Guide d’entretien client</h3>
+      <ul class="checklist">
+        <li>« Racontez-moi la dernière fois où le problème est survenu. »</li>
+        <li>« Que s’est-il passé concrètement ? »</li>
+        <li>« Quel en a été le coût, le délai ou le risque ? »</li>
+        <li>« Comment le résolvez-vous aujourd’hui ? »</li>
+        <li>« Qui participe à la décision et qui détient le budget ? »</li>
+        <li>« Qu’est-ce qui pourrait bloquer le changement ? »</li>
+      </ul>
+      <div class="callout warn">
+        Évitez : « Utiliseriez-vous notre solution ? » ou « Trouvez-vous cette idée intéressante ? »
+        Les intentions hypothétiques surestiment souvent l’adoption.
+      </div>
+    </section>
+
+    <section id="decision" data-track>
+      <h2>8. Transformer l’analyse en décision stratégique</h2>
+      <p>Une restitution solide tient en cinq blocs :</p>
+      <div class="grid-3">
+        <div class="card"><h3>1. Question</h3><p>La décision et l’horizon.</p></div>
+        <div class="card"><h3>2. Réponse</h3><p>Recommandation claire : oui, non, ou sous conditions.</p></div>
+        <div class="card"><h3>3. Preuves</h3><p>3 à 5 faits déterminants, triangulés.</p></div>
+        <div class="card"><h3>4. Risques</h3><p>Ce qui pourrait invalider la conclusion.</p></div>
+        <div class="card"><h3>5. Actions</h3><p>Prochaine expérience, budget, responsable, métrique.</p></div>
+      </div>
+
+      <h3>Exemple de recommandation</h3>
+      <div class="interview-answer">
+        « Je recommande de cibler d’abord les grands sites logistiques privés plutôt que les collectivités.
+        Le SAM est plus petit, mais le problème d’immobilisation est mieux chiffré, le décideur budgétaire est
+        identifiable, les contraintes réglementaires sont plus faibles et le cycle pilote est plus court.
+        Nous lancerions un pilote de 90 jours avec trois sites, en mesurant le temps moyen de résolution,
+        la disponibilité de flotte et la disposition à payer. »
+      </div>
+
+      <h3>Ce qu’une conclusion ne doit pas être</h3>
+      <div class="callout danger">
+        « Le marché est en croissance, les clients sont intéressés et la concurrence est forte. »
+        Cette phrase ne permet aucune décision.
+      </div>
+    </section>
+
+    <section id="cv" data-track>
+      <h2>9. Corriger le « gap de preuve » dans votre CV</h2>
+      <p>« Marketing Studies » est trop vague parce qu’il ne montre ni méthode, ni résultat, ni décision.</p>
+      <h3>Structure d’une bullet convaincante</h3>
+      <div class="formula">
+        Verbe d’action + question business + périmètre + méthode + résultat chiffré + décision / impact
+      </div>
+
+      <div class="grid-2" style="margin-top:16px">
+        <div class="card">
+          <h3>Avant</h3>
+          <p>Conducted marketing studies for autonomous mobility solutions.</p>
+        </div>
+        <div class="card">
+          <h3>Après — exemple</h3>
+          <p>
+            Analysé le marché européen de la supervision de flottes autonomes en combinant segmentation de
+            4 cas d’usage, benchmark de 12 concurrents et 15 entretiens clients ; identifié les sites industriels
+            privés comme segment prioritaire et réorienté les exigences produit vers la disponibilité opérationnelle
+            et l’intégration au système de contrôle.
+          </p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <h3>Atelier CV</h3>
+        <label>Écrivez votre expérience réelle en répondant aux 6 éléments</label>
+        <textarea id="cvDraft" placeholder="Question étudiée, marché, sources, clients, conclusion, décision modifiée..."></textarea>
+        <button class="btn primary" style="margin-top:10px" onclick="showCvTemplate()">Afficher une structure</button>
+        <div class="result" id="cvResult"></div>
+      </div>
+
+      <div class="callout">
+        N’inventez aucun chiffre. Si le nombre exact n’est plus disponible, utilisez une formulation honnête :
+        « plusieurs entretiens », « analyse de principaux concurrents », ou retrouvez la donnée avant l’entretien.
+      </div>
+    </section>
+
+    <section id="entretien" data-track>
+      <h2>10. Réussir les questions d’entretien</h2>
+
+      <details open>
+        <summary>« Parlez-moi d’une étude de marché que vous avez menée. »</summary>
+        <div class="interview-answer">
+          <p><strong>Contexte :</strong> quelle décision devait être prise ?</p>
+          <p><strong>Méthode :</strong> sizing, segmentation, concurrence, entretiens, données internes.</p>
+          <p><strong>Insight :</strong> quelle hypothèse a été confirmée ou invalidée ?</p>
+          <p><strong>Décision :</strong> quel choix produit ou business a changé ?</p>
+          <p><strong>Résultat :</strong> quel impact ou apprentissage mesuré ?</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>« Comment estimez-vous un marché sans données fiables ? »</summary>
+        <p>
+          « Je définis précisément le marché, puis je construis plusieurs estimations indépendantes. Une approche
+          top-down pour cadrer, une bottom-up à partir du nombre de comptes, unités et prix, et si possible une
+          approche par la valeur créée. Je documente chaque hypothèse, donne une fourchette plutôt qu’un faux chiffre
+          précis, réalise une analyse de sensibilité, puis identifie les deux ou trois inconnues qui justifient une
+          recherche terrain. »
+        </p>
+      </details>
+
+      <details>
+        <summary>« Comment choisissez-vous un segment prioritaire ? »</summary>
+        <p>
+          « Je score les segments sur l’attractivité, l’intensité du problème, le product fit, notre ability to win,
+          le coût de service et le risque. Je ne choisis pas mécaniquement le plus grand segment : je privilégie le
+          meilleur compromis entre valeur, urgence, accessibilité et avantage compétitif, puis je valide les hypothèses
+          par des entretiens et un pilote. »
+        </p>
+      </details>
+
+      <details>
+        <summary>« Que faites-vous si les données contredisent l’intuition du management ? »</summary>
+        <p>
+          « Je vérifie d’abord la robustesse des sources et les biais. Ensuite je présente les faits, les hypothèses
+          et les scénarios plutôt qu’une opposition personnelle. Je propose une expérience peu coûteuse permettant
+          de départager les hypothèses. Mon rôle est de réduire l’incertitude et d’améliorer la décision, pas de gagner
+          un débat. »
+        </p>
+      </details>
+
+      <h3>Réponse de 90 secondes — canevas</h3>
+      <div class="formula">
+        15 s contexte → 25 s méthode → 20 s insight → 20 s décision → 10 s résultat et recul
+      </div>
+      <div class="exercise">
+        <label>Préparez votre réponse</label>
+        <textarea placeholder="En 90 secondes : contexte, méthode, insight, décision, impact..."></textarea>
+      </div>
+    </section>
+
+    <section id="cas" data-track>
+      <h2>11. Cas pratique d’entretien</h2>
+      <div class="callout">
+        <strong>Cas :</strong> une entreprise de mobilité autonome envisage de commercialiser une plateforme de
+        supervision à distance pour les sites industriels en France et en Allemagne. Elle hésite entre les ports,
+        les usines automobiles et les entrepôts logistiques.
+      </div>
+
+      <h3>Votre mission</h3>
+      <ol>
+        <li>Formuler la décision et les hypothèses.</li>
+        <li>Construire un TAM / SAM / SOM.</li>
+        <li>Définir les segments et critères de priorité.</li>
+        <li>Identifier concurrents directs, indirects et statu quo.</li>
+        <li>Préparer le plan d’entretiens.</li>
+        <li>Recommander un segment de départ et un pilote.</li>
+      </ol>
+
+      <div class="exercise">
+        <label>Votre recommandation synthétique</label>
+        <textarea id="caseAnswer" placeholder="Je recommande... parce que... Les principales preuves seraient... Le pilote mesurerait..."></textarea>
+        <button class="btn primary" style="margin-top:10px" onclick="showCaseGuide()">Comparer au guide</button>
+        <div class="result" id="caseResult"></div>
+      </div>
+
+      <details>
+        <summary>Guide de correction</summary>
+        <p>
+          Une bonne réponse ne cherche pas immédiatement « le meilleur segment ». Elle clarifie d’abord le problème,
+          la proposition de valeur et les contraintes. Elle peut recommander les entrepôts si la densité des missions,
+          la standardisation et le cycle de décision sont favorables, mais doit démontrer cette conclusion.
+        </p>
+        <p>
+          Les métriques de pilote peuvent inclure : disponibilité de flotte, temps moyen de résolution, nombre
+          d’interventions évitées, temps opérateur, taux de missions terminées, coût par véhicule, adoption et
+          disposition à payer.
+        </p>
+      </details>
+    </section>
+
+    <section id="quiz" data-track>
+      <h2>12. Quiz final</h2>
+      <p>Choisissez une réponse par question, puis cliquez sur « Corriger ».</p>
+      <div id="quizContainer"></div>
+      <button class="btn success no-print" onclick="gradeQuiz()">Corriger le quiz</button>
+      <button class="btn no-print" onclick="resetQuiz()">Recommencer</button>
+      <div class="score" id="scoreBox"></div>
+    </section>
+
+    <footer>
+      Cours autonome — chiffres d’exemple fictifs. Conservez uniquement les formulations correspondant à votre expérience réelle.
+    </footer>
+  </main>
+</div>
+
+<script>
+const quizData = [
+  {
+    q:"Quel est le meilleur point de départ d’une étude de marché ?",
+    options:["Chercher un rapport sectoriel","Définir la décision à prendre","Lister les concurrents","Créer un questionnaire"],
+    answer:1,
+    exp:"La décision cible détermine les hypothèses, les données et le niveau de précision nécessaire."
+  },
+  {
+    q:"Le TAM correspond à :",
+    options:["La part gagnable dans trois ans","Le marché total théorique","Le marché accessible par la force de vente actuelle","Le revenu du leader"],
+    answer:1,
+    exp:"Le TAM est le potentiel théorique total sous une définition donnée."
+  },
+  {
+    q:"Quelle méthode de sizing est généralement la plus opérationnelle ?",
+    options:["Bottom-up","Citation d’un analyste","Moyenne des concurrents","Intuition du management"],
+    answer:0,
+    exp:"Le bottom-up relie comptes, unités, prix et capacité commerciale."
+  },
+  {
+    q:"Pourquoi trianguler un chiffre de marché ?",
+    options:["Pour augmenter artificiellement la précision","Pour recouper des méthodes et détecter les incohérences","Pour choisir le chiffre le plus élevé","Pour éviter les entretiens"],
+    answer:1,
+    exp:"La triangulation réduit le risque de dépendre d’une définition ou d’une hypothèse fragile."
+  },
+  {
+    q:"Quel critère est insuffisant pour choisir un segment ?",
+    options:["Intensité du problème","Taille du segment","Ability to win","Cycle de vente"],
+    answer:1,
+    exp:"La taille seule ne dit rien de l’accessibilité, de la marge ou de votre capacité à gagner."
+  },
+  {
+    q:"Le statu quo doit-il être considéré comme concurrent ?",
+    options:["Non, jamais","Oui, s’il est une alternative réelle à l’achat","Seulement en B2C","Seulement si son prix est publié"],
+    answer:1,
+    exp:"Le client peut décider de ne rien changer ; le coût de l’inaction doit donc être comparé."
+  },
+  {
+    q:"Une feature checklist est insuffisante parce qu’elle :",
+    options:["Ignore la valeur et les résultats client","Contient trop de chiffres","Évite les fonctionnalités","Ne compare jamais les prix"],
+    answer:0,
+    exp:"Une fonction ne compte que par la capacité et la valeur qu’elle crée pour le client."
+  },
+  {
+    q:"Quelle question d’entretien client est la plus utile ?",
+    options:["Achèteriez-vous notre solution ?","Trouvez-vous notre idée innovante ?","Racontez-moi la dernière fois où ce problème est survenu","Préférez-vous un abonnement ?"],
+    answer:2,
+    exp:"Un événement passé concret est plus fiable qu’une intention hypothétique."
+  },
+  {
+    q:"Quel élément prouve le mieux l’impact d’une étude ?",
+    options:["Le nombre de slides","La décision modifiée","Le nom du cabinet utilisé","La durée de la réunion"],
+    answer:1,
+    exp:"La valeur de l’étude apparaît dans la décision ou l’expérimentation qu’elle déclenche."
+  },
+  {
+    q:"Une bonne restitution doit principalement :",
+    options:["Présenter toutes les données collectées","Donner une recommandation, les preuves, risques et actions","Éviter l’incertitude","Masquer les hypothèses"],
+    answer:1,
+    exp:"La synthèse doit permettre au décideur d’agir tout en comprenant les limites."
+  },
+  {
+    q:"Le SAM filtre le TAM selon :",
+    options:["Les contraintes réelles d’adressabilité","La préférence du CEO","Le cours de bourse","Le budget marketing uniquement"],
+    answer:0,
+    exp:"Le SAM prend en compte l’offre, la géographie, la réglementation et les capacités de service."
+  },
+  {
+    q:"Quelle formulation CV est la plus forte ?",
+    options:["Marketing studies","Responsible for market research","Analysé 4 segments et 12 concurrents, puis réorienté le ciblage produit","Participé à des réunions marketing"],
+    answer:2,
+    exp:"Elle montre périmètre, méthode et décision."
+  },
+  {
+    q:"Que faire si les données sont très incertaines ?",
+    options:["Donner un chiffre précis","Présenter une fourchette et une sensibilité","Supprimer le sizing","Utiliser le chiffre le plus optimiste"],
+    answer:1,
+    exp:"Une fourchette documentée est plus honnête et plus décisionnelle."
+  },
+  {
+    q:"Le rôle de PESTEL est surtout de :",
+    options:["Calculer un prix","Identifier les forces externes","Comparer uniquement les fonctionnalités","Mesurer le NPS"],
+    answer:1,
+    exp:"PESTEL analyse les facteurs macro-environnementaux qui influencent le marché."
+  },
+  {
+    q:"Quel indicateur est pertinent pour un pilote de supervision ?",
+    options:["Nombre de pages du manuel","Temps moyen de résolution d’incident","Nombre d’employés du fournisseur","Taille du logo"],
+    answer:1,
+    exp:"La métrique doit relier le produit à un résultat opérationnel client."
+  }
+];
+
+function buildQuiz(){
+  const c=document.getElementById("quizContainer");
+  c.innerHTML="";
+  quizData.forEach((item,i)=>{
+    const box=document.createElement("div");
+    box.className="quiz-question";
+    box.id="qbox"+i;
+    box.innerHTML=`<p>${i+1}. ${item.q}</p>`+
+      item.options.map((o,j)=>`<label class="option"><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join("")+
+      `<div class="feedback" id="fb${i}"></div>`;
+    c.appendChild(box);
+  });
+}
+function gradeQuiz(){
+  let score=0, answered=0;
+  quizData.forEach((item,i)=>{
+    const selected=document.querySelector(`input[name="q${i}"]:checked`);
+    const box=document.getElementById("qbox"+i);
+    const fb=document.getElementById("fb"+i);
+    box.classList.remove("correct","incorrect");
+    fb.style.display="block";
+    if(!selected){
+      fb.textContent="Aucune réponse. "+item.exp;
+      box.classList.add("incorrect");
+      return;
+    }
+    answered++;
+    if(Number(selected.value)===item.answer){
+      score++; box.classList.add("correct");
+      fb.textContent="Correct. "+item.exp;
+    }else{
+      box.classList.add("incorrect");
+      fb.textContent=`Incorrect. Bonne réponse : ${item.options[item.answer]}. ${item.exp}`;
+    }
+  });
+  const pct=Math.round(score/quizData.length*100);
+  const msg=pct>=85?"Excellent niveau pour l’entretien.":pct>=70?"Base solide ; retravaillez les erreurs.":pct>=50?"Connaissances en cours d’acquisition.":"Reprenez les sections théoriques avant de recommencer.";
+  const box=document.getElementById("scoreBox");
+  box.style.display="block";
+  box.innerHTML=`Score : ${score}/${quizData.length} (${pct} %) — ${msg}`;
+  localStorage.setItem("marketQuizScore",pct);
+  updateProgress();
+}
+function resetQuiz(){
+  buildQuiz();
+  document.getElementById("scoreBox").style.display="none";
+  localStorage.removeItem("marketQuizScore");
+}
+function calcSizing(){
+  const clients=+document.getElementById("clients").value||0;
+  const units=+document.getElementById("units").value||0;
+  const arpu=+document.getElementById("arpu").value||0;
+  const addr=(+document.getElementById("addressable").value||0)/100;
+  const pen=(+document.getElementById("penetration").value||0)/100;
+  const tam=clients*units*arpu, sam=tam*addr, som=sam*pen;
+  const f=new Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR",maximumFractionDigits:0});
+  const r=document.getElementById("sizingResult");
+  r.style.display="block";
+  r.innerHTML=`<strong>TAM :</strong> ${f.format(tam)}<br><strong>SAM :</strong> ${f.format(sam)}<br><strong>SOM :</strong> ${f.format(som)}<br><span class="mini">Vérifiez ensuite la cohérence avec votre capacité commerciale et le nombre de clients nécessaire.</span>`;
+}
+function showCvTemplate(){
+  const txt=document.getElementById("cvDraft").value.trim();
+  const r=document.getElementById("cvResult");
+  r.style.display="block";
+  r.innerHTML=`<strong>Structure recommandée :</strong><br>
+  « Analysé [marché/périmètre] pour décider [question business], en combinant [sources/méthodes] et [nombre/profils d’interviews] ;
+  identifié [insight] et conduit à [décision], avec [impact ou indicateur]. »<br><br>
+  <span class="mini">${txt? "Votre brouillon a bien été conservé au-dessus.":"Ajoutez vos faits réels, sans inventer de chiffres."}</span>`;
+}
+function showCaseGuide(){
+  const r=document.getElementById("caseResult");
+  r.style.display="block";
+  r.innerHTML=`<strong>Vérifiez que votre réponse contient :</strong>
+  <ul>
+    <li>une décision clairement formulée et un horizon ;</li>
+    <li>des hypothèses de taille, douleur, budget, cycle et réglementation ;</li>
+    <li>une méthode de triangulation ;</li>
+    <li>un segment prioritaire avec critères explicites ;</li>
+    <li>un pilote limité, des métriques et un seuil de succès ;</li>
+    <li>les risques pouvant invalider la recommandation.</li>
+  </ul>`;
+}
+function toggleDark(){
+  document.body.classList.toggle("dark");
+  localStorage.setItem("marketDark",document.body.classList.contains("dark")?"1":"0");
+}
+function markAllRead(){
+  document.querySelectorAll("[data-track]").forEach(s=>localStorage.setItem("read_"+s.id,"1"));
+  updateProgress();
+}
+function resetCourse(){
+  document.querySelectorAll("[data-track]").forEach(s=>localStorage.removeItem("read_"+s.id));
+  localStorage.removeItem("marketQuizScore");
+  updateProgress();
+}
+function updateProgress(){
+  const sections=[...document.querySelectorAll("[data-track]")];
+  let read=sections.filter(s=>localStorage.getItem("read_"+s.id)==="1").length;
+  const quizBonus=localStorage.getItem("marketQuizScore")?1:0;
+  const total=sections.length+1;
+  const pct=Math.round((read+quizBonus)/total*100);
+  document.getElementById("progressBar").style.width=pct+"%";
+  document.getElementById("progressText").textContent=pct+" %";
+}
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      localStorage.setItem("read_"+e.target.id,"1");
+      document.querySelectorAll("nav a").forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+e.target.id));
+      updateProgress();
+    }
+  });
+},{threshold:.45});
+document.querySelectorAll("[data-track]").forEach(s=>observer.observe(s));
+if(localStorage.getItem("marketDark")==="1")document.body.classList.add("dark");
+buildQuiz();
+updateProgress();
+</script>
+</body>
+</html>

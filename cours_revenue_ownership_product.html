@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Revenue Ownership — Préparation intensive aux entretiens Product</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#121a2f;
+      --panel2:#18233d;
+      --text:#eef3ff;
+      --muted:#aebbd8;
+      --accent:#5eead4;
+      --accent2:#60a5fa;
+      --warn:#fbbf24;
+      --danger:#fb7185;
+      --ok:#4ade80;
+      --border:#2a3a61;
+      --shadow:0 18px 50px rgba(0,0,0,.28);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(96,165,250,.14), transparent 32%),
+        radial-gradient(circle at 90% 10%, rgba(94,234,212,.10), transparent 28%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.65;
+    }
+    a{color:var(--accent)}
+    .app{display:grid;grid-template-columns:290px 1fr;min-height:100vh}
+    aside{
+      position:sticky;top:0;height:100vh;overflow:auto;
+      border-right:1px solid var(--border);
+      background:rgba(8,13,27,.92);
+      backdrop-filter:blur(12px);
+      padding:24px 18px;
+    }
+    .brand{font-weight:800;font-size:1.15rem;margin:0 0 4px}
+    .subtitle{color:var(--muted);font-size:.88rem;margin-bottom:20px}
+    nav a{
+      display:block;text-decoration:none;color:var(--muted);
+      padding:9px 12px;border-radius:10px;margin:4px 0;font-size:.93rem;
+    }
+    nav a:hover,nav a.active{background:var(--panel2);color:var(--text)}
+    .progress-wrap{margin:22px 6px 6px}
+    .progress-label{display:flex;justify-content:space-between;color:var(--muted);font-size:.8rem}
+    .progress{height:8px;background:#0e1730;border-radius:99px;overflow:hidden;margin-top:7px}
+    .progress > span{height:100%;display:block;width:0;background:linear-gradient(90deg,var(--accent2),var(--accent));transition:.3s}
+    main{padding:34px clamp(20px,4vw,64px) 80px;max-width:1450px;width:100%}
+    .hero{
+      background:linear-gradient(135deg,rgba(96,165,250,.15),rgba(94,234,212,.08));
+      border:1px solid var(--border);border-radius:24px;padding:34px;box-shadow:var(--shadow);
+    }
+    .eyebrow{text-transform:uppercase;letter-spacing:.14em;color:var(--accent);font-size:.78rem;font-weight:800}
+    h1{font-size:clamp(2rem,5vw,4rem);line-height:1.06;margin:10px 0 14px}
+    h2{font-size:1.9rem;margin:0 0 16px}
+    h3{font-size:1.23rem;margin:22px 0 10px}
+    p{margin:9px 0}
+    .lead{font-size:1.12rem;color:#d7e2fb;max-width:960px}
+    .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+    .badge{border:1px solid var(--border);background:#0c1530;padding:7px 11px;border-radius:999px;color:#d7e2fb;font-size:.85rem}
+    section{margin-top:34px}
+    .card{
+      background:rgba(18,26,47,.94);border:1px solid var(--border);
+      border-radius:18px;padding:24px;box-shadow:var(--shadow);margin:16px 0;
+    }
+    .grid{display:grid;gap:16px}
+    .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .metric{padding:18px;background:var(--panel2);border:1px solid var(--border);border-radius:14px}
+    .metric strong{display:block;font-size:1.35rem;color:var(--accent)}
+    .metric small{color:var(--muted)}
+    .callout{border-left:4px solid var(--accent2);padding:13px 16px;background:rgba(96,165,250,.08);border-radius:0 12px 12px 0}
+    .callout.warn{border-color:var(--warn);background:rgba(251,191,36,.08)}
+    .callout.danger{border-color:var(--danger);background:rgba(251,113,133,.08)}
+    .callout.ok{border-color:var(--ok);background:rgba(74,222,128,.08)}
+    table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.94rem}
+    th,td{border-bottom:1px solid var(--border);padding:11px;text-align:left;vertical-align:top}
+    th{color:var(--accent);font-size:.82rem;text-transform:uppercase;letter-spacing:.06em}
+    ul,ol{padding-left:22px}
+    li{margin:6px 0}
+    code,.formula{
+      font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+      background:#0a1328;border:1px solid var(--border);border-radius:8px;padding:2px 7px;color:#d9f8f2
+    }
+    details{background:#0f1830;border:1px solid var(--border);border-radius:12px;padding:12px 15px;margin:10px 0}
+    summary{cursor:pointer;font-weight:700;color:#e8efff}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+    button,.tab{
+      border:1px solid var(--border);background:#101a34;color:var(--text);
+      border-radius:10px;padding:10px 14px;cursor:pointer;font-weight:700;
+    }
+    button:hover,.tab:hover{border-color:var(--accent2)}
+    button.primary{background:linear-gradient(135deg,#2563eb,#0f766e);border:none}
+    button.secondary{background:#18233d}
+    button.danger{background:#4c1522}
+    .tab.active{background:#204474;border-color:#4d8fdb}
+    .tab-panel{display:none}
+    .tab-panel.active{display:block}
+    .calc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    label{font-size:.86rem;color:var(--muted);display:block;margin-bottom:5px}
+    input,select,textarea{
+      width:100%;background:#0b1429;border:1px solid var(--border);color:var(--text);
+      border-radius:10px;padding:11px;font:inherit;
+    }
+    textarea{min-height:130px;resize:vertical}
+    .result{
+      padding:16px;background:#0c1730;border:1px solid var(--border);border-radius:12px;
+      margin-top:14px;font-size:1.02rem
+    }
+    .result strong{color:var(--accent)}
+    .quiz-question{padding:20px;background:#101a34;border:1px solid var(--border);border-radius:14px;margin:14px 0}
+    .quiz-question h4{margin:0 0 12px;font-size:1.02rem}
+    .option{display:block;padding:9px 11px;border:1px solid transparent;border-radius:9px;margin:5px 0;cursor:pointer}
+    .option:hover{background:#172442}
+    .option input{width:auto;margin-right:8px}
+    .feedback{display:none;margin-top:10px;padding:10px;border-radius:9px}
+    .feedback.ok{display:block;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.35)}
+    .feedback.bad{display:block;background:rgba(251,113,133,.1);border:1px solid rgba(251,113,133,.35)}
+    .score{font-size:1.4rem;font-weight:800;margin-top:14px}
+    .flashcard{
+      min-height:190px;display:flex;flex-direction:column;justify-content:center;align-items:center;
+      text-align:center;background:linear-gradient(135deg,#111b37,#17294b);border:1px solid var(--border);
+      border-radius:18px;padding:24px;cursor:pointer;user-select:none
+    }
+    .flashcard .answer{display:none;color:#d7e2fb}
+    .flashcard.revealed .question{display:none}
+    .flashcard.revealed .answer{display:block}
+    .interview-q{font-size:1.18rem;font-weight:800;margin:12px 0}
+    .rubric{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px}
+    .rubric div{background:#0c1630;border:1px solid var(--border);border-radius:9px;padding:9px;font-size:.82rem;text-align:center}
+    .sticky-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+    .tag-risk{color:#ffd7df}
+    .tag-ok{color:#b9ffd0}
+    .checklist label{display:flex;align-items:flex-start;gap:9px;color:var(--text);padding:7px 0}
+    .checklist input{width:auto;margin-top:6px}
+    .print-only{display:none}
+    footer{color:var(--muted);font-size:.85rem;text-align:center;margin-top:42px}
+    @media(max-width:1000px){
+      .app{grid-template-columns:1fr}
+      aside{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--border)}
+      nav{display:flex;overflow:auto;gap:6px}
+      nav a{white-space:nowrap}
+      .g2,.g3,.g4,.calc-grid{grid-template-columns:1fr}
+    }
+    @media print{
+      aside,.sticky-actions,button{display:none!important}
+      body{background:white;color:#111}
+      .app{display:block}
+      main{max-width:none;padding:0}
+      .card,.hero{box-shadow:none;background:white;border:1px solid #bbb}
+      .print-only{display:block}
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <div class="brand">Revenue Ownership</div>
+    <div class="subtitle">Cours intensif Product · Entretien CDI</div>
+    <nav id="nav">
+      <a href="#accueil">Accueil</a>
+      <a href="#fondamentaux">1. Fondamentaux</a>
+      <a href="#modeles">2. Modèles de revenu</a>
+      <a href="#metriques">3. Métriques</a>
+      <a href="#forecast">4. Forecast</a>
+      <a href="#variance">5. Écarts au budget</a>
+      <a href="#leviers">6. Leviers Product</a>
+      <a href="#cadence">7. Operating cadence</a>
+      <a href="#profil">8. Ton profil</a>
+      <a href="#cas">9. Cas pratiques</a>
+      <a href="#quiz">10. Quiz</a>
+      <a href="#entretien">11. Entretien</a>
+      <a href="#plan">12. Plan 30 jours</a>
+    </nav>
+    <div class="progress-wrap">
+      <div class="progress-label"><span>Progression</span><span id="progressPct">0%</span></div>
+      <div class="progress"><span id="progressBar"></span></div>
+    </div>
+  </aside>
+
+  <main>
+    <section id="accueil" class="hero">
+      <div class="eyebrow">Product Management · Business Ownership</div>
+      <h1>Maîtriser le Revenue Ownership</h1>
+      <p class="lead">
+        L’objectif n’est pas seulement de connaître les acronymes. À la fin, tu dois pouvoir expliquer
+        comment un Product Manager transforme une stratégie produit en revenu prévisible, diagnostique un écart
+        au budget et arbitre entre roadmap, pricing, ciblage, adoption, renouvellement et capacité commerciale.
+      </p>
+      <div class="badges">
+        <span class="badge">Cours théorique approfondi</span>
+        <span class="badge">SaaS + produit industriel</span>
+        <span class="badge">Calculatrices interactives</span>
+        <span class="badge">20 questions de quiz</span>
+        <span class="badge">Simulation d’entretien</span>
+        <span class="badge">Adapté à ton profil mobilité autonome</span>
+      </div>
+      <div class="sticky-actions">
+        <button class="primary" onclick="document.querySelector('#fondamentaux').scrollIntoView()">Commencer le cours</button>
+        <button class="secondary" onclick="resetAll()">Réinitialiser la progression</button>
+        <button class="secondary" onclick="window.print()">Imprimer / Export PDF</button>
+      </div>
+    </section>
+
+    <section id="fondamentaux" class="track">
+      <div class="card">
+        <div class="eyebrow">1 · Fondamentaux</div>
+        <h2>Ce que signifie réellement « être responsable du revenu »</h2>
+        <p>
+          Le revenue ownership est la responsabilité de comprendre, prévoir et influencer la génération de chiffre
+          d’affaires d’un produit ou d’une gamme. Selon l’entreprise, le Product Manager n’est pas juridiquement ou
+          commercialement seul responsable de la signature, mais il doit être capable de relier les décisions produit
+          aux résultats commerciaux.
+        </p>
+        <div class="grid g3">
+          <div class="metric"><strong>Prévoir</strong><small>Construire un forecast explicable et actualisé.</small></div>
+          <div class="metric"><strong>Diagnostiquer</strong><small>Identifier pourquoi le réel diverge du budget.</small></div>
+          <div class="metric"><strong>Agir</strong><small>Choisir les leviers qui rétablissent la trajectoire.</small></div>
+        </div>
+
+        <h3>La différence entre contribution et ownership</h3>
+        <table>
+          <thead><tr><th>Contribution</th><th>Ownership</th></tr></thead>
+          <tbody>
+            <tr><td>« J’ai livré la fonctionnalité demandée. »</td><td>« J’ai vérifié qu’elle ciblait un segment solvable et suivi son impact sur conversion, panier moyen ou rétention. »</td></tr>
+            <tr><td>« Les ventes m’ont transmis des demandes clients. »</td><td>« J’ai qualifié la demande, son potentiel de revenu, la probabilité de signature et le coût d’opportunité. »</td></tr>
+            <tr><td>« Le revenu a progressé. »</td><td>« Le revenu a progressé grâce à une hausse du volume, du prix ou du mix ; j’ai isolé la contribution de chaque facteur. »</td></tr>
+            <tr><td>« Le forecast vient de la finance. »</td><td>« Je challenge les hypothèses de volume, conversion, calendrier, churn et expansion. »</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout warn">
+          <strong>Point entretien :</strong> un recruteur n’attend pas que tu aies personnellement « vendu » tout le produit.
+          Il cherche la preuve que tu as pris des décisions en comprenant leur impact économique.
+        </div>
+
+        <h3>Les cinq responsabilités centrales</h3>
+        <ol>
+          <li><strong>Fixer ou contribuer à l’objectif :</strong> segment, offre, période, hypothèses et niveau d’ambition.</li>
+          <li><strong>Construire le forecast :</strong> relier pipeline, base installée, prix, volumes, churn et calendrier.</li>
+          <li><strong>Suivre la performance :</strong> comparer réel, budget, forecast précédent et tendance.</li>
+          <li><strong>Expliquer les écarts :</strong> distinguer volume, prix, mix, timing, conversion, rétention et exécution.</li>
+          <li><strong>Déclencher des actions :</strong> priorisation, packaging, pricing, sales enablement, adoption ou retrait d’offre.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="modeles" class="track">
+      <div class="card">
+        <div class="eyebrow">2 · Modèles de revenu</div>
+        <h2>Comprendre d’où vient le chiffre d’affaires</h2>
+        <div class="tabs">
+          <button class="tab active" data-tab="saas">SaaS</button>
+          <button class="tab" data-tab="industrial">Produit industriel</button>
+          <button class="tab" data-tab="hybrid">Offre hybride</button>
+        </div>
+
+        <div id="saas" class="tab-panel active">
+          <h3>Équation simplifiée</h3>
+          <p><span class="formula">Revenu = nouveaux clients + expansion − contraction − churn</span></p>
+          <p>
+            La croissance dépend donc autant de l’acquisition que de la capacité à conserver et développer la base
+            existante. Un produit peut signer beaucoup de nouveaux contrats et néanmoins détruire de la valeur si le
+            churn est élevé ou si les remises rendent l’économie unitaire défavorable.
+          </p>
+          <table>
+            <thead><tr><th>Moteur</th><th>Question Product</th><th>Signal à suivre</th></tr></thead>
+            <tbody>
+              <tr><td>Acquisition</td><td>Le produit convertit-il les bons segments ?</td><td>Win rate, CAC, cycle de vente</td></tr>
+              <tr><td>Activation</td><td>Le client atteint-il rapidement la valeur promise ?</td><td>Time-to-value, adoption</td></tr>
+              <tr><td>Rétention</td><td>Le produit reste-t-il indispensable ?</td><td>Logo churn, revenue churn</td></tr>
+              <tr><td>Expansion</td><td>L’usage ou la valeur augmente-t-il avec le temps ?</td><td>Upsell, cross-sell, NRR</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="industrial" class="tab-panel">
+          <h3>Équation simplifiée</h3>
+          <p><span class="formula">Revenu = volume livré × prix moyen + pièces + maintenance + services</span></p>
+          <p>
+            La reconnaissance du revenu peut être décalée par rapport à la commande. Il faut distinguer le carnet de
+            commandes, les prises de commandes, les livraisons, la facturation et l’encaissement.
+          </p>
+          <table>
+            <thead><tr><th>Moteur</th><th>Question Product</th><th>Signal à suivre</th></tr></thead>
+            <tbody>
+              <tr><td>Volume</td><td>Combien d’unités ou programmes peuvent être livrés ?</td><td>Cadence, capacité, backlog</td></tr>
+              <tr><td>Prix</td><td>Le prix reflète-t-il la valeur et les options ?</td><td>ASP, remises, indexation</td></tr>
+              <tr><td>Mix</td><td>Vend-on les variantes les plus contributives ?</td><td>Part premium, options, services</td></tr>
+              <tr><td>Aftermarket</td><td>La base installée génère-t-elle du revenu récurrent ?</td><td>Attach rate, maintenance, pièces</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="hybrid" class="tab-panel">
+          <h3>Matériel + logiciel + service</h3>
+          <p>
+            Dans la mobilité autonome, une offre peut combiner véhicule, système de conduite, supervision, licence,
+            intégration, support opérationnel, maintenance et services de données. Le Product Manager doit éviter de
+            raisonner uniquement sur le prix du matériel.
+          </p>
+          <div class="grid g2">
+            <div class="metric"><strong>Upfront</strong><small>Vente initiale, installation, intégration.</small></div>
+            <div class="metric"><strong>Recurring</strong><small>Licence, supervision, support, maintenance, data.</small></div>
+          </div>
+          <div class="callout">
+            Une fonctionnalité de supervision peut avoir peu de valeur si elle est gratuite, mais devenir un puissant
+            moteur de revenu si elle réduit le coût opérateur, facilite le déploiement multi-sites et soutient un abonnement.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="metriques" class="track">
+      <div class="card">
+        <div class="eyebrow">3 · Métriques</div>
+        <h2>Les métriques à connaître et à interpréter</h2>
+        <div class="grid g2">
+          <div>
+            <h3>SaaS</h3>
+            <table>
+              <tbody>
+                <tr><td><strong>MRR</strong></td><td>Revenu mensuel récurrent.</td></tr>
+                <tr><td><strong>ARR</strong></td><td>MRR × 12, ajusté des contrats non récurrents.</td></tr>
+                <tr><td><strong>Logo churn</strong></td><td>Clients perdus / clients au début de période.</td></tr>
+                <tr><td><strong>Revenue churn</strong></td><td>MRR perdu / MRR de début.</td></tr>
+                <tr><td><strong>GRR</strong></td><td>Rétention hors expansion.</td></tr>
+                <tr><td><strong>NRR</strong></td><td>Rétention incluant l’expansion.</td></tr>
+                <tr><td><strong>CAC</strong></td><td>Coût commercial et marketing par nouveau client.</td></tr>
+                <tr><td><strong>LTV</strong></td><td>Valeur économique attendue d’un client.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h3>Industriel</h3>
+            <table>
+              <tbody>
+                <tr><td><strong>Bookings</strong></td><td>Commandes signées pendant la période.</td></tr>
+                <tr><td><strong>Backlog</strong></td><td>Commandes signées non encore reconnues en revenu.</td></tr>
+                <tr><td><strong>Book-to-bill</strong></td><td>Prises de commandes / revenu facturé.</td></tr>
+                <tr><td><strong>ASP</strong></td><td>Prix de vente moyen.</td></tr>
+                <tr><td><strong>Mix</strong></td><td>Répartition des ventes par version ou segment.</td></tr>
+                <tr><td><strong>Win rate</strong></td><td>Opportunités gagnées / opportunités décidées.</td></tr>
+                <tr><td><strong>Attach rate</strong></td><td>Part des ventes incluant un service additionnel.</td></tr>
+                <tr><td><strong>Renewal rate</strong></td><td>Contrats renouvelés / contrats arrivant à échéance.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <h3>Formules essentielles</h3>
+        <details>
+          <summary>NRR — Net Revenue Retention</summary>
+          <p><span class="formula">NRR = (MRR début − churn − contraction + expansion) / MRR début</span></p>
+          <p>Une NRR supérieure à 100 % signifie que la base existante croît même avant toute acquisition.</p>
+        </details>
+        <details>
+          <summary>Book-to-bill</summary>
+          <p><span class="formula">Book-to-bill = commandes reçues / revenu reconnu</span></p>
+          <p>Supérieur à 1 : le backlog augmente. Inférieur à 1 : l’entreprise consomme son carnet plus vite qu’elle ne le renouvelle.</p>
+        </details>
+        <details>
+          <summary>Pipeline coverage</summary>
+          <p><span class="formula">Coverage = pipeline qualifié / objectif restant</span></p>
+          <p>Le ratio nécessaire dépend du win rate et de la qualité du pipeline. Avec 25 % de win rate, une couverture de 4× est un minimum mécanique, pas une garantie.</p>
+        </details>
+
+        <div class="card" style="background:#0d1730">
+          <h3>Calculatrice NRR</h3>
+          <div class="calc-grid">
+            <div><label>MRR début (€)</label><input id="nrrStart" type="number" value="100000"></div>
+            <div><label>Churn (€)</label><input id="nrrChurn" type="number" value="7000"></div>
+            <div><label>Contraction (€)</label><input id="nrrContraction" type="number" value="3000"></div>
+            <div><label>Expansion (€)</label><input id="nrrExpansion" type="number" value="15000"></div>
+          </div>
+          <button class="primary" onclick="calcNRR()">Calculer</button>
+          <div id="nrrResult" class="result">Renseigne les hypothèses puis calcule.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="forecast" class="track">
+      <div class="card">
+        <div class="eyebrow">4 · Forecast</div>
+        <h2>Construire un forecast crédible</h2>
+        <p>
+          Un forecast n’est pas une ambition. C’est une estimation probabilisée, datée et révisable. Il doit permettre
+          de répondre : « Combien allons-nous réellement reconnaître en revenu, quand, et avec quel niveau de confiance ? »
+        </p>
+
+        <h3>Trois approches complémentaires</h3>
+        <div class="grid g3">
+          <div class="metric"><strong>Top-down</strong><small>Marché × part de marché × prix. Utile pour tester l’ambition.</small></div>
+          <div class="metric"><strong>Bottom-up</strong><small>Clients, volumes, contrats, conversion, calendrier. Base opérationnelle.</small></div>
+          <div class="metric"><strong>Run-rate</strong><small>Tendance actuelle annualisée, corrigée des saisonnalités et événements.</small></div>
+        </div>
+
+        <h3>Forecast SaaS simplifié</h3>
+        <p><span class="formula">ARR fin = ARR début + new ARR + expansion − contraction − churn</span></p>
+
+        <h3>Forecast industriel simplifié</h3>
+        <p><span class="formula">Revenu = backlog livrable + commandes nouvelles converties et livrées + services récurrents</span></p>
+
+        <h3>Forecast pondéré du pipeline</h3>
+        <table>
+          <thead><tr><th>Étape</th><th>Exemple de probabilité</th><th>Attention</th></tr></thead>
+          <tbody>
+            <tr><td>Lead identifié</td><td>5–10 %</td><td>Ne pas confondre intérêt et budget réel.</td></tr>
+            <tr><td>Opportunité qualifiée</td><td>20–35 %</td><td>Besoin, sponsor, budget et calendrier validés.</td></tr>
+            <tr><td>Proposition envoyée</td><td>40–60 %</td><td>La concurrence et le procurement restent ouverts.</td></tr>
+            <tr><td>Négociation finale</td><td>70–90 %</td><td>Vérifier clauses, financement, décisionnaire.</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout danger">
+          <strong>Erreur classique :</strong> additionner toutes les opportunités comme si elles allaient signer. Un bon
+          Product Manager challenge aussi la date de reconnaissance du revenu, pas seulement la probabilité de signature.
+        </div>
+
+        <div class="card" style="background:#0d1730">
+          <h3>Calculatrice de forecast pondéré</h3>
+          <div class="calc-grid">
+            <div><label>Pipeline qualifié (€)</label><input id="pipe" type="number" value="2500000"></div>
+            <div><label>Win rate (%)</label><input id="win" type="number" value="30"></div>
+            <div><label>Part livrable cette année (%)</label><input id="deliverable" type="number" value="60"></div>
+            <div><label>Backlog déjà sécurisé (€)</label><input id="backlog" type="number" value="1200000"></div>
+            <div><label>Revenu récurrent sécurisé (€)</label><input id="recurring" type="number" value="400000"></div>
+            <div><label>Objectif annuel (€)</label><input id="target" type="number" value="2100000"></div>
+          </div>
+          <button class="primary" onclick="calcForecast()">Calculer le forecast</button>
+          <div id="forecastResult" class="result">Le résultat apparaîtra ici.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="variance" class="track">
+      <div class="card">
+        <div class="eyebrow">5 · Écarts au budget</div>
+        <h2>Expliquer pourquoi le revenu manque l’objectif</h2>
+        <p>
+          Dire « les ventes sont en retard » est insuffisant. Il faut décomposer l’écart en causes actionnables.
+        </p>
+        <div class="grid g4">
+          <div class="metric"><strong>Volume</strong><small>Moins de clients, unités ou contrats.</small></div>
+          <div class="metric"><strong>Prix</strong><small>Remises, baisse de tarif, indexation insuffisante.</small></div>
+          <div class="metric"><strong>Mix</strong><small>Plus de versions d’entrée de gamme ou de petits clients.</small></div>
+          <div class="metric"><strong>Timing</strong><small>Signature ou livraison décalée.</small></div>
+          <div class="metric"><strong>Conversion</strong><small>Win rate inférieur au plan.</small></div>
+          <div class="metric"><strong>Churn</strong><small>Perte de clients ou contrats.</small></div>
+          <div class="metric"><strong>Expansion</strong><small>Upsell ou usage moins fort que prévu.</small></div>
+          <div class="metric"><strong>Capacité</strong><small>Produit non livrable, intégration ou support saturé.</small></div>
+        </div>
+
+        <h3>Revenue bridge</h3>
+        <p>
+          Le bridge part du budget et explique chaque variation jusqu’au réel :
+          <span class="formula">Budget + volume + prix + mix + churn + timing + autres = Réel</span>.
+        </p>
+
+        <table>
+          <thead><tr><th>Symptôme</th><th>Cause possible</th><th>Analyse</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>Pipeline élevé, revenu faible</td><td>Opportunités peu qualifiées ou timing irréaliste</td><td>Âge du pipeline, étapes bloquées, décideur, budget</td><td>Requalification, deal review, retrait du faux pipeline</td></tr>
+            <tr><td>Bon volume, revenu faible</td><td>Prix ou mix défavorable</td><td>ASP, remises, part premium</td><td>Packaging, garde-fous de remise, upsell</td></tr>
+            <tr><td>Bookings bons, revenu faible</td><td>Livraisons décalées</td><td>Capacité, intégration, homologation</td><td>Plan de sécurisation et reforecast</td></tr>
+            <tr><td>Acquisition forte, ARR stagne</td><td>Churn ou contraction</td><td>Cohortes, usage, tickets, renewal risk</td><td>Activation, adoption, customer success</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout">
+          En entretien, formule toujours : <strong>écart → hypothèse → donnée vérifiée → cause racine → action → résultat attendu</strong>.
+        </div>
+      </div>
+    </section>
+
+    <section id="leviers" class="track">
+      <div class="card">
+        <div class="eyebrow">6 · Leviers Product</div>
+        <h2>Comment le Product Manager influence le revenu</h2>
+        <table>
+          <thead><tr><th>Levier</th><th>Mécanisme de revenu</th><th>Risque</th><th>Question à poser</th></tr></thead>
+          <tbody>
+            <tr><td>Roadmap</td><td>Améliore conversion, adoption, rétention ou expansion</td><td>Construire pour un seul prospect</td><td>Quel revenu incrémental et quelle réutilisabilité ?</td></tr>
+            <tr><td>Pricing</td><td>Augmente ASP ou monétise la valeur</td><td>Baisse du volume ou churn</td><td>Quelle élasticité et quel segment accepte le prix ?</td></tr>
+            <tr><td>Packaging</td><td>Crée des paliers et un chemin d’upsell</td><td>Complexité commerciale</td><td>Les différences d’offre sont-elles lisibles ?</td></tr>
+            <tr><td>Ciblage</td><td>Concentre les efforts sur les segments à forte valeur</td><td>Marché trop étroit</td><td>Quel ICP a le meilleur win rate et meilleur LTV/CAC ?</td></tr>
+            <tr><td>Sales enablement</td><td>Améliore win rate et réduit le cycle</td><td>Promesse non alignée au produit</td><td>Quelles objections bloquent réellement les deals ?</td></tr>
+            <tr><td>Onboarding</td><td>Accélère la valeur et réduit le churn</td><td>Coût de service élevé</td><td>Quel time-to-value prédit le renouvellement ?</td></tr>
+            <tr><td>Retrait produit</td><td>Réduit la dispersion et réalloue vers les offres rentables</td><td>Perte de clients historiques</td><td>Quel revenu est réellement à risque et quel coût évité ?</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Arbitrer une feature demandée par les ventes</h3>
+        <ol>
+          <li>Identifier le client, le problème, la date et la valeur du deal.</li>
+          <li>Vérifier si la feature est une condition de signature ou seulement une préférence.</li>
+          <li>Estimer la réutilisabilité sur d’autres clients et segments.</li>
+          <li>Calculer coût, délai, dépendances, maintenance et coût d’opportunité.</li>
+          <li>Comparer à une solution manuelle, configuration, intégration ou partenariat.</li>
+          <li>Décider avec un critère explicite et suivre le revenu réellement obtenu.</li>
+        </ol>
+
+        <div class="callout warn">
+          <strong>Formule utile :</strong> « Je ne priorise pas une feature parce qu’un commercial la demande ; je la
+          priorise si son revenu attendu, sa valeur stratégique et sa réutilisabilité compensent son coût total et le
+          déplacement des autres priorités. »
+        </div>
+      </div>
+    </section>
+
+    <section id="cadence" class="track">
+      <div class="card">
+        <div class="eyebrow">7 · Operating cadence</div>
+        <h2>Le système de pilotage d’un responsable revenu</h2>
+        <div class="grid g3">
+          <div class="metric"><strong>Hebdomadaire</strong><small>Pipeline, deals critiques, blocages produit, risques de renouvellement.</small></div>
+          <div class="metric"><strong>Mensuel</strong><small>Actual vs budget, forecast, bridge, cohortes, plan d’actions.</small></div>
+          <div class="metric"><strong>Trimestriel</strong><small>Segmentation, pricing, roadmap, capacité, objectifs et ressources.</small></div>
+        </div>
+
+        <h3>Revenue review mensuelle</h3>
+        <ol>
+          <li>Résultat du mois et cumul annuel.</li>
+          <li>Évolution du forecast depuis le mois précédent.</li>
+          <li>Bridge budget → forecast → réel.</li>
+          <li>Top opportunités et risques de churn.</li>
+          <li>Décisions demandées : roadmap, pricing, capacité, ciblage.</li>
+          <li>Actions, responsable, échéance et impact attendu.</li>
+        </ol>
+
+        <h3>RACI simplifié</h3>
+        <table>
+          <thead><tr><th>Sujet</th><th>Product</th><th>Sales</th><th>Finance</th><th>Customer Success / Ops</th></tr></thead>
+          <tbody>
+            <tr><td>Objectif annuel</td><td>Segmentation et hypothèses produit</td><td>Capacité commerciale</td><td>Consolidation et challenge</td><td>Capacité de service</td></tr>
+            <tr><td>Forecast</td><td>Adoption, roadmap, livrabilité</td><td>Pipeline et dates</td><td>Méthode et reporting</td><td>Risque de churn / delivery</td></tr>
+            <tr><td>Écart</td><td>Causes produit et actions</td><td>Causes commerciales</td><td>Bridge financier</td><td>Usage, qualité, support</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="profil" class="track">
+      <div class="card">
+        <div class="eyebrow">8 · Application à ton profil</div>
+        <h2>Transformer ton expérience actuelle en preuve business</h2>
+        <p>
+          Ton profil montre une capacité à rendre un produit techniquement livrable : coordination transverse,
+          exigences, systèmes complexes, budgets et programmes. Le gap n’est pas l’absence de compétence analytique ;
+          c’est l’absence de preuves visibles reliant tes décisions à un résultat commercial.
+        </p>
+
+        <table>
+          <thead><tr><th>Ce que ton profil montre déjà</th><th>Traduction revenue possible</th><th>Preuve à collecter</th></tr></thead>
+          <tbody>
+            <tr><td>Pilotage de projets et de budgets</td><td>Capacité à arbitrer des ressources contre une valeur attendue</td><td>Montant, choix refusés, délai évité, capacité créée</td></tr>
+            <tr><td>Spécifications et user stories</td><td>Capacité à transformer un besoin client en offre livrable</td><td>Client ou segment, problème, usage, décision influencée</td></tr>
+            <tr><td>Supervision / Shepherding</td><td>Potentiel de service logiciel, réduction du coût opérationnel, scalabilité</td><td>Temps opérateur économisé, sites couverts, offre facturable possible</td></tr>
+            <tr><td>Data dashboard</td><td>Support à la preuve de valeur, reporting client ou offre analytics</td><td>KPI utilisé, décision client, réduction d’incident ou coût</td></tr>
+            <tr><td>Adaptation véhicule L4</td><td>Condition de déploiement sur un segment ou marché</td><td>Marché débloqué, programme éligible, revenus potentiels associés</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout danger">
+          Ne revendique jamais un revenu que tu n’as pas mesuré. Présente plutôt le raisonnement commercial, ton rôle
+          dans la décision et les données dont tu disposais.
+        </div>
+
+        <h3>Positionnement par niveau</h3>
+        <div class="grid g3">
+          <div class="metric">
+            <strong>Product Manager</strong>
+            <small><span class="tag-ok">Gap modéré.</span> Tu peux compenser par une bonne maîtrise des métriques, des cas et des preuves de collaboration sales.</small>
+          </div>
+          <div class="metric">
+            <strong>Senior Product Manager</strong>
+            <small><span class="tag-risk">Gap important.</span> Il faut au moins une histoire complète : objectif, arbitrage, impact commercial et apprentissage.</small>
+          </div>
+          <div class="metric">
+            <strong>Product Line Manager</strong>
+            <small><span class="tag-risk">Gap critique.</span> Il faut démontrer forecast, portefeuille, pricing, revenu et idéalement marge.</small>
+          </div>
+        </div>
+
+        <h3>Réponse honnête en entretien</h3>
+        <div class="callout ok">
+          « Je n’ai pas encore porté un quota de chiffre d’affaires en responsabilité directe. En revanche, j’ai déjà
+          piloté des décisions de produit, de budget et de capacité qui conditionnaient la mise sur le marché. Je me suis
+          structuré pour compléter ce gap : forecast bottom-up, analyse volume-prix-mix, pipeline, rétention et business
+          cases. Je cherche précisément un rôle où je peux prendre progressivement la responsabilité du revenu, avec des
+          objectifs mesurables dès les premiers mois. »
+        </div>
+
+        <h3>Inventaire de preuves à préparer</h3>
+        <div class="checklist" id="evidenceChecklist">
+          <label><input type="checkbox"> Un exemple où une demande client a modifié une priorité.</label>
+          <label><input type="checkbox"> Un exemple où tu as refusé ou réduit un scope pour protéger la valeur.</label>
+          <label><input type="checkbox"> Une estimation de marché ou de revenu adressable.</label>
+          <label><input type="checkbox"> Un business case avec hypothèses, coût, gain et délai.</label>
+          <label><input type="checkbox"> Une collaboration avec sales, avant-vente, client ou partenaire.</label>
+          <label><input type="checkbox"> Un KPI d’adoption, d’usage ou de performance lié à la valeur client.</label>
+          <label><input type="checkbox"> Une décision prise sous incertitude avec résultat mesuré.</label>
+        </div>
+      </div>
+    </section>
+
+    <section id="cas" class="track">
+      <div class="card">
+        <div class="eyebrow">9 · Cas pratiques</div>
+        <h2>Entraînement au raisonnement</h2>
+
+        <details>
+          <summary>Cas 1 — SaaS : croissance forte mais ARR décevant</summary>
+          <p><strong>Données :</strong> ARR début 4,0 M€, new ARR 1,2 M€, expansion 0,5 M€, contraction 0,2 M€, churn 0,9 M€.</p>
+          <p><strong>Travail :</strong> calcule l’ARR final et la NRR. Explique si le problème principal est l’acquisition ou la rétention.</p>
+          <p><strong>Correction :</strong> ARR final = 4,6 M€. NRR = (4,0 − 0,9 − 0,2 + 0,5) / 4,0 = 85 %. La base installée se contracte fortement. Avant d’accélérer l’acquisition, il faut segmenter le churn, analyser activation, usage et motifs de non-renouvellement.</p>
+        </details>
+
+        <details>
+          <summary>Cas 2 — Industriel : carnet solide, revenu en retard</summary>
+          <p><strong>Données :</strong> backlog 12 M€, objectif annuel 10 M€, mais seulement 55 % du backlog est livrable cette année. Les nouvelles commandes représentent 5 M€, avec 20 % seulement livrables cette année.</p>
+          <p><strong>Correction :</strong> forecast = 12 × 55 % + 5 × 20 % = 7,6 M€. Le problème n’est pas nécessairement commercial : il peut venir de la capacité, de l’intégration, de l’homologation ou de la disponibilité client.</p>
+        </details>
+
+        <details>
+          <summary>Cas 3 — Feature pour signer un gros client</summary>
+          <p><strong>Situation :</strong> deal de 900 k€, feature estimée à 5 mois, coût 250 k€, faible réutilisabilité. Probabilité de signature avec feature : 70 %. Sans feature : 15 %.</p>
+          <p><strong>Réponse attendue :</strong> revenu incrémental probabilisé = 900 × (70 % − 15 %) = 495 k€. Il faut ensuite comparer marge, coût total, délai, maintenance et coût d’opportunité. La décision peut être positive, mais pas sur le seul montant du deal.</p>
+        </details>
+
+        <details>
+          <summary>Cas 4 — Baisse de prix de 10 %</summary>
+          <p><strong>Situation :</strong> prix 100 k€, volume 50 unités, CA 5 M€. Le prix baisse à 90 k€. Quel volume faut-il pour conserver le CA ?</p>
+          <p><strong>Correction :</strong> 5 M€ / 90 k€ = 55,56, donc 56 unités. Il faut +12 % de volume environ. Pour conserver la marge, la hausse de volume nécessaire peut être beaucoup plus forte.</p>
+        </details>
+
+        <div class="card" style="background:#0d1730">
+          <h3>Mini business case</h3>
+          <p>Évalue une initiative produit avec une logique simple de revenu probabilisé.</p>
+          <div class="calc-grid">
+            <div><label>Valeur annuelle du deal (€)</label><input id="dealValue" type="number" value="900000"></div>
+            <div><label>Probabilité avec initiative (%)</label><input id="probWith" type="number" value="70"></div>
+            <div><label>Probabilité sans initiative (%)</label><input id="probWithout" type="number" value="15"></div>
+            <div><label>Coût de développement (€)</label><input id="devCost" type="number" value="250000"></div>
+            <div><label>Marge brute sur le revenu (%)</label><input id="grossMargin" type="number" value="55"></div>
+            <div><label>Coût d’opportunité estimé (€)</label><input id="oppCost" type="number" value="100000"></div>
+          </div>
+          <button class="primary" onclick="calcBusinessCase()">Évaluer</button>
+          <div id="businessResult" class="result">Le résultat apparaîtra ici.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz" class="track">
+      <div class="card">
+        <div class="eyebrow">10 · Quiz</div>
+        <h2>Valide ta compréhension</h2>
+        <p>Objectif entretien : au moins 16/20. Les explications apparaissent après correction.</p>
+        <div id="quizContainer"></div>
+        <button class="primary" onclick="gradeQuiz()">Corriger le quiz</button>
+        <button class="secondary" onclick="resetQuiz()">Recommencer</button>
+        <div id="quizScore" class="score"></div>
+      </div>
+    </section>
+
+    <section id="entretien" class="track">
+      <div class="card">
+        <div class="eyebrow">11 · Simulation d’entretien</div>
+        <h2>Construis des réponses convaincantes</h2>
+        <div class="flashcard" id="flashcard" onclick="toggleFlashcard()">
+          <div class="question" id="flashQuestion">Clique sur « Question suivante » pour commencer.</div>
+          <div class="answer" id="flashAnswer"></div>
+        </div>
+        <div class="sticky-actions">
+          <button class="primary" onclick="nextInterviewQuestion()">Question suivante</button>
+          <button class="secondary" onclick="toggleFlashcard()">Afficher / masquer le canevas</button>
+        </div>
+
+        <h3>Ta zone de réponse</h3>
+        <textarea id="answerBox" placeholder="Structure ta réponse : contexte, objectif revenu, analyse, décision, résultat, apprentissage."></textarea>
+        <div class="rubric">
+          <div>Contexte clair</div>
+          <div>Métrique business</div>
+          <div>Décision personnelle</div>
+          <div>Résultat quantifié</div>
+          <div>Apprentissage</div>
+        </div>
+
+        <h3>Framework recommandé : CARMA</h3>
+        <div class="grid g3">
+          <div class="metric"><strong>C</strong><small>Contexte commercial.</small></div>
+          <div class="metric"><strong>A</strong><small>Ambition et métrique.</small></div>
+          <div class="metric"><strong>R</strong><small>Raisonnement et diagnostic.</small></div>
+          <div class="metric"><strong>M</strong><small>Mouvement : décision et action.</small></div>
+          <div class="metric"><strong>A</strong><small>Atterrissage : résultat et apprentissage.</small></div>
+        </div>
+
+        <details>
+          <summary>Exemple de réponse sans revenue ownership direct</summary>
+          <p>
+            « Le produit devait être adapté pour permettre un déploiement autonome dans un contexte client contraint.
+            Je n’étais pas propriétaire du chiffre d’affaires, mais j’ai clarifié les exigences qui conditionnaient
+            l’acceptation du produit, priorisé les dépendances critiques et arbitré les ressources. Mon rôle a été de
+            réduire le risque de non-livrabilité et de rendre l’offre déployable. Pour rendre cette histoire plus
+            business, je relierais aujourd’hui ce travail au nombre de programmes débloqués, à la date de mise en
+            service, au coût évité et au potentiel de revenu associé. »
+          </p>
+        </details>
+
+        <details>
+          <summary>Questions difficiles à préparer</summary>
+          <ul>
+            <li>Pourquoi devrions-nous te confier un revenu alors que tu n’as jamais porté de quota ?</li>
+            <li>Comment construis-tu un forecast avec peu d’historique ?</li>
+            <li>Que fais-tu lorsqu’un commercial veut une feature pour un seul client ?</li>
+            <li>Comment réagis-tu à un écart de 15 % au budget ?</li>
+            <li>Quel KPI préfères-tu entre croissance, NRR et marge ?</li>
+            <li>Comment distinguer un problème produit d’un problème commercial ?</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+
+    <section id="plan" class="track">
+      <div class="card">
+        <div class="eyebrow">12 · Plan de progression</div>
+        <h2>Plan 30 jours pour réduire le gap</h2>
+        <table>
+          <thead><tr><th>Période</th><th>Travail</th><th>Livrable</th></tr></thead>
+          <tbody>
+            <tr><td>Jours 1–5</td><td>Maîtriser ARR, NRR, churn, bookings, backlog, ASP, mix et forecast.</td><td>Une fiche d’une page avec formules et interprétations.</td></tr>
+            <tr><td>Jours 6–10</td><td>Construire un forecast fictif SaaS et industriel.</td><td>Deux modèles simples avec base, bear et bull.</td></tr>
+            <tr><td>Jours 11–15</td><td>Reprendre trois expériences et chercher l’impact business.</td><td>Trois histoires CARMA avec chiffres vérifiables.</td></tr>
+            <tr><td>Jours 16–20</td><td>Travailler pricing, packaging et arbitrage de roadmap.</td><td>Un mini business case d’offre mobilité autonome.</td></tr>
+            <tr><td>Jours 21–25</td><td>Simuler des revues de forecast et d’écart au budget.</td><td>Un revenue bridge commenté.</td></tr>
+            <tr><td>Jours 26–30</td><td>Faire cinq simulations d’entretien chronométrées.</td><td>Réponses de 2 minutes, précises et quantifiées.</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Checklist finale avant entretien</h3>
+        <div class="checklist" id="finalChecklist">
+          <label><input type="checkbox"> Je sais définir revenue ownership sans réciter une liste.</label>
+          <label><input type="checkbox"> Je sais calculer et interpréter NRR et book-to-bill.</label>
+          <label><input type="checkbox"> Je sais construire un forecast bottom-up.</label>
+          <label><input type="checkbox"> Je sais expliquer un écart volume-prix-mix-timing.</label>
+          <label><input type="checkbox"> Je sais arbitrer une feature demandée par les ventes.</label>
+          <label><input type="checkbox"> J’ai trois histoires avec métriques et décisions personnelles.</label>
+          <label><input type="checkbox"> Je peux reconnaître honnêtement mon gap sans me dévaloriser.</label>
+        </div>
+
+        <div class="callout ok">
+          <strong>Critère de réussite :</strong> tu es prêt lorsque tu peux passer d’un chiffre commercial à une cause
+          opérationnelle, puis à une décision produit, sans perdre de vue la valeur client.
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Page autonome — les réponses, scores et cases cochées sont conservés localement dans ton navigateur.
+    </footer>
+  </main>
+</div>
+
+<script>
+const quizData = [
+  {q:"Que signifie réellement revenue ownership ?",o:["Livrer la roadmap à temps","Prévoir, expliquer et influencer le revenu du produit","Négocier seul tous les contrats","Gérer uniquement le budget marketing"],a:1,e:"L’ownership relie décisions produit, forecast, diagnostic des écarts et actions commerciales."},
+  {q:"Une entreprise commence avec 100 k€ de MRR, perd 8 k€ par churn, 2 k€ par contraction et gagne 15 k€ d’expansion. Quelle NRR ?",o:["95 %","100 %","105 %","115 %"],a:2,e:"(100 − 8 − 2 + 15) / 100 = 105 %."},
+  {q:"Un book-to-bill de 1,2 signifie généralement :",o:["Le backlog augmente","Le backlog diminue","La marge est de 20 %","Le prix moyen baisse"],a:0,e:"Les prises de commandes sont supérieures au revenu reconnu."},
+  {q:"Quel forecast est le plus opérationnel ?",o:["TAM × 10 % de part de marché","Objectif décidé par le CEO","Backlog livrable + pipeline pondéré + revenu récurrent","Revenu de l’an dernier + 20 %"],a:2,e:"Le bottom-up permet d’expliciter probabilité, calendrier et capacité."},
+  {q:"Pourquoi pondérer le pipeline ?",o:["Pour augmenter artificiellement le forecast","Parce que toutes les opportunités ne signeront pas","Pour calculer la marge brute","Pour mesurer le churn"],a:1,e:"Chaque opportunité a une probabilité et une date de conversion différentes."},
+  {q:"Le revenu est sous le budget malgré un volume conforme. Quelle analyse prioritaire ?",o:["Prix et mix","Taille de l’équipe engineering","Nombre de bugs internes uniquement","Notoriété de la marque uniquement"],a:0,e:"À volume constant, un ASP plus faible ou un mix défavorable explique souvent l’écart."},
+  {q:"Un fort ARR new business avec une NRR de 80 % indique :",o:["Une excellente rétention","Une base installée qui se contracte","Un problème uniquement de pricing","Un backlog en croissance"],a:1,e:"La base perd 20 % de revenu net avant acquisition."},
+  {q:"Quelle est la meilleure réponse à une feature demandée pour un gros deal ?",o:["Toujours accepter","Toujours refuser","Comparer revenu incrémental probabilisé, coût total, réutilisabilité et coût d’opportunité","Demander uniquement l’avis du commercial"],a:2,e:"La décision doit intégrer valeur, probabilité, coût, maintenance et alternatives."},
+  {q:"Dans l’industriel, bookings et revenue sont :",o:["Toujours identiques","Différents car la commande et la reconnaissance du revenu peuvent être décalées","Identiques seulement si la marge est positive","Des métriques SaaS"],a:1,e:"Une commande peut entrer dans le backlog avant livraison et reconnaissance du revenu."},
+  {q:"Le pipeline coverage se calcule généralement comme :",o:["Objectif / pipeline","Pipeline qualifié / objectif restant","Revenu / CAC","Backlog / marge"],a:1,e:"Il mesure la couverture de l’objectif restant par les opportunités qualifiées."},
+  {q:"Une baisse de prix de 10 % exige environ quelle hausse de volume pour garder le même CA ?",o:["5 %","10 %","11,1 %","20 %"],a:2,e:"1 / 0,9 − 1 = 11,1 %."},
+  {q:"Quel levier agit directement sur la rétention ?",o:["Onboarding et adoption","Augmenter le nombre de slides commerciales","Réduire toutes les fonctionnalités","Changer le nom du produit"],a:0,e:"Une meilleure activation et un usage régulier réduisent le risque de churn."},
+  {q:"Quel diagnostic est le plus précis ?",o:["Les ventes sont mauvaises","Le forecast est raté","Le revenu est inférieur de 12 % : 5 points viennent du décalage de livraison, 4 du mix et 3 du churn","Le marché est compliqué"],a:2,e:"Un bon diagnostic quantifie les causes et permet d’agir."},
+  {q:"Un Product Manager doit-il signer lui-même tous les clients ?",o:["Oui, sinon il n’a aucun ownership","Non, mais il doit comprendre et influencer les moteurs du revenu","Oui seulement en SaaS","Non, il ne doit jamais parler aux ventes"],a:1,e:"L’ownership est transverse ; la signature peut appartenir aux ventes."},
+  {q:"Quel indicateur mesure l’expansion dans la base existante ?",o:["NRR","Nombre de salariés","TAM","Délai de développement"],a:0,e:"La NRR intègre churn, contraction et expansion."},
+  {q:"Quel est le risque d’un forecast purement top-down ?",o:["Il est trop détaillé","Il ignore souvent la réalité du pipeline, du calendrier et de la capacité","Il mesure trop bien le churn","Il est toujours pessimiste"],a:1,e:"Le top-down teste l’ambition mais ne remplace pas les hypothèses opérationnelles."},
+  {q:"Quel facteur peut expliquer de bons bookings mais un faible revenu ?",o:["Retard de livraison ou d’intégration","NRR trop élevée","Prix moyen trop élevé uniquement","Trop de cash"],a:0,e:"Les commandes peuvent rester dans le backlog si elles ne sont pas livrées."},
+  {q:"Quelle formulation est la plus crédible pour ton profil ?",o:["J’ai généré des millions sans preuve","Je n’ai aucune compétence business","Je n’ai pas porté de quota direct, mais j’ai piloté des décisions conditionnant la mise sur le marché et je sais désormais les relier à des métriques de revenu","Le revenu relève uniquement des ventes"],a:2,e:"Elle est honnête, valorise les compétences transférables et montre une démarche de progression."},
+  {q:"Lors d’une revenue review mensuelle, que faut-il présenter ?",o:["Uniquement la roadmap","Réel, budget, forecast, bridge, risques et actions","Uniquement le nombre de réunions","Seulement les ventes signées"],a:1,e:"La revue doit déboucher sur des décisions et des responsables."},
+  {q:"La meilleure preuve de revenue ownership en entretien est :",o:["Connaître tous les acronymes","Une histoire où tu relies objectif, données, arbitrage, action et résultat","Dire que tu es très motivé","Présenter une roadmap de 50 fonctionnalités"],a:1,e:"Le recruteur cherche un raisonnement et des décisions business démontrées."}
+];
+
+const interviewQuestions = [
+  {q:"Comment construirais-tu le forecast annuel d’un produit industriel ?",a:"Structure : backlog sécurisé → part livrable → nouvelles commandes pondérées → capacité de livraison → services récurrents → scénarios. Explique les hypothèses, le calendrier et la cadence de reforecast."},
+  {q:"Le revenu est 15 % sous le budget. Que fais-tu pendant les 48 premières heures ?",a:"1) Vérifier la qualité des données. 2) Construire un bridge volume-prix-mix-timing-churn. 3) Identifier les deux causes majeures. 4) Réunir Sales, Finance, Ops/CS. 5) Définir actions, owner, date et nouveau forecast."},
+  {q:"Pourquoi te confier une responsabilité revenu sans expérience de quota ?",a:"Reconnais le gap. Mets en avant arbitrage, budget, client, livrabilité et mesure. Montre une méthode concrète : forecast bottom-up, revenue review, métriques et objectifs des 90 premiers jours."},
+  {q:"Une feature peut débloquer un contrat de 1 M€. Comment décides-tu ?",a:"Vérifie caractère réellement bloquant, probabilité avec/sans feature, marge, coût total, délai, maintenance, réutilisabilité, alternative et coût d’opportunité. Décide avec un revenu incrémental probabilisé."},
+  {q:"Quelle différence entre croissance et qualité du revenu ?",a:"La qualité dépend de la récurrence, de la marge, de la rétention, de la concentration client, de la prévisibilité, du coût de service et du risque de churn. Une croissance non rentable ou fragile peut détruire de la valeur."},
+  {q:"Comment distinguer un problème produit d’un problème commercial ?",a:"Observe le funnel : génération de leads, qualification, conversion, objections, adoption, usage, support et renouvellement. Compare segments et cohortes. Un problème peut être partagé ; évite les conclusions sans données."},
+  {q:"Quel KPI choisirais-tu comme North Star pour un outil de supervision autonome ?",a:"Choisis un indicateur d’usage lié à la valeur, par exemple heures d’opération autonome supervisées avec succès, puis relie-le à adoption, coût opérateur, expansion de flotte et renouvellement. Ne choisis pas seulement le nombre de connexions."},
+  {q:"Comment augmentes-tu le revenu sans ajouter de fonctionnalités ?",a:"Pricing, packaging, réduction des remises, ciblage, activation, sales enablement, baisse du cycle de vente, amélioration du renouvellement, expansion, services additionnels et retrait de complexité."},
+  {q:"Que fais-tu si le pipeline est 4× l’objectif mais le forecast baisse ?",a:"Challenge la qualité : étapes stagnantes, budget, sponsor, date, concurrence, dépendances produit et part livrable. Nettoie le pipeline et sépare coverage théorique de forecast réaliste."},
+  {q:"Raconte une décision produit prise sous contrainte business.",a:"Utilise CARMA : contexte commercial, ambition mesurable, raisonnement, mouvement, atterrissage. Pour ton parcours, choisis un cas de scope, budget, exigences client, capacité de test ou livrabilité, sans inventer de revenu."}
+];
+
+function initQuiz(){
+  const c=document.getElementById('quizContainer');
+  c.innerHTML='';
+  quizData.forEach((item,i)=>{
+    const div=document.createElement('div');
+    div.className='quiz-question';
+    div.innerHTML=`<h4>${i+1}. ${item.q}</h4>`+
+      item.o.map((o,j)=>`<label class="option"><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join('')+
+      `<div id="fb${i}" class="feedback"></div>`;
+    c.appendChild(div);
+  });
+}
+
+function gradeQuiz(){
+  let score=0;
+  quizData.forEach((item,i)=>{
+    const selected=document.querySelector(`input[name="q${i}"]:checked`);
+    const fb=document.getElementById(`fb${i}`);
+    if(selected && Number(selected.value)===item.a){
+      score++; fb.className='feedback ok'; fb.textContent='Correct — '+item.e;
+    } else {
+      fb.className='feedback bad';
+      fb.textContent='À revoir — '+item.e;
+    }
+  });
+  const pct=Math.round(score/quizData.length*100);
+  let msg=pct>=80?'Niveau entretien solide.':pct>=60?'Base correcte, mais révise les erreurs.':'Reprends les sections Forecast, métriques et variance.';
+  document.getElementById('quizScore').textContent=`Score : ${score}/${quizData.length} (${pct} %) — ${msg}`;
+  localStorage.setItem('revenueQuizScore',score);
+  updateProgress();
+}
+
+function resetQuiz(){
+  initQuiz();
+  document.getElementById('quizScore').textContent='';
+  localStorage.removeItem('revenueQuizScore');
+  updateProgress();
+}
+
+function calcNRR(){
+  const s=+document.getElementById('nrrStart').value;
+  const c=+document.getElementById('nrrChurn').value;
+  const co=+document.getElementById('nrrContraction').value;
+  const e=+document.getElementById('nrrExpansion').value;
+  if(s<=0){document.getElementById('nrrResult').textContent='Le MRR de départ doit être positif.';return;}
+  const nrr=(s-c-co+e)/s*100;
+  const end=s-c-co+e;
+  const interpretation=nrr>110?'Expansion très forte dans la base existante.':nrr>=100?'La base existante est stable ou croît.':nrr>=90?'Érosion modérée à surveiller.':'Érosion critique de la base installée.';
+  document.getElementById('nrrResult').innerHTML=`MRR fin de la base : <strong>${end.toLocaleString('fr-FR')} €</strong><br>NRR : <strong>${nrr.toFixed(1)} %</strong><br>${interpretation}`;
+}
+
+function calcForecast(){
+  const p=+document.getElementById('pipe').value;
+  const w=+document.getElementById('win').value/100;
+  const d=+document.getElementById('deliverable').value/100;
+  const b=+document.getElementById('backlog').value;
+  const r=+document.getElementById('recurring').value;
+  const t=+document.getElementById('target').value;
+  const newRev=p*w*d;
+  const f=b+r+newRev;
+  const gap=f-t;
+  const status=gap>=0?`Au-dessus de l’objectif de ${gap.toLocaleString('fr-FR')} €.`:`Sous l’objectif de ${Math.abs(gap).toLocaleString('fr-FR')} €.`;
+  document.getElementById('forecastResult').innerHTML=
+    `Nouveau revenu pondéré et livrable : <strong>${newRev.toLocaleString('fr-FR')} €</strong><br>`+
+    `Forecast total : <strong>${f.toLocaleString('fr-FR')} €</strong><br>${status}`;
+}
+
+function calcBusinessCase(){
+  const v=+document.getElementById('dealValue').value;
+  const pw=+document.getElementById('probWith').value/100;
+  const p0=+document.getElementById('probWithout').value/100;
+  const c=+document.getElementById('devCost').value;
+  const gm=+document.getElementById('grossMargin').value/100;
+  const oc=+document.getElementById('oppCost').value;
+  const incrRev=v*(pw-p0);
+  const incrGross=incrRev*gm;
+  const net=incrGross-c-oc;
+  const recommendation=net>0?'Le cas est économiquement positif sur ces hypothèses, mais valide la réutilisabilité et le risque de délai.':'Le cas est négatif sur ces hypothèses ; cherche une alternative, un cofinancement, un prix supérieur ou un scope réduit.';
+  document.getElementById('businessResult').innerHTML=
+    `Revenu incrémental probabilisé : <strong>${incrRev.toLocaleString('fr-FR')} €</strong><br>`+
+    `Marge brute incrémentale probabilisée : <strong>${incrGross.toLocaleString('fr-FR')} €</strong><br>`+
+    `Valeur après développement et coût d’opportunité : <strong>${net.toLocaleString('fr-FR')} €</strong><br>${recommendation}`;
+}
+
+function nextInterviewQuestion(){
+  const item=interviewQuestions[Math.floor(Math.random()*interviewQuestions.length)];
+  document.getElementById('flashQuestion').textContent=item.q;
+  document.getElementById('flashAnswer').textContent=item.a;
+  document.getElementById('flashcard').classList.remove('revealed');
+}
+
+function toggleFlashcard(){
+  document.getElementById('flashcard').classList.toggle('revealed');
+}
+
+function updateProgress(){
+  const tracks=[...document.querySelectorAll('.track')];
+  let passed=0;
+  tracks.forEach(s=>{
+    const r=s.getBoundingClientRect();
+    if(r.top < window.innerHeight*0.55) passed++;
+  });
+  const checked=document.querySelectorAll('.checklist input:checked').length;
+  const totalChecks=document.querySelectorAll('.checklist input').length;
+  const quiz=Number(localStorage.getItem('revenueQuizScore')||0);
+  const pct=Math.min(100,Math.round((passed/tracks.length)*60+(checked/Math.max(totalChecks,1))*20+(quiz/quizData.length)*20));
+  document.getElementById('progressBar').style.width=pct+'%';
+  document.getElementById('progressPct').textContent=pct+'%';
+  localStorage.setItem('revenueProgress',pct);
+}
+
+function saveChecks(){
+  const vals=[...document.querySelectorAll('.checklist input')].map(x=>x.checked);
+  localStorage.setItem('revenueChecks',JSON.stringify(vals));
+  updateProgress();
+}
+
+function loadChecks(){
+  const vals=JSON.parse(localStorage.getItem('revenueChecks')||'[]');
+  [...document.querySelectorAll('.checklist input')].forEach((x,i)=>{
+    x.checked=!!vals[i]; x.addEventListener('change',saveChecks);
+  });
+}
+
+function resetAll(){
+  if(!confirm('Réinitialiser score, cases et progression ?')) return;
+  localStorage.removeItem('revenueQuizScore');
+  localStorage.removeItem('revenueChecks');
+  localStorage.removeItem('revenueProgress');
+  document.querySelectorAll('.checklist input').forEach(x=>x.checked=false);
+  resetQuiz();
+  updateProgress();
+}
+
+document.querySelectorAll('.tab').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+  })
+});
+
+window.addEventListener('scroll',()=>{
+  updateProgress();
+  const sections=[...document.querySelectorAll('main section[id]')];
+  let current=sections[0]?.id;
+  sections.forEach(s=>{if(s.getBoundingClientRect().top<160) current=s.id});
+  document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+current));
+});
+
+initQuiz();
+loadChecks();
+calcNRR();
+calcForecast();
+calcBusinessCase();
+updateProgress();
+</script>
+</body>
+</html>
