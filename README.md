@@ -1,22 +1,32 @@
 # Prépa Entretien
 
-A lightweight website project to organize interview preparation material.
+A lightweight static website that organizes interactive interview-preparation
+material into Finance and Product Management collections.
 
 ## Current scope
 
-- Static landing page for interview preparation.
-- First content block dedicated to **Finance**.
-- Ready for additional HTML files to be uploaded and linked into the site.
+- A landing page with dedicated **Finance** and **Product** categories.
+- Four interactive Finance courses covering payments, compliance, data and AI,
+  and digital insurance.
+- Six Product Management courses covering market research, go-to-market,
+  P&amp;L ownership, pricing, revenue ownership, and Voice of Customer.
 
 ## Project structure
 
 ```text
 .
-├── index.html      # Main website page
-├── styles.css      # Site styling
+├── finance/        # Finance course HTML files
+├── product/        # Product Management course HTML files
+├── index.html      # Main website page and course directory
+├── styles.css      # Landing-page styling
 └── README.md       # Project notes
 ```
 
-## Next step
+## Usage
 
-Upload your HTML files to this repository. After that, they can be linked from the Finance section or added as new preparation sections.
+Open `index.html` in a browser and select a course from either category. The
+site requires no build step or external dependencies.
+
+When adding material, place its HTML file in the matching `finance/` or
+`product/` folder and add a resource card to `index.html`. Links from a course
+back to the home page must use `../index.html`.
